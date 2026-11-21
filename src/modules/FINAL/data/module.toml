@@ -1,0 +1,3153 @@
+# Module manifest for FINAL.EXE: the front end and the frame around a case.
+
+name = "FINAL"
+output = "FINAL.EXE"
+
+target = "MPS/COVERT/FINAL.EXE"
+packed = true
+
+# A build with a define is medium-model: no 64 KB code ceiling.
+mod_model = "medium"
+
+# c_copy_protection emits a real JNE; the linked image gets the two NOPs back.
+copyright_patch = true
+
+[link]
+flags = []
+# The MSC 5.1 small-model run-time.
+libs = ["SLIBCE.LIB"]
+load_libs = []
+
+[[objects]]
+target = "FINAL.ASM"
+sources = ["FINAL.ASM"]
+tool = "masm"
+
+[[objects]]
+target = "MAIN.C"
+sources = [
+    "MAIN-2.C",
+    "shared/MAIN.C",
+    "MAIN-3.C",
+    "shared/MAIN-2.C",
+    "MAIN-4.C",
+    "MAIN.C",
+    "shared/MAIN-3.C",
+    "MAIN-5.C",
+    "shared/MAIN-4.C",
+    "stubs/HOOK-HAND-BACK.C",
+    "stubs/HOOK-REPAINT.C",
+    "MAIN-6.C",
+    "stubs/HOOK-MESSAGE.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "CSTART.C"
+sources = [
+    "CAMPAIGN-START.C",
+    "shared/CAMPAIGN-START.C",
+    "CAMPAIGN-START-2.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+# One unit with CSTART.C.
+[[objects]]
+target = "CMISEND.C"
+sources = [
+    "CAMPAIGN-MISSION-END.C",
+    "shared/CAMPAIGN-MISSION-END.C",
+    "CAMPAIGN-MISSION-END-2.C",
+    "shared/CAMPAIGN-MISSION-END-2.C",
+    "CAMPAIGN-MISSION-END-3.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "CMISSTRT.C"
+sources = [
+    "CAMPAIGN-MISSION-START.C",
+    "shared/CAMPAIGN-MISSION-START.C",
+    "CAMPAIGN-MISSION-START-2.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "CASERUN.C"
+sources = [
+    "HALL-OF-FAME.C",
+    "shared/CASE-SCAN.C",
+    "shared/CASE-EVIDENCE-NEWS.C",
+    "shared/CASE-RECORDS.C",
+    "shared/CASE-CLUE-SHOW.C",
+    "shared/CASE-DOSSIER.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "TEXTDTA.C"
+sources = [
+    "shared/TEXT-DTA.C",
+    "shared/TEXT-MESSAGES.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "FACES.C"
+sources = ["shared/FACES.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "SCREEN.C"
+sources = [
+    "shared/TEXT-LAYOUT.C",
+    "shared/CELL-DISTANCE.C",
+    "shared/PERSON-NAME.C",
+    "shared/PERSONNEL-FILE.C",
+    "shared/SCREEN-HEADER.C",
+    "shared/SCREEN-TEXT.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "MENUS.C"
+sources = [
+    "shared/CASE-LOG.C",
+    "shared/CASE-LOG-DRAW.C",
+    "shared/MENU-RUN.C",
+    "shared/MENU-DRAW.C",
+    "shared/MENU-BOX.C",
+    "shared/PAN-ANIMATION.C",
+    "shared/KEY-NORMALISE.C",
+    "shared/PAN-CLEAR.C",
+    "shared/JOYSTICK.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "SAVELOAD.C"
+sources = [
+    "shared/JOYSTICK-BUTTON.C",
+    "shared/SAVE-MENUS.C",
+    "shared/SAVE-DRIVE.C",
+    "shared/SAVE-FILE.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "LOADDISK.C"
+sources = ["shared/LOADDISK.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "ANI_PLAY.C"
+sources = [
+    "shared/ANI_PLAY.C",
+    "shared/ANI_RUN.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "PRIMS.C"
+sources = [
+    "shared/DRAW-PRIMS.C",
+    "shared/VIDEO-MODE.C",
+    "shared/RANDOM.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "CLAMP.C"
+sources = ["shared/CLAMP.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+# A `/Ot` object: every function and block after a `ret` is word-aligned.
+[[objects]]
+target = "ARCFILE.C"
+sources = [
+    "shared/ARCHIVE-FILE.C",
+    "shared/FILE-CREATE.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Ot", "/Oa", "/Zl"]
+
+[[objects]]
+target = "SEQFRAME.C"
+sources = [
+    "shared/FRAME-TIMER.C",
+    "FRAME-SHOW.C",
+    "stubs/FRAME-SHOW.C",
+    "shared/FRAME-SHOW.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+# One object because only one translation unit in the module may name a far
+# object.
+[[objects]]
+target = "ACTORS.C"
+sources = [
+    "shared/ANI_QUEUE.C",
+    "shared/ANI_RESET.C",
+    "shared/ANI_OPS.C",
+    "shared/ACTOR-CREATE.C",
+    "shared/ACTOR-STEP-ALL.C",
+    "shared/ACTOR-DRAW.C",
+    "shared/ACTOR-CODE.C",
+    "shared/ANI_MATCH.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "ANI_OPEN.C"
+sources = ["shared/ANI_OPEN.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "ANI_FRM.C"
+sources = ["shared/ANI_FRAME.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "ANI_BYTE.C"
+sources = ["shared/ANI_BYTE.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "DACBLOCK.C"
+sources = ["shared/DAC-BLOCK.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "BIOSMODE.C"
+sources = ["shared/BIOS-MODE.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "ANI_HDR.C"
+sources = ["shared/ANI_HDR.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "ANI_CHNK.C"
+sources = [
+    "shared/ANI_CHNK.C",
+    "shared/ANI_BLKS.C",
+    "shared/ANI_ROWS.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+# The tail of the unit ANI_PLAY.C opens.
+[[objects]]
+target = "MOUSE.C"
+sources = ["shared/MOUSE.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+# It and the next two objects carry `/Ol`, which keeps each loop's counter in
+# SI.
+[[objects]]
+target = "FILE.C"
+sources = [
+    "shared/FILE.C",
+    "shared/ANI_CODE.C",
+    "shared/ANI_PALETTE.C",
+    "shared/ANI_LOAD.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Ol", "/Zl"]
+
+[[objects]]
+target = "ANI_PLY2.C"
+sources = ["shared/ANI_PLAY2.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Ol", "/Zl"]
+
+[[objects]]
+target = "ANI_MEM.C"
+sources = ["shared/ANI_MEM.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Ol", "/Zl"]
+
+[[objects]]
+target = "ANI_LD2.C"
+sources = ["shared/ANI_LOAD2.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "SRCFILE.C"
+sources = ["shared/SOURCE-FILE.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+# One unit: /Ot word-aligns every function and block after a `ret`, and /Ol is
+# for c_archive_find's loop.
+[[objects]]
+target = "ARCHIVE.C"
+sources = [
+    "shared/MEMORY-REFILL.C",
+    "shared/PRIME-FILE.C",
+    "shared/FILE-REFILL.C",
+    "shared/FATAL-ERROR.C",
+    "shared/ARCHIVE-OPEN.C",
+    "shared/ARCHIVE-CLOSE.C",
+    "shared/ARCHIVE-FIND.C",
+    "shared/ARCHIVE-SEEK.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Ot", "/Oa", "/Ol", "/Zl"]
+
+[porting]
+externs = [
+    "main",
+    "FUN_1100_041d",
+    "FUN_1100_0434",
+    "FUN_1100_04a7",
+    "FUN_1100_0519",
+    "FUN_1100_0538",
+    "FUN_1100_0539",
+    "FUN_1100_053a",
+    "FUN_1100_067c",
+    "FUN_1100_067e",
+    "FUN_1100_0734",
+    "FUN_1100_0906",
+    "FUN_1100_0af4",
+    "FUN_1100_0c40",
+    "FUN_1100_0c70",
+    "FUN_1100_0e1a",
+    "FUN_1100_0ed2",
+    "FUN_1100_10fb",
+    "FUN_1100_11b7",
+    "FUN_1100_1214",
+    "FUN_1100_1322",
+    "FUN_1100_1394",
+    "FUN_1100_173c",
+    "FUN_1100_175e",
+    "FUN_1100_1da2",
+    "FUN_1100_2703",
+    "FUN_1100_27cc",
+    "FUN_1100_28a8",
+    "FUN_1100_28de",
+    "FUN_1100_2941",
+    "FUN_1100_2a30",
+    "FUN_1100_2b92",
+    "FUN_1100_2c2a",
+    "FUN_1100_2c60",
+    "FUN_1100_2c80",
+    "FUN_1100_2c94",
+    "FUN_1100_2d63",
+    "FUN_1100_2e06",
+    "FUN_1100_35d6",
+    "FUN_1100_3a22",
+    "FUN_1100_3a49",
+    "FUN_1100_3bcc",
+    "FUN_1100_3f4c",
+    "FUN_1100_46b5",
+    "FUN_1100_46df",
+    "FUN_1100_499e",
+    "FUN_1100_4b82",
+    "FUN_1100_4c2c",
+    "FUN_1100_4caa",
+    "FUN_1100_4cd0",
+    "FUN_1100_4d1d",
+    "FUN_1100_4d67",
+    "FUN_1100_5164",
+    "FUN_1100_524c",
+    "FUN_1100_5b3f",
+    "FUN_1100_5c77",
+    "FUN_1100_5caa",
+    "FUN_1100_5f98",
+    "FUN_1100_5ff1",
+    "FUN_1100_60f5",
+    "FUN_1100_6196",
+    "FUN_1100_61f8",
+    "FUN_1100_628f",
+    "FUN_1100_62db",
+    "FUN_1100_6639",
+    "FUN_1100_66ec",
+    "FUN_1100_67b9",
+    "FUN_1100_6822",
+    "FUN_1100_6859",
+    "FUN_1100_690e",
+    "FUN_1100_6993",
+    "FUN_1100_69b3",
+    "FUN_1100_6b82",
+    "FUN_1100_71c7",
+    "FUN_1100_74f0",
+    "FUN_1100_750d",
+    "FUN_1100_75f9",
+    "FUN_1100_7668",
+    "FUN_1100_795d",
+    "FUN_1100_7992",
+    "FUN_1100_7a37",
+    "FUN_1100_7a8e",
+    "FUN_1100_7afe",
+    "FUN_1100_7c67",
+    "FUN_1100_7e77",
+    "FUN_1100_8060",
+    "FUN_1100_80e4",
+    "FUN_1100_81cf",
+    "FUN_1100_82b3",
+    "FUN_1100_8327",
+    "FUN_1100_8383",
+    "FUN_1100_83e8",
+    "FUN_1100_8467",
+    "FUN_1100_851a",
+    "FUN_1100_8562",
+    "FUN_1100_85ec",
+    "FUN_1100_88ac",
+    "FUN_1100_89f3",
+    "FUN_1100_8aaf",
+    "FUN_1100_8b3b",
+    "FUN_1100_8b80",
+    "FUN_1100_8bf1",
+    "FUN_1100_8c2c",
+    "FUN_1100_97f4",
+    "FUN_1100_984c",
+    "FUN_1100_98a5",
+    "FUN_1100_9966",
+    "FUN_1100_99b8",
+    "FUN_1100_9ae9",
+    "FUN_1100_9b12",
+    "FUN_1100_9b45",
+    "FUN_1100_9bc2",
+    "FUN_1100_9c3e",
+    "FUN_1100_9c60",
+    "FUN_1100_9d3b",
+    "FUN_1100_9f20",
+    "FUN_1100_a055",
+    "FUN_1100_a111",
+    "FUN_1100_a12e",
+    "FUN_1100_a295",
+    "FUN_1100_a2f6",
+    "FUN_1100_a62b",
+    "FUN_1100_a684",
+    "FUN_1100_a6dd",
+    "FUN_1100_aaa0",
+    "FUN_1100_abd2",
+    "FUN_1100_ac01",
+    "FUN_1100_ac12",
+    "FUN_1100_ac20",
+    "FUN_1100_ac6c",
+    "FUN_1100_ac84",
+    "FUN_1100_ad37",
+    "FUN_1100_ad42",
+    "FUN_1100_add0",
+    "FUN_1100_ae0b",
+    "FUN_1100_ae33",
+    "FUN_1100_ae96",
+    "FUN_1100_aeeb",
+    "FUN_1100_af04",
+    "FUN_1100_af05",
+    "FUN_1100_afd2",
+    "FUN_1100_b01a",
+    "FUN_1100_b488",
+    "FUN_1100_b4bf",
+    "FUN_1100_b4ea",
+    "FUN_1100_b596",
+    "FUN_1100_b5b7",
+    "FUN_1100_b62a",
+    "FUN_1100_b65f",
+    "FUN_1100_b6e4",
+    "FUN_1100_b723",
+    "FUN_1100_b7c6",
+    "FUN_1100_b9af",
+    "FUN_1100_affc",
+    "FUN_1100_b9ec",
+    "FUN_1100_ba2c",
+    "FUN_1100_ba53",
+    "FUN_1100_ba76",
+    "FUN_1100_bad6",
+    "FUN_1100_bb3a",
+    "FUN_1100_bb90",
+    "FUN_1100_bc17",
+    "FUN_1100_bc68",
+    "FUN_1100_bcd3",
+    "FUN_1100_bd49",
+    "FUN_1100_bdc4",
+    "FUN_1100_be4f",
+    "FUN_1100_be8c",
+    "FUN_1100_beb1",
+    "FUN_1100_bed0",
+    "FUN_1100_bee6",
+    "FUN_1100_befc",
+    "FUN_1100_bf12",
+    "FUN_1100_bf3a",
+    "FUN_1100_bf60",
+    "FUN_1100_bf98",
+    "FUN_1100_bfd0",
+    "FUN_1100_c018",
+    "FUN_1100_c038",
+    "FUN_1100_c059",
+    "FUN_1100_c082",
+    "FUN_1100_c0ba",
+    "FUN_1100_c0d8",
+    "FUN_1100_c0f4",
+    "FUN_1100_c11e",
+    "FUN_1100_c138",
+    "FUN_1100_c152",
+    "FUN_1100_c169",
+    "FUN_1100_c182",
+    "FUN_1100_c1a0",
+    "FUN_1100_c200",
+    "FUN_1100_c22a",
+    "FUN_1100_c24e",
+    "FUN_1100_c292",
+    "FUN_1100_c2d8",
+    "FUN_1100_c37e",
+    "FUN_1100_c42a",
+    "FUN_1100_c4fc",
+    "FUN_1100_c31a",
+    "FUN_1100_c3be",
+    "FUN_1100_c43c",
+    "FUN_1100_c498",
+    "FUN_1100_c51a",
+    "FUN_1100_c54e",
+    "FUN_1100_c55e",
+    "FUN_1100_c586",
+    "FUN_1100_c5a8",
+    "FUN_1100_c5d8",
+    "FUN_1100_c608",
+    "FUN_1100_c62e",
+    "FUN_1100_c6ee",
+    "FUN_1100_8d04",
+    "FUN_1100_8f74",
+    "FUN_1100_9443",
+]
+
+publics = [
+    "BLOCK_B080",
+    "_open",
+    "_close",
+    "_read",
+    "CRIME_DTA_NAME_20d8_3276",
+    "SUSPECT_ARRAY_20d8_0188",
+    "DAT_20d8_828e",
+    "CRIME_EVENTS",
+    "DAT_20d8_96da",
+    "DAT_20d8_96dc",
+    "DAT_20d8_9e90",
+    "DAT_20d8_9e94",
+    "DAT_20d8_9f8c",
+    "CRIME_ROLE_ARRAY_20d8_9fa6",
+    "DAT_20d8_abf6",
+    "ROLE_SCAN_STATES",
+    "ACTIVITY",
+    "DAT_20d8_b07e",
+    "FUN_1000_021d",
+    "FUN_1000_0255",
+    "_strcpy",
+    "_strcat",
+    "_strlen",
+    "FUN_1000_0602",
+    "FUN_1000_01ad",
+    "FUN_1000_040e",
+    "FUN_1000_01b4",
+    "FUN_1000_024e",
+    "_getch",
+    "FUN_1000_0268",
+    "FUN_1000_0294",
+    "FUN_1000_0438",
+    "FUN_1000_045b",
+    "FUN_1000_05b9",
+    "_int86",
+    "_srand",
+    "_time",
+    "STR_SKILL_NAMES",
+    "__aNlshl",
+    "DAT_20d8_1570",
+    "DAT_20d8_4b58",
+    "DAT_20d8_5cb6",
+    "DAT_20d8_5cb8",
+    "DAT_20d8_5cba",
+    "DAT_20d8_a7b0",
+    "DAT_20d8_79e2",
+    "DAT_20d8_7de6",
+    "DAT_20d8_a7b2",
+    "DAT_20d8_ac1c",
+    "DAT_20d8_8092",
+    "DAT_20d8_ae2c",
+    "SKILL_COLOURS",
+    "null_ARRAY_20d8_1cfe",
+    "null_ARRAY_20d8_2d76",
+    "DAT_20d8_7df0",
+    "CAMPAIGN_20d8_7df2",
+    "DAT_20d8_8090",
+    "DAT_20d8_96ca",
+    "DAT_20d8_96d0",
+    "DAT_20d8_96d2",
+    "DAT_20d8_96d6",
+    "DAT_20d8_ae32",
+    "DAT_20d8_ae78",
+    "DAT_20d8_ae7a",
+    "MISSION_SET_ARRAY_20d8_1e9e",
+    "DAT_20d8_9bee",
+    "DAT_20d8_9e86",
+    "DAT_20d8_9e8a",
+    "UNION_REGS_20d8_9f90",
+    "DAT_20d8_ae36",
+    "DAT_20d8_a5a6",
+    "SEQ_VARS",
+    "DAT_20d8_b374",
+    "FUN_1000_01a6",
+    "FUN_1000_01c9",
+    "FUN_1000_01d7",
+    "FUN_1000_020f",
+    "__dos_freemem",
+    "DAT_20d8_8082",
+    "SCENE_SPRITES",
+    "DAT_20d8_808e",
+    "null_ARRAY_20d8_2f36",
+    "INTERLUDE_TABLE",
+    "_itoa",
+    "_exit",
+    "DAT_20d8_7de2",
+    "DAT_20d8_7dec",
+    "DAT_20d8_7dee",
+    "DAT_20d8_84b6",
+    "DAT_20d8_98e0",
+    "DAT_20d8_9be8",
+    "DAT_20d8_9fa2",
+    "DAT_20d8_abfa",
+    "DAT_20d8_ac68",
+    "DAT_20d8_b308",
+    "DAT_20d8_b30c",
+    "WIRE_CLUE_SOURCE",
+    "DAT_20d8_ac1e",
+    "DAT_20d8_9e88",
+    "_strstr",
+    "FUN_1000_01ec",
+    "DAT_20d8_28be",
+    "FUN_1000_026f",
+    "DAT_20d8_9e98",
+    "MONTH_NAME_TABLE",
+    "DAT_20d8_9fa0",
+    "CELL_KIND_NAMES_20d8_3ae0",
+    "CRIME_NAMES",
+    "DAT_20d8_9bea",
+    "DAT_20d8_9e82",
+    "DAT_20d8_7dea",
+    "FAME_TABLE",
+    "_access",
+    "_write",
+    "_memcpy",
+    "SUBST_VALUE_TABLE",
+    "DAT_20d8_9e8c",
+    "__aNldiv",
+    "__aNlmul",
+    "_rand",
+    "__aNlshr",
+    "DAT_20d8_8080",
+    "BITS_SET_20d8_365c",
+    "LOG_ENTRY_ARRAY_20d8_84b8",
+    "DAT_20d8_8bb8",
+    "BUILDING_ARRAY_20d8_0588",
+    "SHOWN_CLUE_ARRAY_20d8_1188",
+    "null_ARRAY_20d8_35fc",
+    "null_ARRAY_20d8_3c3a",
+    "FUN_1100_0019",
+    "FUN_1100_003e",
+    "_inp",
+    "_strcmp",
+    "_movedata",
+    "_lseek",
+    "__bios_disk",
+    "__dos_getdrive",
+    "DAT_20d8_1548",
+    "DAT_20d8_1664",
+    "SAVE_NAME",
+    "DAT_20d8_56f3",
+    "DAT_20d8_5df0",
+    "DAT_20d8_5df2",
+    "DAT_20d8_5df4",
+    "DAT_20d8_5df6",
+    "SAVE_BLOCK",
+    "DAT_20d8_5e0c",
+    "DAT_20d8_5e0e",
+    "DAT_20d8_9f8e",
+    "DAT_20d8_b07c",
+    "_fopen",
+    "_fclose",
+    "_fscanf",
+    "FACES_SPRITES",
+    "_abs",
+    "CLOCK_TEXT",
+    "DAT_20d8_47c0",
+    "null_ARRAY_20d8_4526",
+    "null_ARRAY_20d8_4626",
+    "FUN_1000_0002",
+    "DAT_20d8_4ac8",
+    "DISK_LETTER",
+    "DAT_20d8_9bec",
+    "FUN_1000_0415",
+    "FUN_1000_043f",
+    "DAT_20d8_47fc",
+    "DAT_20d8_480c",
+    "SEQ_BLOCK_20d8_5d76",
+    "JOYSTICK",
+    "FUN_1000_0208",
+    "FUN_1000_0e51",
+    "PTR_DAT_20d8_4ad8_20d8_4afc",
+    "PTR_DAT_20d8_4aea_20d8_4afe",
+    "DAT_20d8_4b36",
+    "DAT_20d8_4b38",
+    "DAT_20d8_4b3c",
+    "DAT_20d8_5e20",
+    "DAT_20d8_5e22",
+    "DAT_20d8_5e24",
+    "PTR_RUN_BANNER_PAD_20d8_5e26",
+    "DAT_20d8_5e2e",
+    "SEQ_BLOCK_20d8_5e32",
+    "DAT_20d8_96d4",
+    "DAT_20d8_9e80",
+    "DAT_20d8_9e84",
+    "DAT_20d8_a5a8",
+    "DAT_20d8_ae30",
+    "null_ARRAY_20d8_a9fe",
+    "_memcmp",
+    "DAT_20d8_4b3a",
+    "DAT_20d8_4b3e",
+    "DAT_20d8_5e40",
+    "FUN_1000_00ca",
+    "FUN_1000_0df2",
+    "__bios_timeofday",
+    "FUN_1000_019f",
+    "FUN_1000_01bb",
+    "__dos_allocmem",
+    "FUN_1000_01c0",
+    "FUN_1000_0d40",
+    "FUN_1000_0d5e",
+    "FUN_1000_0a06",
+    "FUN_1000_0224",
+    "__dos_creat",
+    "__dos_close",
+    "DAT_20d8_4c84",
+    "FUN_1000_0b1a",
+    "FUN_1000_0b62",
+    "FUN_1100_e9e6",
+    "__dos_write",
+    "DAT_20d8_4c82",
+    "DAT_20d8_5f94",
+    "DAT_20d8_779e",
+    "DAT_20d8_96d8",
+    "DAT_20d8_a5aa",
+    "DAT_20d8_a5ac",
+    "FUN_1000_0216",
+    "FUN_1000_0278",
+    "FUN_1000_027f",
+    "FUN_1000_0286",
+    "FUN_1000_0a8a",
+    "FUN_1000_0b7c",
+    "DAT_20d8_5f96",
+    "DAT_20d8_5f98",
+    "DAT_20d8_779a",
+    "DAT_20d8_779c",
+    "ARCHIVE_BUFFER",
+    "DAT_20d8_96de",
+    "ANIM_PALETTE",
+    "DAT_20d8_b30a",
+    "_int86x",
+    "FARBUF",
+    "SEQDATA",
+    "MENU_LINE_START",
+    "DAT_20d8_5dd4",
+    "DAT_20d8_5dd6",
+    "DAT_20d8_5dd8",
+    "DAT_20d8_5dda",
+    "DAT_20d8_84b4",
+    "DAT_20d8_96cc",
+    "DAT_20d8_9e7e",
+    "DAT_20d8_9e8e",
+    "DAT_20d8_9e92",
+    "DAT_20d8_9e96",
+    "DAT_20d8_9fa4",
+    "DAT_20d8_ac6a",
+    "DAT_20d8_ae2e",
+    "DAT_20d8_5e44",
+    "DAT_20d8_5e46",
+    "__dos_open",
+    "_intdos",
+    "_perror",
+    "_strnicmp",
+    "UNION_REGS_20d8_8bba",
+    "DAT_20d8_a7b4",
+    "DAT_20d8_a7b6",
+    "DAT_20d8_a7b8",
+    "DAT_20d8_a7ba",
+    "DAT_20d8_5bba",
+    "SEQ_PC",
+    "DAT_20d8_5e2c",
+    "DAT_20d8_5e30",
+    "DAT_20d8_5e48",
+    "DAT_20d8_5e4a",
+    "DAT_20d8_5e4c",
+    "ANIM_SIGNATURE",
+    "DAT_20d8_9f9e",
+    "DAT_20d8_abf4",
+    "DAT_20d8_47bc",
+    "DAT_20d8_47be",
+    "DAT_20d8_a7ae",
+    "DAT_20d8_a7bc",
+    "DAT_20d8_abf8",
+    "DAT_20d8_abfc",
+    "STR_BRIEFING_PAN",
+    "STR_BRIEFING_PAN_2",
+    "STR_BRIEFING_PAN_3",
+    "STR_LOOKS_LIKE_ABOUT_WRAPS",
+    "STR_WE_VE_BEEN_ABLE",
+    "NOTE_01",
+    "NOTE_03",
+    "NOTE_04",
+    "NOTE_05",
+    "NOTE_06",
+    "NOTE_07",
+    "NOTE_08",
+    "NOTE_09",
+    "NOTE_10",
+    "NOTE_11",
+    "NOTE_12",
+    "NOTE_13",
+    "NOTE_14",
+    "NOTE_15",
+    "NOTE_16",
+    "NOTE_17",
+    "NOTE_18",
+    "STR_EMPTY_2",
+    "STR_PAREN_OPEN",
+    "STR_PAREN_CLOSE",
+    "STR_SPACE",
+    "STR_SLASH",
+    "STR_SENT_MESSAGE",
+    "BLOCK_28E5",
+    "STR_CARET_2",
+    "STR_EMPTY_3",
+    "STR_SENT_MESSAGE_2",
+    "STR_SENT_PACKAGE",
+    "BLOCK_290A",
+    "STR_PAREN_OPEN_2",
+    "STR_PAREN_CLOSE_2",
+    "STR_SLASH_2",
+    "STR_CARET_3",
+    "STR_CARET_4",
+    "STR_PAREN_OPEN_3",
+    "STR_PAREN_CLOSE_3",
+    "STR_NOW_HAS",
+    "BLOCK_292A",
+    "STR_LEFT",
+    "STR_TRAVELED",
+    "STR_BROKE",
+    "BLOCK_2954",
+    "STR_ARRESTED",
+    "STR_CONFISCATED",
+    "STR_WENT_INTO_HIDING",
+    "STR_MISSION_COMPLETED",
+    "STR_UNABLE",
+    "STR_COMPLETE_MISSION",
+    "STR_CAME_OUT_HIDING",
+    "STR_ESCAPED_FROM_JAIL",
+    "STR_RELEASED_BY_EXCHANGE",
+    "STR_TURNED",
+    "BLOCK_2A03",
+    "STR_DAY_NUMBER",
+    "STR_DATE_TEMPLATE",
+    "BLOCK_2A2C",
+    "STR_ORG_SLASH",
+    "STR_AT_LARGE",
+    "STR_ARRESTED_2",
+    "STR_TURNED_2",
+    "BLOCK_2A4A",
+    "STR_EP_OF",
+    "STR_EP_50",
+    "BLOCK_2A62",
+    "BLOCK_2A72",
+    "STR_OF_ORG",
+    "STR_EP_BLANK",
+    "STR_EMPTY_AGENTS",
+    "STR_DOUBLE_AGENT_S",
+    "STR_REMAINED_UNDETECTED",
+    "STR_WITHIN_CIA",
+    "BLOCK_2AD2",
+    "BLOCK_2AEA",
+    "STR_DASHES_END",
+    "STR_EP_TOTAL",
+    "STR_EP_TOTAL_OF",
+    "STR_MAX",
+    "STR_REMINGTON",
+    "STR_CASE",
+    "BLOCK_2CBF",
+    "STR_SPACE_3",
+    "STR_ARRESTS",
+    "BLOCK_2CD1",
+    "BLOCK_2CF9",
+    "STR_ARRESTED_3",
+    "STR_MASTERMIND",
+    "STR_ARRESTED_MASTERMINDS",
+    "STR_AGENTS",
+    "STR_AFTER_DIFFICULT_FEW",
+    "STR_WORD_LATEST_CASE_SEEMS",
+    "STR_AFTER_SUCCESSFUL_CASE",
+    "STR_RE_FEELING_INVINCIBLE",
+    "STR_BACK_PIC",
+    "STR_HAND",
+    "STR_PIC",
+    "STR_RED_HERRING",
+    "STR_WE_HAVE_INDICATIONS",
+    "STR_OPERATION_PREPARATION",
+    "STR_EUROPE",
+    "STR_AFRICA_MIDDLE_EAST",
+    "STR_CENTRAL_AMERICA",
+    "STR_THE",
+    "STR_KNOWN_INVOLVED",
+    "STR_MISSION_PREVENT",
+    "STR_CAPTURE_AS_MANY",
+    "STR_CAUTION_ONE_MORE_DOUBLE",
+    "STR_I_M_AFRAID_RE",
+    "STR_PERHAPS_SHOULD_PRACTICE",
+    "STR_OK_RE_CLEARED",
+    "STR_HERE_SOME_INFO_WE",
+    "STR_WE_THINK_S_LINKED",
+    "STR_BRIEFING_PAN_4",
+    "STR_10_DTA",
+    "STR_FAME_DTA",
+    "STR_FAME_DTA_2",
+    "STR_FAME_DTA_3",
+    "STR_FAME_DTA_4",
+    "BLOCK_32DA",
+    "STR_STOP",
+    "STR_MAX_3",
+    "STR_REMINGTON_CASE",
+    "BLOCK_32FD",
+    "STR_SPACE_5",
+    "STR_SLASH_5",
+    "STR_EP_COLON_2",
+    "BLOCK_3319",
+    "STR_CODED_MESSAGE",
+    "STR_MEETING_NOTES",
+    "BLOCK_35D8",
+    "STR_ELLIPSIS",
+    "STR_ON",
+    "STR_SPACE_7",
+    "STR_OF_THE",
+    "BLOCK_35EE",
+    "STR_NEWLINE",
+    "STR_EMPTY_6",
+    "STR_SPACE_8",
+    "STR_IN_2",
+    "STR_EMPTY_7",
+    "STR_HAS_BEEN_IDENTIFIED_AS",
+    "STR_EMPTY_8",
+    "STR_HAS_BEEN_POSITIVELY",
+    "BLOCK_36F0",
+    "STR_WE_HAVE_ACQUIRED",
+    "BLOCK_3714",
+    "STR_EMPTY_9",
+    "STR_HAS_BEEN_SPOTTED",
+    "BLOCK_372E",
+    "STR_EMPTY_10",
+    "STR_HAS_BEEN_IDENTIFIED_AS_2",
+    "BLOCK_375A",
+    "STR_WE_HAVE_OBTAINED",
+    "BLOCK_3790",
+    "STR_WE_HAVE_DETERMINED_RANK",
+    "BLOCK_37B2",
+    "STR_WE_FOUND_RECRUITING",
+    "BLOCK_37DB",
+    "STR_WE_FOUND_RECRUITING_2",
+    "BLOCK_3804",
+    "BLOCK_3C06",
+    "BLOCK_3C10",
+    "STR_NEWLINE_9",
+    "BLOCK_3C2F",
+    "BLOCK_3C64",
+    "STR_PERIOD",
+    "STR_FACE",
+    "STR_VALKERIE",
+    "STR_THUNDERBOLT",
+    "BLOCK_3CA2",
+    "STR_000",
+    "STR_C00",
+    "STR_C0000",
+    "STR_C0000_2",
+    "BLOCK_3CC6",
+    "STR_NAME",
+    "STR_RANK",
+    "STR_ORG",
+    "STR_CITY",
+    "STR_RECRUITED",
+    "BLOCK_3CEE",
+    "STR_IN_3",
+    "STR_PERIOD_2",
+    "STR_ROLE",
+    "STR_ROLE_2",
+    "STR_ROLE_3",
+    "STR_UNDER_ARREST",
+    "STR_HIDING",
+    "STR_TURNED_3",
+    "BLOCK_3D49",
+    "STR_QUOTE",
+    "STR_QUOTE_2",
+    "BLOCK_3D6C",
+    "STR_RCVD_MSG_FM",
+    "STR_SENT_MSG",
+    "BLOCK_3D85",
+    "STR_SOMEONE",
+    "STR_OF_THE_2",
+    "BLOCK_3D99",
+    "STR_ON_2",
+    "STR_SPACE_10",
+    "STR_PERIOD_3",
+    "SUBST_KEY_TABLE",
+    "STR_SLOC00_2",
+    "STR_RLOC00_2",
+    "STR_SORG00_2",
+    "STR_RORG00_2",
+    "STR_FLUF00_2",
+    "STR_AIDD00",
+    "BUF_ANIM_ROW",
+    "BUF_CITY_NAME",
+    "BLOCK_A7BE",
+    "BUF_CRIME_BLOCK",
+    "STR_SCORE_STOP",
+    "STR_METHOD_STOP",
+    "STR_PANI_3",
+    "STR_ICONS_PIC",
+    "NOTE_02",
+    "STR_EFFICIENCY_REPORT",
+    "STR_CONFISCATED_2",
+    "STR_NOT_FOUND",
+    "STR_PREVENTED_CRIME",
+    "STR_EFFICIENCY_RATING",
+    "STR_CAREER",
+    "STR_CAREER_2",
+    "STR_COULDN_T_STOP",
+    "STR_PREVENTED",
+    "STR_CAREER_3",
+    "STR_CAREER_4",
+    "STR_MASTERMINDS_ARRESTED",
+    "STR_GENDER_PIC_2",
+    "STR_MAX_2",
+    "STR_REMINGTON_2",
+    "STR_ARRESTED_4",
+    "STR_ARRESTED_5",
+    "STR_FINAL4_CAT",
+    "STR_FINAL3_CAT",
+    "STR_F_PIC",
+    "STR_M_PIC",
+    "STR_LAUDUDE1_PIC",
+    "STR_DUDE",
+    "STR_BABE",
+    "STR_WORLD",
+    "STR_WHICH_DIFFICULTY_LEVEL_2",
+    "STR_GENDER_PIC",
+    "STR_SELECT_ONE_MAXIMILLIAN",
+    "STR_WHICH_DIFFICULTY_LEVEL",
+    "STR_PLOT_TXT",
+    "STR_MAX_REMINGTON_S",
+    "STR_MATTRESS_FULL_CASH",
+    "STR_PL000A",
+    "STR_PL000A_2",
+    "STR_PLOT_TXT_2",
+    "STR_MAX_S_CODE_NAME",
+    "STR_TRAINING_PIC",
+    "STR_PRACTICE",
+    "STR_TRAINING",
+    "STR_GOOD",
+    "STR_EXCELLENT",
+    "STR_AWESOME",
+    "STR_MAX_I_M_SURE",
+    "STR_AMONG_THESE_FACES",
+    "STR_CLUE",
+    "STR_NONE",
+    "STR_CLUES_TXT",
+    "STR_H_M_S_X",
+    "STR_CLUES_TXT_2",
+    "STR_NEW_INFORMATION",
+    "STR_ADDITIONAL_INFORMATION",
+    "STR_MESSAGE_NOT_DECODED",
+    "STR_MORE",
+    "STR_CHRONOLOGY",
+    "STR_NEWS",
+    "STR_MORE_2",
+    "STR_SENT_MSG_2",
+    "STR_MET",
+    "STR_MEETING_NOTED",
+    "STR_CHRONOLOGY_2",
+    "STR_NEWS_2",
+    "STR_NONE_2",
+    "STR_NSYN_OVERFLOW",
+    "STR_HIDEOUT",
+    "STR_AGENT_2",
+    "STR_SAFEHOUSE",
+    "STR_ACTIVE_CEL",
+    "STR_OFFICE",
+    "STR_PLEASE_INSERT_DISK",
+    "STR_IF_3_5_INSERT",
+    "STR_PRESS_RETURN_CONTINUE",
+    "STR_FACESF_PIC",
+    "STR_FACES_PIC",
+    "STR_HALL_FAME",
+    "STR_COVERT_ACTION",
+    "STR_HALL_FAME_2",
+    "STR_ENV_SVE",
+    "STR_MOVE_JOYSTICK_UPPER",
+    "STR_MOVE_JOYSTICK_LOWER",
+    "STR_LABS_PIC",
+    "STR_ENV_SVE_2",
+    "STR_TITLE2_PAN",
+    "STR_CREDITS_PAN",
+    "STR_DO_WANT_CREATE_NEW",
+    "STR_ENV_SVE_3",
+    "STR_ENV_SVE_4",
+    "STR_ANIMATION_PAN",
+    "STR_ENV_SVE_5",
+    "STR_TEXT_DTA",
+    "STR_SLOC00",
+    "STR_TEXT_DTA_2",
+    "STR_RLOC00",
+    "STR_TEXT_DTA_3",
+    "STR_SORG00",
+    "STR_TEXT_DTA_4",
+    "STR_RORG00",
+    "STR_TEXT_DTA_5",
+    "STR_FLUF00",
+    "STR_ONE_MOMENT_PLEASE",
+    "STR_SURE_WANT_QUIT_NO",
+    "STR_BRIEFING_PAN_5",
+    "STR_ANIMATION_PAN_2",
+    "STR_BLD",
+    "STR_AGENT_3",
+    "STR_MASTER_PLAN",
+    "STR_SECRET",
+    "STR_ARRESTED_6",
+    "STR_HIDING_2",
+    "STR_TURNED_4",
+    "STR_PERSONNEL_FILE",
+    "STR_ACTION_TEAM",
+    "STR_NO_ACTIVITY",
+    "STR_WHICH_DRIVE_CONTAINS",
+    "STR_WHICH_DRIVE_CONTAINS_2",
+    "STR_PRESS_DRIVE_LETTER",
+    "STR_PRESS_ESCAPE_CANCEL",
+    "STR_NO_DISK_DRIVE",
+    "STR_ENV_SVE_6",
+    "STR_ENV_SVE_7",
+    "STR_FILE_ERROR_2",
+    "STR_SELECT_LOAD_FILE",
+    "STR_SVE",
+    "STR_MAX_4",
+    "STR_REMINGTON_00",
+    "STR_RANK_2",
+    "STR_LOCAL",
+    "STR_NATIONAL",
+    "STR_REGIONAL",
+    "STR_GLOBAL",
+    "STR_EMPTY",
+    "STR_SELECT_SAVE_FILE",
+    "STR_GAME_HAS_BEEN_SAVED",
+    "STR_GAME_NOT_SAVED",
+    "STR_WRITE_ACCESS_DENIED",
+    "STR_DISK_FULL",
+    "STR_PRESS_KEY_CONTINUE",
+    "STR_SVE_2",
+    "STR_FILE_ERROR",
+    "STR_SAVE_PROGRESS",
+    "STR_INFORMATION_REQUIRES",
+    "STR_TEXT_DTA_6",
+    "STR_TEXT_DTA_7",
+    "STR_TEXT_DTA_8",
+    "STR_TEXT_DTA_9",
+    "STR_TEXT_DTA_10",
+    "STR_TEXT_DTA_11",
+    "STR_ALRT00",
+    "STR_TEXT_DTA_12",
+    "STR_TEXT_DTA_13",
+    "STR_TEXT_DTA_14",
+    "STR_MSG0000",
+    "BLOCK_259B",
+    "COLOURS_REPORT",
+    "BLOCK_1572",
+    "COLOURS_TITLE_2",
+    "COLOURS_SCREEN",
+    "COLOURS_SCREEN_2",
+    "COLOURS_MAIN",
+    "COLOURS_FACE",
+    "COLOURS_BADGE_MAP",
+    "COLOURS_GRID",
+    "PALETTE_TITLE",
+    "BLOCK_28C0",
+    "BLOCK_5CBC",
+    "BUF_NUMBER_DIGITS_2",
+    "BUF_NUMBER_DIGITS_3",
+    "BUF_NUMBER_DIGITS_4",
+    "BUF_NUMBER_DIGITS_5",
+    "BUF_NUMBER_DIGITS_6",
+    "BUF_MESSAGE_KEY",
+    "BLOCK_2A90",
+    "BLOCK_233E",
+    "BLOCK_2464",
+    "STR_AVERAGE",
+    "BLOCK_24B0",
+    "BLOCK_3C1F",
+    "BLOCK_4748",
+    "STR_QUOTE_4",
+    "BLOCK_4A9D",
+    "STR_CLEAR",
+    "BLOCK_167C",
+    "STR_OK",
+    "PALETTE_MENU",
+    "PALETTE_FACE",
+    "BLOCK_4523",
+    "BLOCK_46F4",
+    "BLOCK_4A4D",
+    "CAMPAIGN_20d8_9bf0",
+    "BUF_NUMBER_DIGITS_7",
+    "BLOCK_4865",
+    "STR_SPACE_11",
+    "STR_COMMA_2",
+    "BLOCK_4898",
+    "BLOCK_4932",
+    "BLOCK_3EE6",
+    "FMT_LINE",
+    "FMT_LINE_2",
+    "STR_SPACE_12",
+    "FMT_LINE_3",
+    "BLOCK_AC6C",
+    "BLOCK_3FDC",
+    "STR_ELLIPSIS_2",
+    "STR_EMPTY_16",
+    "BLOCK_3F74",
+    "BLOCK_3F7F",
+]
+
+[names]
+SHOWN_CLUE_ARRAY_20d8_1188 = "shm_clues_shown"
+BUILDING_ARRAY_20d8_0588 = "shm_buildings"
+ROLE_SCAN_STATES = "shm_role_scan_states"
+CRIME_ROLE_ARRAY_20d8_9fa6 = "shm_crime_roles"
+SUSPECT_ARRAY_20d8_0188 = "shm_suspects"
+STR_SKILL_NAMES = "dat_skill_names"
+STR_EMPTY_16 = "shd_str_empty_message"
+STR_ELLIPSIS_2 = "shd_str_ellipsis_2"
+FMT_LINE_3 = "shd_fmt_line_3"
+STR_SPACE_12 = "shd_str_space_12"
+FMT_LINE_2 = "shd_fmt_line_2"
+FMT_LINE = "shd_fmt_line"
+STR_COMMA_2 = "shd_str_comma_2"
+STR_SPACE_11 = "shd_str_space_slot"
+BUF_NUMBER_DIGITS_7 = "shm_slot_digits"
+PALETTE_FACE = "shd_palette_face"
+PALETTE_MENU = "shd_palette_menu"
+STR_OK = "shd_str_ok"
+STR_CLEAR = "dat_str_clear"
+STR_QUOTE_4 = "shd_str_quote_4"
+STR_AVERAGE = "dat_str_average"
+BUF_MESSAGE_KEY = "shm_message_key"
+BUF_NUMBER_DIGITS_6 = "shm_clue_digits"
+BUF_NUMBER_DIGITS_5 = "asm_number_digits_5"
+BUF_NUMBER_DIGITS_4 = "asm_number_digits_4"
+BUF_NUMBER_DIGITS_3 = "asm_number_digits_3"
+BUF_NUMBER_DIGITS_2 = "asm_number_digits_2"
+PALETTE_TITLE = "dat_palette_title"
+COLOURS_GRID = "dat_colours_grid"
+COLOURS_BADGE_MAP = "dat_colours_badge"
+COLOURS_FACE = "shd_colours_face"
+COLOURS_MAIN = "dat_colours_main"
+COLOURS_SCREEN_2 = "shd_colours_screen_2"
+COLOURS_SCREEN = "shd_colours_screen"
+COLOURS_TITLE_2 = "dat_colours_title_2"
+COLOURS_REPORT = "dat_colours_report"
+STR_METHOD_STOP = "shd_str_method_stop"
+STR_SCORE_STOP = "dat_str_score_stop"
+BUF_CITY_NAME = "shm_cities"
+BUF_ANIM_ROW = "shm_anim_row"
+SUBST_KEY_TABLE = "shd_subst_keys"
+STR_PERIOD_3 = "shd_str_period_3"
+STR_SPACE_10 = "shd_str_space_10"
+STR_ON_2 = "shd_str_on_2"
+STR_QUOTE_2 = "shd_str_quote_2"
+STR_QUOTE = "shd_str_quote"
+STR_PERIOD_2 = "shd_str_period_2"
+STR_IN_3 = "shd_str_in_3"
+STR_C0000_2 = "shd_key_clue_4"
+STR_C0000 = "shd_key_clue_3"
+STR_C00 = "shd_key_clue_2"
+STR_000 = "shd_str_000"
+STR_PERIOD = "shd_str_period"
+STR_NEWLINE_9 = "shd_str_newline_9"
+STR_EMPTY_10 = "shd_str_empty_org"
+STR_EMPTY_9 = "shd_str_empty_spotted"
+STR_EMPTY_8 = "shd_str_empty_positively"
+STR_EMPTY_7 = "shd_str_empty_identified"
+STR_IN_2 = "shd_str_in_2"
+STR_SPACE_8 = "shd_str_space_face"
+STR_EMPTY_6 = "shd_str_empty_watch"
+STR_NEWLINE = "shd_str_newline"
+STR_SPACE_7 = "shd_str_space_after_month"
+STR_ON = "shd_str_on"
+STR_ELLIPSIS = "shd_str_dots"
+STR_EP_COLON_2 = "dat_str_ep_colon_2"
+STR_SLASH_5 = "dat_str_slash_5"
+STR_SPACE_5 = "dat_str_space_5"
+STR_STOP = "dat_str_stop"
+STR_SPACE_3 = "dat_str_space_3"
+STR_EP_TOTAL_OF = "dat_str_ep_total_of"
+STR_EP_TOTAL = "dat_str_ep_total"
+STR_DASHES_END = "dat_str_dashes_end"
+STR_EMPTY_AGENTS = "dat_str_empty_agents"
+STR_EP_BLANK = "dat_str_ep_blank"
+STR_OF_ORG = "dat_str_of_org"
+STR_EP_50 = "dat_str_ep_50"
+STR_EP_OF = "dat_str_ep_of"
+STR_ORG_SLASH = "dat_str_org_slash"
+STR_DATE_TEMPLATE = "dat_date_template"
+STR_DAY_NUMBER = "dat_str_day_number"
+STR_PAREN_CLOSE_3 = "dat_str_paren_close_3"
+STR_PAREN_OPEN_3 = "dat_str_paren_open_3"
+STR_CARET_4 = "dat_str_caret_4"
+STR_CARET_3 = "dat_str_caret_3"
+STR_SLASH_2 = "dat_str_slash_2"
+STR_PAREN_CLOSE_2 = "dat_str_paren_close_2"
+STR_PAREN_OPEN_2 = "dat_str_paren_open_2"
+STR_EMPTY_3 = "dat_str_empty_3"
+STR_CARET_2 = "dat_str_caret_2"
+STR_SLASH = "dat_str_slash"
+STR_SPACE = "dat_str_space"
+STR_PAREN_CLOSE = "dat_str_paren_close"
+STR_PAREN_OPEN = "dat_str_paren_open"
+STR_EMPTY_2 = "dat_str_empty_2"
+
+# What `externs` above names, as the C spells it.
+main = "c_main"
+FUN_1000_0229 = "drv_jump_FUN_1000_0229"
+FUN_1100_041d = "c_sound_command"
+FUN_1100_0434 = "c_play_animation"
+FUN_1100_04a7 = "c_practice_setup"
+FUN_1100_0519 = "c_set_display_page"
+FUN_1100_0538 = "c_hook_hand_back"
+FUN_1100_0539 = "c_hook_repaint"
+FUN_1100_053a = "c_opening_blurb"
+FUN_1100_067c = "c_hook_message"
+FUN_1100_067e = "c_campaign_start"
+FUN_1100_0734 = "c_set_start"
+FUN_1100_0906 = "c_mission_pick"
+FUN_1100_0af4 = "c_code_name_screen"
+FUN_1100_0c40 = "c_difficulty_menu"
+FUN_1100_0c70 = "c_training_screen"
+FUN_1100_0e1a = "c_skill_rows"
+FUN_1100_0ed2 = "c_text_field"
+FUN_1100_10fb = "c_text_field_draw"
+FUN_1100_11b7 = "c_pack_org"
+FUN_1100_1214 = "c_draw_mastermind_face_panel"
+FUN_1100_1322 = "c_show_all_orgs"
+FUN_1100_1394 = "c_copy_protection"
+FUN_1100_175e = "c_case_end"
+FUN_1100_1da2 = "c_chronology"
+FUN_1100_2703 = "c_grid_cell"
+FUN_1100_27cc = "c_grid_caption"
+FUN_1100_28a8 = "c_grid_highlight_org"
+FUN_1100_28de = "c_grid_highlight_cell"
+FUN_1100_2941 = "c_grid_restack"
+FUN_1100_2a30 = "c_grid_bar_cell"
+FUN_1100_2b92 = "c_grid_connections"
+FUN_1100_2c2a = "c_grid_redraw_org"
+FUN_1100_2c60 = "c_draw_sprite"
+FUN_1100_2c80 = "c_ask_menu"
+FUN_1100_2c94 = "c_timestamp"
+FUN_1100_88ac = "c_page_frame"
+FUN_1100_8b80 = "c_text_panel"
+FUN_1100_7c67 = "c_draw_face_panel"
+FUN_1100_2d63 = "c_reveal_case"
+FUN_1100_2e06 = "c_efficiency_report"
+
+FUN_1000_021d = "drv_jump_gfx_copy_rect"
+FUN_1000_0255 = "drv_jump_gfx_set_colour_map"
+FUN_1000_024e = "drv_jump_gfx_set_palette"
+FUN_1000_0602 = "drv_real_fill_rect"
+FUN_1000_01ad = "drv_jump_gfx_fill"
+FUN_1000_01b4 = "drv_jump_gfx_char_width"
+FUN_1000_040e = "drv_jump_keyboard_empty"
+FUN_1000_0268 = "drv_jump_gfx_show_page"
+FUN_1000_0294 = "drv_jump_gfx_open"
+FUN_1000_0438 = "drv_jump_joy_calibrate"
+FUN_1000_045b = "drv_jump_snd_command"
+FUN_1000_05b9 = "drv_real_link_slots"
+FUN_1000_01ec = "drv_jump_gfx_get_pixel"
+FUN_1000_026f = "drv_jump_gfx_sprite_put"
+
+RASTPORT_155E = "dat_map_page_port"
+DAT_20d8_1570 = "shd_map_page"
+DAT_20d8_4b58 = "shd_screen"
+
+FUN_1000_00b0 = "drv_real_FUN_1000_00b0"
+FUN_1000_0156 = "drv_real_dispatch"
+FUN_1000_01f8 = "drv_jump_gfx_overlay_remove"
+FUN_1000_0261 = "drv_jump_gfx_overlay_put"
+FUN_1000_029b = "drv_jump_gfx_plot"
+FUN_1000_02a2 = "drv_jump_gfx_edge_fill"
+FUN_1000_02a9 = "drv_jump_gfx_write_reset"
+FUN_1000_02b0 = "drv_jump_gfx_set_colour"
+FUN_1000_02b7 = "drv_jump_gfx_line"
+FUN_1000_02e1 = "drv_jump_gfx_select_page"
+FUN_1000_02e8 = "drv_jump_gfx_select_pic"
+FUN_1000_02ef = "drv_jump_gfx_edge_copy"
+FUN_1000_04a0 = "drv_real_load"
+FUN_1000_055c = "drv_real_FUN_1000_055c"
+FUN_1000_0565 = "drv_real_load_data"
+FUN_1000_05ec = "drv_real_free"
+FUN_1000_066e = "drv_real_FUN_1000_066e"
+FUN_1000_0684 = "drv_real_FUN_1000_0684"
+FUN_1000_068a = "drv_real_FUN_1000_068a"
+FUN_1000_06c0 = "drv_real_FUN_1000_06c0"
+FUN_1000_072a = "drv_real_FUN_1000_072a"
+FUN_1000_07ea = "drv_real_FUN_1000_07ea"
+FUN_1000_0828 = "drv_real_FUN_1000_0828"
+FUN_1000_082c = "drv_real_FUN_1000_082c"
+FUN_1000_0838 = "drv_real_FUN_1000_0838"
+FUN_1000_09c4 = "drv_real_FUN_1000_09c4"
+FUN_1000_09e5 = "drv_real_FUN_1000_09e5"
+FUN_1000_0a4b = "drv_real_FUN_1000_0a4b"
+FUN_1000_0b9b = "drv_real_FUN_1000_0b9b"
+FUN_1000_0bd9 = "drv_real_FUN_1000_0bd9"
+FUN_1000_0c0f = "drv_real_FUN_1000_0c0f"
+FUN_1000_0c8b = "drv_real_FUN_1000_0c8b"
+FUN_1000_0d8b = "drv_real_FUN_1000_0d8b"
+FUN_1000_0eba = "drv_real_mouse_open"
+FUN_1000_0f09 = "drv_real_mouse_close"
+FUN_1000_0f24 = "drv_real_FUN_1000_0f24"
+FUN_1000_0f2b = "drv_real_mouse_set_cursor"
+FUN_1000_0f42 = "drv_real_FUN_1000_0f42"
+FUN_1000_0f4d = "drv_real_cursor_show"
+FUN_1000_0f6f = "drv_real_mouse_int"
+FUN_1000_0f95 = "drv_real_cursor_redraw"
+FUN_1000_0fc7 = "drv_real_mouse_event"
+FUN_1100_c92d = "run_crt0dat_c92d"
+FUN_1100_c93c = "run_crt0dat_c93c"
+FUN_1100_c970 = "__fptrap"
+FUN_1100_cc60 = "__maperror"
+FUN_1100_cc66 = "run_dosret_cc66"
+FUN_1100_d416 = "run_input_d416"
+FUN_1100_d504 = "run_input_d504"
+FUN_1100_d696 = "run_input_d696"
+FUN_1100_d7d4 = "run_input_d7d4"
+FUN_1100_d7f8 = "run_input_d7f8"
+FUN_1100_d830 = "run_input_d830"
+FUN_1100_d852 = "run_input_d852"
+FUN_1100_d884 = "run_input_d884"
+FUN_1100_dd0a = "run_write_dd0a"
+FUN_1100_dd4a = "run_write_dd4a"
+FUN_1100_dd58 = "run_write_dd58"
+FUN_1100_dfc6 = "run_brkctl_dfc6"
+FUN_1100_e288 = "_getche"
+FUN_1100_e9ae = "__dos_creatnew"
+thunk___catox = "_atol"
+
+FUN_1100_7afe = "c_draw_face"
+FUN_1100_99b8 = "c_menu_key"
+FUN_1100_8bf1 = "c_draw_centred"
+FUN_1100_c018 = "c_draw_line"
+FUN_1100_c038 = "c_write_text"
+FUN_1100_c059 = "c_write_text_trimmed"
+FUN_1100_c082 = "c_wait_retraces"
+FUN_1100_c0f4 = "c_fill_box"
+FUN_1100_c42a = "c_load_picture"
+FUN_1100_c152 = "c_seed_random"
+FUN_1100_c169 = "c_random_below"
+FUN_1100_ac01 = "c_seq_set_var"
+FUN_1100_98a5 = "c_pan_arm"
+FUN_1100_74f0 = "c_say_block"
+FUN_1100_8060 = "c_wrap_message"
+FUN_1100_173c = "c_clear_message_panel"
+FUN_1100_984c = "c_outline_box"
+FUN_1100_9bc2 = "c_joystick_read"
+FUN_1100_9c3e = "c_joystick_button"
+FUN_1100_4c2c = "c_read_world"
+FUN_1100_3f4c = "c_case_generate"
+FUN_1100_5ff1 = "c_suspect_reserve"
+FUN_1100_60f5 = "c_building_explore"
+FUN_1100_6196 = "c_building_forget"
+FUN_1100_628f = "c_clue_close_gap"
+FUN_1100_82b3 = "c_worth_the_trip"
+FUN_1100_8327 = "c_packed_distance"
+FUN_1100_8467 = "c_presence"
+FUN_1100_46b5 = "c_clear_happen_ticks"
+FUN_1100_46df = "c_place_participant"
+FUN_1100_499e = "c_briefing"
+FUN_1100_4b82 = "c_read_crime"
+CRIME_DTA_NAME_20d8_3276 = "dat_CRIME_DTA_NAME"
+DAT_20d8_828e = "asm_DAT_20d8_828e"
+CRIME_EVENTS = "shm_crime_events"
+DAT_20d8_96da = "shm_case_city_1"
+DAT_20d8_96dc = "shm_case_city_2"
+DAT_20d8_9e90 = "shm_mission"
+DAT_20d8_9e94 = "shm_case_org_1"
+DAT_20d8_9f8c = "shm_global_alert_level"
+DAT_20d8_abf6 = "asm_case_mastermind"
+ACTIVITY = "shm_activity"
+DAT_20d8_b07e = "shm_case_spare_2"
+FUN_1100_4cd0 = "c_fame_load"
+FUN_1100_4d67 = "c_fame_screen"
+FUN_1100_795d = "c_say_one_of"
+FUN_1100_7a8e = "c_faces_load"
+FUN_1100_9b12 = "c_wait_for_release"
+FUN_1100_9c60 = "c_load_menu"
+FUN_1100_a6dd = "c_save_get"
+FUN_1100_aaa0 = "c_want_disk"
+FUN_1100_a2f6 = "c_save_put"
+FUN_1100_abd2 = "c_seq_play"
+FUN_1100_c182 = "c_clamp"
+FUN_1100_35d6 = "c_career_screen"
+FUN_1100_3a49 = "c_portrait_screen"
+FUN_1100_3bcc = "c_interlude"
+FUN_1000_01a6 = "drv_jump_gfx_grab"
+FUN_1000_01c9 = "drv_jump_gfx_pool_release"
+FUN_1000_01d7 = "drv_jump_gfx_dissolve"
+FUN_1000_020f = "drv_jump_gfx_pool_alloc"
+FUN_1100_c5d8 = "c_archive_open"
+FUN_1100_c608 = "c_archive_close"
+DAT_20d8_8082 = "asm_screen_sprite_a"
+SCENE_SPRITES = "asm_scene_sprites"
+DAT_20d8_808e = "asm_screen_sprite_c"
+null_ARRAY_20d8_2f36 = "dat_ending_names"
+INTERLUDE_TABLE = "dat_interlude_table"
+FUN_1100_4d1d = "c_fame_save"
+FUN_1100_5164 = "c_fame_add"
+FUN_1100_5b3f = "c_evidence_unlock"
+FUN_1100_5f98 = "c_wait_key"
+FUN_1100_9f20 = "c_save_menu"
+FUN_1100_3a22 = "c_trim_to_width"
+FUN_1100_8b3b = "c_text_width"
+FUN_1100_7992 = "c_say_event_text"
+FUN_1100_80e4 = "c_draw_message"
+FUN_1100_851a = "c_person_name"
+
+DAT_20d8_5cb6 = "shm_field_cursor"
+DAT_20d8_5cb8 = "shm_field_char_width"
+DAT_20d8_5cba = "shm_field_cursor_x"
+DAT_20d8_79e2 = "shm_scratch"
+DAT_20d8_7de6 = "shm_difficulty"
+DAT_20d8_8092 = "shm_cga"
+DAT_20d8_a7b0 = "shm_menu_draw_only"
+DAT_20d8_a7b2 = "shm_skills"
+DAT_20d8_ac1c = "shm_menu_pick"
+DAT_20d8_ae2c = "shm_graphics_letter"
+DAT_20d8_7df0 = "shm_clock_minutes"
+CAMPAIGN_20d8_7df2 = "shm_campaign"
+DAT_20d8_8090 = "shm_options"
+DAT_20d8_96ca = "shm_log_count"
+DAT_20d8_96d0 = "shm_building_count"
+DAT_20d8_96d2 = "shm_case_tick"
+DAT_20d8_96d6 = "asm_shown_count"
+DAT_20d8_9bee = "asm_DAT_20d8_9bee"
+DAT_20d8_9e86 = "asm_DAT_20d8_9e86"
+DAT_20d8_9e8a = "shm_case_seed"
+UNION_REGS_20d8_9f90 = "shm_regs"
+DAT_20d8_ae32 = "asm_set_first"
+DAT_20d8_ae36 = "shm_case_city"
+DAT_20d8_a5a6 = "asm_fresh_start"
+SEQ_VARS = "shm_seq_vars"
+DAT_20d8_b374 = "shm_case_org"
+DAT_20d8_ae78 = "shm_orgs_known"
+DAT_20d8_ae7a = "asm_dossier_seen"
+DAT_20d8_7de2 = "asm_report_slots"
+DAT_20d8_7dec = "asm_career_cursor"
+DAT_20d8_7dee = "asm_report_topics"
+DAT_20d8_84b6 = "shm_suspect_count"
+DAT_20d8_98e0 = "shm_pan_playing"
+DAT_20d8_9be8 = "asm_report_total"
+DAT_20d8_9fa2 = "shm_crime_role_count"
+DAT_20d8_abfa = "asm_case_flags"
+DAT_20d8_ac68 = "asm_masterminds_arrested"
+DAT_20d8_b308 = "asm_case_points"
+DAT_20d8_b30c = "asm_grid_in_play"
+WIRE_CLUE_SOURCE = "shm_wire_clue_source"
+DAT_20d8_ac1e = "asm_case_city_3"
+DAT_20d8_9e88 = "shm_crime_event_count"
+DAT_20d8_28be = "asm_replay_page"
+DAT_20d8_9e98 = "shm_case_org_2"
+DAT_20d8_9bea = "asm_case_minute"
+DAT_20d8_9e82 = "asm_case_hour"
+DAT_20d8_7dea = "asm_case_day"
+DAT_20d8_9fa0 = "shm_double_agent_cities"
+
+MONTH_NAME_TABLE = "shd_month_names"
+CELL_KIND_NAMES_20d8_3ae0 = "shd_clue_kinds"
+SKILL_COLOURS = "dat_skill_colours"
+
+null_ARRAY_20d8_1cfe = "dat_org_table"
+null_ARRAY_20d8_2d76 = "dat_org_names"
+MISSION_SET_ARRAY_20d8_1e9e = "dat_mission_sets"
+
+FUN_1100_4caa = "c_fame_clear"
+FAME_TABLE = "asm_fame"
+
+FUN_1100_524c = "c_suspect_scan"
+FUN_1100_5c77 = "c_suspect_release"
+FUN_1100_5caa = "c_report_new_fields"
+FUN_1100_61f8 = "c_cell_reveal"
+FUN_1100_62db = "c_clue_record"
+FUN_1100_6639 = "c_clue_about"
+FUN_1100_66ec = "c_clue_text"
+FUN_1100_750d = "c_say_block_with"
+SUBST_VALUE_TABLE = "shd_subst_values"
+FUN_1100_67b9 = "c_clue_line"
+FUN_1100_690e = "c_clue_thing"
+FUN_1100_6822 = "c_clue_phrase"
+FUN_1100_6859 = "c_clue_subject"
+FUN_1100_8562 = "c_person_real_name"
+FUN_1100_6993 = "c_clue_line_full"
+FUN_1100_69b3 = "c_clue_from_file"
+DAT_20d8_9e8c = "shm_clue_method"
+FUN_1100_6b82 = "c_dossier"
+FUN_1100_8383 = "c_city_distance"
+FUN_1100_81cf = "c_filter_message"
+FUN_1100_71c7 = "c_intercept_line"
+FUN_1100_83e8 = "c_say_presence"
+FUN_1100_97f4 = "c_menu_box"
+DAT_20d8_8080 = "shm_seed"
+BITS_SET_20d8_365c = "shd_scan_counts"
+LOG_ENTRY_ARRAY_20d8_84b8 = "shm_log"
+DAT_20d8_8bb8 = "shm_menu_face"
+null_ARRAY_20d8_35fc = "shd_clue_phrases"
+null_ARRAY_20d8_3c3a = "shd_clue_source"
+FUN_1100_9d3b = "c_save_slot"
+FUN_1100_a055 = "c_save_write"
+FUN_1100_a111 = "c_write_checked"
+FUN_1100_a12e = "c_ask_drive"
+FUN_1100_a295 = "c_drive_ready"
+FUN_1100_a62b = "c_put_section"
+FUN_1100_a684 = "c_get_section"
+FUN_1100_0016 = "asm_FUN_1100_0016"
+FUN_1100_0019 = "shm_hook_critical_error"
+FUN_1100_003e = "shm_unhook_critical_error"
+DAT_20d8_1548 = "shm_jailbreak_suspect"
+DAT_20d8_1664 = "shd_pan_disk"
+SAVE_NAME = "shd_save_name"
+DAT_20d8_56f3 = "_errno"
+DAT_20d8_5df0 = "shm_save_loading"
+DAT_20d8_5df2 = "shm_save_errno"
+DAT_20d8_5df4 = "shm_slot_fd"
+DAT_20d8_5df6 = "shm_slot_word"
+SAVE_BLOCK = "shm_save_block"
+DAT_20d8_5e0c = "shm_save_offset"
+DAT_20d8_5e0e = "shm_save_fd"
+DAT_20d8_9f8e = "shm_slots_filled"
+DAT_20d8_b07c = "shm_slot_pick"
+FUN_1100_75f9 = "c_substitute"
+FUN_1100_7668 = "c_say_message"
+FUN_1100_7a37 = "c_message_tag"
+FUN_1100_7e77 = "c_faces_cut"
+FUN_1100_c31a = "c_decode_picture"
+FACES_SPRITES = "shm_faces_sprites"
+CLOCK_TEXT = "shd_clock_text"
+DAT_20d8_47c0 = "shm_pan_width"
+null_ARRAY_20d8_4526 = "shd_first_names"
+null_ARRAY_20d8_4626 = "shd_last_names"
+FUN_1100_beb1 = "c_anim_byte"
+FUN_1100_be4f = "c_anim_frame_header"
+FUN_1100_bd49 = "c_anim_frame_rows"
+FUN_1100_bdc4 = "c_anim_frame"
+FUN_1100_bad6 = "c_anim_signature"
+DAT_20d8_5bba = "shm_anim_magic"
+SEQ_PC = "shm_seq_pc"
+DAT_20d8_5e2c = "shm_seq_depth"
+DAT_20d8_5e30 = "shm_seq_sound_queue_count"
+DAT_20d8_5e48 = "shm_anim_fd"
+DAT_20d8_5e4a = "shm_anim_magic_read"
+DAT_20d8_5e4c = "shm_anim_packed"
+ANIM_SIGNATURE = "shm_anim_signature"
+DAT_20d8_9f9e = "shm_anim_error"
+DAT_20d8_abf4 = "shm_anim_name"
+FUN_1100_bb90 = "c_anim_start_chunks"
+FUN_1100_bc17 = "c_anim_chunk"
+FUN_1100_bc68 = "c_anim_sprites"
+FUN_1100_bcd3 = "c_anim_paragraphs"
+UNION_REGS_20d8_8bba = "shm_mouse_regs"
+DAT_20d8_a7b4 = "shm_mouse_buttons"
+DAT_20d8_a7b6 = "shm_mouse_x"
+DAT_20d8_a7b8 = "shm_mouse_y"
+DAT_20d8_a7ba = "shm_mouse_count"
+FUN_1100_bed0 = "c_mouse_reset"
+FUN_1100_bee6 = "c_mouse_show"
+FUN_1100_befc = "c_mouse_hide"
+FUN_1100_bf12 = "c_mouse_where"
+FUN_1100_bf3a = "c_mouse_move"
+FUN_1100_bf60 = "c_mouse_presses"
+FUN_1100_bf98 = "c_mouse_releases"
+FUN_1100_bfd0 = "c_mouse_fence"
+FUN_1100_c6ee = "c_seek"
+FUN_1100_c62e = "c_archive_find"
+FUN_1100_c5a8 = "c_set_mode_keeping_errno"
+FUN_1100_c54e = "c_prime_file"
+ARCHIVE_BUFFER = "shm_archive_buffer"
+DAT_20d8_96de = "shm_anim_more"
+ANIM_PALETTE = "shm_anim_palette"
+DAT_20d8_b30a = "shm_anim_block_kind"
+FUN_1100_be8c = "c_anim_read"
+FUN_1100_bb3a = "c_anim_extra_blocks"
+FUN_1100_b9ec = "c_set_dac_block"
+FUN_1100_ba2c = "c_set_border_colour"
+FUN_1100_ba53 = "c_set_video_mode"
+FARBUF = "asm_FARBUF"
+SEQDATA = "shm_seq_data"
+MENU_LINE_START = "shm_menu_line_start"
+DAT_20d8_5dd4 = "shm_menu_colour_plain"
+DAT_20d8_5dd6 = "shm_menu_colour_item"
+DAT_20d8_5dd8 = "shm_menu_lines"
+DAT_20d8_5dda = "shm_menu_colour_pick"
+DAT_20d8_84b4 = "shm_menu_tick"
+DAT_20d8_96cc = "shm_menu_first_line"
+DAT_20d8_9e7e = "shm_menu_items"
+DAT_20d8_9e8e = "shm_menu_relayout"
+DAT_20d8_9e92 = "shm_menu_colour_bar"
+DAT_20d8_9e96 = "shm_menu_text_width"
+DAT_20d8_9fa4 = "shm_menu_marked"
+DAT_20d8_ac6a = "shm_menu_right"
+DAT_20d8_ae2e = "shm_menu_bottom"
+DAT_20d8_5e44 = "shm_seq_op"
+DAT_20d8_5e46 = "shm_seq_operand"
+FUN_1100_c498 = "c_animation_from_memory"
+FUN_1100_c43c = "c_load_anim"
+FUN_1100_c3be = "c_decode_scan"
+FUN_1000_0216 = "drv_jump_gfx_row_put"
+FUN_1000_0278 = "drv_jump_gfx_sprite_end"
+FUN_1000_027f = "drv_jump_gfx_sprite_row"
+FUN_1000_0286 = "drv_jump_gfx_sprite_begin"
+FUN_1000_0a8a = "drv_real_unpack_start"
+FUN_1000_0b7c = "drv_real_unpack_row"
+FUN_1100_c51a = "c_refill_from_memory"
+DAT_20d8_5f96 = "shm_source_dst"
+DAT_20d8_5f98 = "shm_source_src"
+DAT_20d8_779a = "shm_sprite_width"
+DAT_20d8_779c = "shm_sprite_height"
+FUN_1100_c4fc = "c_decode_from_file"
+FUN_1100_c37e = "c_decode_palette"
+FUN_1100_c2d8 = "c_write_file"
+FUN_1100_c292 = "c_read_all_far"
+FUN_1100_c24e = "c_read_all"
+FUN_1000_0b1a = "drv_real_palette_read"
+FUN_1000_0b62 = "drv_real_palette_put"
+FUN_1100_c1a0 = "c_open"
+FUN_1100_c55e = "c_refill_from_file"
+FUN_1100_e9e6 = "__dos_read"
+DAT_20d8_4c82 = "shd_archive_buffer_end"
+DAT_20d8_5f94 = "shm_source_fd"
+DAT_20d8_779e = "shm_palette_count"
+DAT_20d8_96d8 = "shm_source_at"
+DAT_20d8_a5aa = "shm_refill"
+DAT_20d8_a5ac = "asm_DAT_20d8_a5ac"
+FUN_1100_c22a = "c_close"
+FUN_1100_c200 = "c_create"
+FUN_1100_c138 = "c_set_text_mode"
+FUN_1100_c11e = "c_set_graphics_mode"
+FUN_1100_c0d8 = "c_screen_restore"
+FUN_1100_c0ba = "c_screen_save"
+FUN_1000_0a06 = "drv_real_draw_line"
+FUN_1000_0224 = "drv_jump_gfx_text"
+FUN_1100_c586 = "c_fatal"
+DAT_20d8_4c84 = "shd_archive_fd"
+FUN_1100_ae33 = "c_seq_frames"
+FUN_1100_ae0b = "c_seq_restart"
+FUN_1100_add0 = "c_seq_step"
+FUN_1100_ad42 = "c_seq_stop"
+FUN_1100_ad37 = "c_seq_set_picture"
+FUN_1100_ac84 = "c_seq_start"
+FUN_1100_ac6c = "c_seq_run"
+FUN_1100_ac20 = "c_seq_interrupted"
+FUN_1100_ac12 = "c_seq_sound"
+FUN_1000_0208 = "drv_jump_gfx_capability"
+FUN_1000_0e51 = "drv_real_anim_reset"
+FUN_1100_ae96 = "c_hold_frame"
+FUN_1100_aeeb = "c_seq_apply_palette"
+FUN_1100_af04 = "c_nothing"
+FUN_1100_af05 = "c_seq_prepare_pages"
+FUN_1100_afd2 = "c_seq_drain_queue"
+FUN_1100_b9af = "c_palette_match"
+FUN_1100_b7c6 = "c_actor_step"
+FUN_1100_b723 = "c_actor_where"
+FUN_1100_b65f = "c_actor_draw"
+FUN_1100_b4ea = "c_actor_set"
+FUN_1100_b488 = "c_actor_take_slot"
+FUN_1100_affc = "c_seq_reset"
+FUN_1100_b01a = "c_seq_code"
+FUN_1100_b4bf = "c_actor_clear_all"
+FUN_1100_b596 = "c_actor_step_all"
+FUN_1100_b5b7 = "c_actor_draw_hidden"
+FUN_1100_b62a = "c_actor_draw_all"
+FUN_1100_b6e4 = "c_actor_clear_hidden"
+FUN_1100_ba76 = "c_anim_open"
+PTR_DAT_20d8_4ad8_20d8_4afc = "shd_anim_page"
+PTR_DAT_20d8_4aea_20d8_4afe = "shd_anim_page_2"
+DAT_20d8_4b36 = "drv_page_hidden"
+DAT_20d8_4b38 = "drv_page_shown"
+DAT_20d8_4b3c = "shm_seq_picture"
+DAT_20d8_5e20 = "shm_seq_frames_left"
+DAT_20d8_5e22 = "shm_frames_owed"
+DAT_20d8_5e24 = "shm_seq_wait"
+PTR_RUN_BANNER_PAD_20d8_5e26 = "shm_seq_block"
+DAT_20d8_5e2e = "shm_seq_frames_done"
+SEQ_BLOCK_20d8_5e32 = "shm_fullscreen_pan"
+DAT_20d8_96d4 = "shm_frame_ticks"
+DAT_20d8_9e80 = "shm_anim_segment"
+DAT_20d8_9e84 = "shm_seq_ticks"
+DAT_20d8_a5a8 = "shm_seq_done"
+DAT_20d8_ae30 = "shm_seq_stop_asked"
+null_ARRAY_20d8_a9fe = "shm_anim_sprites"
+DAT_20d8_4b3a = "drv_page_anim"
+DAT_20d8_4b3e = "shm_frame_toggle"
+DAT_20d8_5e40 = "shm_frame_deadline"
+FUN_1000_00ca = "drv_real_FUN_1000_00ca"
+FUN_1000_0df2 = "drv_real_page_copy"
+FUN_1000_019f = "drv_jump_mem_avail"
+FUN_1000_01bb = "drv_jump_gfx_page_fill"
+FUN_1000_01c0 = "drv_jump_gfx_sprite_put_clipped"
+FUN_1000_0d40 = "drv_real_sprite_put"
+FUN_1000_0d5e = "drv_real_sprite_put_2"
+FUN_1000_0415 = "drv_jump_read_key"
+FUN_1000_043f = "drv_jump_joy_read"
+DAT_20d8_47fc = "shm_pan_building"
+DAT_20d8_480c = "shd_joystick_dirs"
+SEQ_BLOCK_20d8_5d76 = "shm_active_pan"
+JOYSTICK = "shm_joystick"
+FUN_1100_9b45 = "c_joystick_key"
+FUN_1100_9ae9 = "c_pan_blank"
+FUN_1100_9966 = "c_pan_restore"
+FUN_1100_8c2c = "c_log_add"
+FUN_1100_8aaf = "c_clock_text"
+FUN_1100_89f3 = "c_folder_header"
+FUN_1100_85ec = "c_personnel_file"
+FUN_1000_0002 = "drv_real_FUN_1000_0002"
+DAT_20d8_4ac8 = "shd_disk_names"
+DISK_LETTER = "shd_disk_letter"
+DAT_20d8_9bec = "shm_menu_no_pick"
+FUN_1100_8d04 = "c_log_draw"
+FUN_1100_8f74 = "c_menu_run"
+FUN_1100_9443 = "c_menu_draw"
+DAT_20d8_47bc = "shd_city_on_screen"
+DAT_20d8_47be = "shd_drive"
+DAT_20d8_a7ae = "shm_menu_face_x"
+DAT_20d8_a7bc = "shm_menu_face_y"
+DAT_20d8_abf8 = "shm_finished"
+DAT_20d8_abfc = "shm_menu_shortcut"
+
+DAT_1000_0000 = "drv_DAT_1000_0000"
+DAT_1000_0d3c = "drv_DAT_1000_0d3c"
+DAT_1000_0d3e = "drv_DAT_1000_0d3e"
+DAT_20d8_0042 = "drv_DAT_20d8_0042"
+DAT_20d8_0044 = "drv_DAT_20d8_0044"
+DAT_20d8_4b5a = "drv_DAT_20d8_4b5a"
+DAT_20d8_4b5b = "drv_DAT_20d8_4b5b"
+DAT_20d8_4b5c = "drv_DAT_20d8_4b5c"
+DAT_20d8_4b5e = "drv_DAT_20d8_4b5e"
+DAT_20d8_4b60 = "drv_DAT_20d8_4b60"
+DAT_20d8_4b62 = "drv_DAT_20d8_4b62"
+DAT_20d8_4b64 = "drv_DAT_20d8_4b64"
+DAT_20d8_4b66 = "drv_DAT_20d8_4b66"
+DAT_20d8_4b68 = "drv_DAT_20d8_4b68"
+DAT_20d8_4b6a = "drv_DAT_20d8_4b6a"
+DAT_20d8_4c87 = "drv_DAT_20d8_4c87"
+DAT_20d8_4c89 = "drv_DAT_20d8_4c89"
+DAT_20d8_4c8b = "drv_DAT_20d8_4c8b"
+DAT_20d8_4c8d = "drv_DAT_20d8_4c8d"
+DAT_20d8_4c8f = "drv_DAT_20d8_4c8f"
+DAT_20d8_4e45 = "drv_DAT_20d8_4e45"
+DAT_20d8_4e47 = "drv_DAT_20d8_4e47"
+DAT_20d8_4fff = "drv_DAT_20d8_4fff"
+DAT_20d8_5001 = "drv_DAT_20d8_5001"
+DAT_20d8_5003 = "drv_DAT_20d8_5003"
+DAT_20d8_5005 = "drv_DAT_20d8_5005"
+DAT_20d8_5007 = "drv_DAT_20d8_5007"
+DAT_20d8_5009 = "drv_DAT_20d8_5009"
+DAT_20d8_500c = "drv_DAT_20d8_500c"
+DAT_20d8_500d = "drv_DAT_20d8_500d"
+DAT_20d8_500f = "drv_DAT_20d8_500f"
+DAT_20d8_5011 = "drv_DAT_20d8_5011"
+DAT_20d8_5013 = "drv_DAT_20d8_5013"
+DAT_20d8_5015 = "drv_DAT_20d8_5015"
+DAT_20d8_5017 = "drv_DAT_20d8_5017"
+DAT_20d8_501a = "drv_DAT_20d8_501a"
+DAT_20d8_501c = "drv_DAT_20d8_501c"
+DAT_20d8_501e = "drv_DAT_20d8_501e"
+DAT_20d8_5020 = "drv_DAT_20d8_5020"
+DAT_20d8_566a = "drv_DAT_20d8_566a"
+DAT_20d8_566c = "drv_DAT_20d8_566c"
+DAT_20d8_566e = "drv_DAT_20d8_566e"
+DAT_20d8_5670 = "drv_DAT_20d8_5670"
+DAT_20d8_5672 = "drv_DAT_20d8_5672"
+DAT_20d8_5674 = "drv_DAT_20d8_5674"
+DAT_20d8_5676 = "drv_DAT_20d8_5676"
+DAT_20d8_5678 = "drv_DAT_20d8_5678"
+DAT_20d8_567a = "drv_DAT_20d8_567a"
+DAT_20d8_567c = "drv_DAT_20d8_567c"
+DAT_20d8_567e = "drv_DAT_20d8_567e"
+DAT_20d8_5680 = "drv_DAT_20d8_5680"
+DAT_20d8_5682 = "__asizds"
+DAT_20d8_5684 = "__atopsp"
+DAT_20d8_5686 = "__aexit_rtn"
+DAT_20d8_5688 = "__abrktb"
+DAT_20d8_568a = "run_crt0_568a"
+DAT_20d8_568c = "run_crt0_568c"
+DAT_20d8_568e = "run_crt0_568e"
+DAT_20d8_56e7 = "__aintdiv"
+DAT_20d8_56e9 = "run_crt0dat_56e9"
+DAT_20d8_56f5 = "__umaskval"
+DAT_20d8_56f9 = "__psp"
+DAT_20d8_56fb = "__dosvermajor"
+DAT_20d8_56fe = "__doserrno"
+DAT_20d8_5700 = "__nfile"
+DAT_20d8_5702 = "__osfile"
+DAT_20d8_5703 = "run_crt0dat_5703"
+DAT_20d8_5705 = "run_crt0dat_5705"
+DAT_20d8_5706 = "run_crt0dat_5706"
+DAT_20d8_5707 = "run_crt0dat_5707"
+DAT_20d8_5708 = "run_crt0dat_5708"
+DAT_20d8_5716 = "___argc"
+DAT_20d8_5718 = "___argv"
+DAT_20d8_571a = "_environ"
+DAT_20d8_571c = "__pgmptr"
+DAT_20d8_5720 = "run_crt0dat_5720"
+DAT_20d8_5721 = "run_crt0dat_5721"
+DAT_20d8_572a = "__adbgmsg"
+DAT_20d8_572c = "STKHQQ"
+DAT_20d8_572e = "run_stdargv_572e"
+DAT_20d8_5748 = "__cflush"
+DAT_20d8_5750 = "run__file_5750"
+DAT_20d8_5752 = "run__file_5752"
+DAT_20d8_5754 = "run__file_5754"
+DAT_20d8_5756 = "run__file_5756"
+DAT_20d8_5758 = "run__file_5758"
+DAT_20d8_5759 = "run__file_5759"
+DAT_20d8_5862 = "__lastiob"
+DAT_20d8_5864 = "run_input_5864"
+DAT_20d8_5867 = "run_txtmode_5867"
+DAT_20d8_5868 = "__asegds"
+DAT_20d8_586a = "run_nmalloc_586a"
+DAT_20d8_586e = "run_nmalloc_586e"
+DAT_20d8_5882 = "run_cmiscdat_5882"
+DAT_20d8_5996 = "__chbuf"
+DAT_20d8_59d4 = "run_timeset_59d4"
+DAT_20d8_59d8 = "_timezone"
+DAT_20d8_59da = "run_timeset_59da"
+DAT_20d8_59dc = "_daylight"
+DAT_20d8_59de = "_tzname"
+DAT_20d8_5a1e = "run_rand_5a1e"
+DAT_20d8_5a20 = "run_rand_5a20"
+DAT_20d8_5ba0 = "run_syserr_5ba0"
+DAT_20d8_5ba2 = "_sys_nerr"
+DAT_20d8_5ba6 = "__fpinit"
+DAT_20d8_5ba8 = "run_crt0dat_5ba8"
+DAT_20d8_5baa = "run_crt0dat_5baa"
+DAT_20d8_5bae = "run_crt0dat_5bae"
+DAT_20d8_5bc4 = "run_crt0msg_5bc4"
+DAT_20d8_5f9a = "drv_DAT_20d8_5f9a"
+DAT_20d8_5f9c = "drv_DAT_20d8_5f9c"
+DAT_20d8_5f9d = "drv_DAT_20d8_5f9d"
+DAT_20d8_5f9f = "drv_DAT_20d8_5f9f"
+DAT_20d8_77a0 = "drv_DAT_20d8_77a0"
+DAT_20d8_77a2 = "drv_DAT_20d8_77a2"
+DAT_20d8_77a4 = "drv_DAT_20d8_77a4"
+DAT_20d8_77a5 = "drv_DAT_20d8_77a5"
+DAT_20d8_77a6 = "drv_DAT_20d8_77a6"
+DAT_20d8_77a7 = "drv_DAT_20d8_77a7"
+DAT_20d8_77a8 = "drv_DAT_20d8_77a8"
+DAT_20d8_77aa = "drv_DAT_20d8_77aa"
+DAT_20d8_77ac = "drv_DAT_20d8_77ac"
+DAT_20d8_77ae = "drv_DAT_20d8_77ae"
+DAT_20d8_77af = "drv_DAT_20d8_77af"
+DAT_20d8_77b0 = "drv_DAT_20d8_77b0"
+DAT_20d8_77b2 = "drv_DAT_20d8_77b2"
+DAT_20d8_79b4 = "run_input_79b4"
+DAT_20d8_79b6 = "run_input_79b6"
+DAT_20d8_79b8 = "run_input_79b8"
+DAT_20d8_79ba = "run_input_79ba"
+DAT_20d8_79bc = "run_input_79bc"
+DAT_20d8_79be = "run_input_79be"
+DAT_20d8_79c0 = "run_input_79c0"
+DAT_20d8_79c2 = "run_input_79c2"
+DAT_20d8_79c4 = "run_input_79c4"
+DAT_20d8_79c6 = "run_input_79c6"
+DAT_20d8_79c8 = "run_input_79c8"
+DAT_20d8_79ca = "run_input_79ca"
+DAT_20d8_79cc = "run_input_79cc"
+DAT_20d8_79ce = "run_input_79ce"
+DAT_20d8_79d0 = "run_input_79d0"
+DAT_20d8_79d2 = "run_input_79d2"
+DAT_20d8_79d4 = "run_tzset_79d4"
+WORD_ARRAY_1100_d3a6 = "run_WORD_ARRAY_1100_d3a6"
+s_R6000_-_stack_overflow_20d8_5bc6 = "run_crt0msg_5bc6"
+
+DAT_1fb4_080c = "asm_DAT_1fb4_080c"
+DAT_1fb4_0840 = "asm_DAT_1fb4_0840"
+DAT_20d8_006c = "asm_DAT_20d8_006c"
+DAT_20d8_006d = "asm_DAT_20d8_006d"
+DAT_20d8_0071 = "asm_DAT_20d8_0071"
+DAT_20d8_28ac = "dat_replay_page_port"
+DAT_20d8_4ad8 = "dat_anim_page_port"
+DAT_20d8_4aea = "dat_anim_page_2_port"
+DAT_20d8_4b46 = "dat_screen_port"
+FARBUF_SEG = "addr_FARBUF_SEG"
+WORD_ARRAY_1100_0363 = "dat_WORD_ARRAY_1100_0363"
+WORD_ARRAY_1100_165f = "dat_WORD_ARRAY_1100_165f"
+WORD_ARRAY_1100_2678 = "dat_WORD_ARRAY_1100_2678"
+WORD_ARRAY_1100_5b19 = "dat_WORD_ARRAY_1100_5b19"
+WORD_ARRAY_1100_7941 = "dat_WORD_ARRAY_1100_7941"
+
+BLOCK_080E = "asm_block_080e"
+BLOCK_0842 = "asm_block_0842"
+RUN_BANNER_PAD = "run_banner_pad"
+RUN_BANNER = "run_banner"
+BLOCK_0046 = "asm_block_0046"
+BLOCK_0075 = "asm_block_0075"
+STR_ENV_SVE = "dat_str_env_sve"
+STR_MOVE_JOYSTICK_UPPER = "dat_str_move_joystick_upper"
+STR_MOVE_JOYSTICK_LOWER = "dat_str_move_joystick_lower"
+STR_LABS_PIC = "dat_str_labs_pic"
+STR_ENV_SVE_2 = "dat_str_env_sve_2"
+STR_TITLE2_PAN = "dat_str_title2_pan"
+STR_CREDITS_PAN = "dat_str_credits_pan"
+STR_DO_WANT_CREATE_NEW = "dat_str_do_want_create_new"
+STR_ENV_SVE_3 = "dat_str_env_sve_3"
+STR_ENV_SVE_4 = "dat_str_env_sve_4"
+BLOCK_154A = "asm_block_154a"
+BLOCK_1572 = "dat_colours_title"
+STR_ANIMATION_PAN = "dat_str_animation_pan"
+STR_ENV_SVE_5 = "dat_str_env_sve_5"
+BLOCK_167C = "dat_str_empty_15"
+STR_SLOC00 = "dat_str_sloc00"
+STR_TEXT_DTA = "dat_str_text_dta"
+STR_RLOC00 = "dat_str_rloc00"
+STR_TEXT_DTA_2 = "dat_str_text_dta_2"
+STR_SORG00 = "dat_str_sorg00"
+STR_TEXT_DTA_3 = "dat_str_text_dta_3"
+STR_RORG00 = "dat_str_rorg00"
+STR_TEXT_DTA_4 = "dat_str_text_dta_4"
+STR_FLUF00 = "dat_str_fluf00"
+STR_TEXT_DTA_5 = "dat_str_text_dta_5"
+STR_SET00_MISSION0_WHERE = "dat_str_set00_mission0_where"
+STR_SET00_MISSION0_WHAT = "dat_str_set00_mission0_what"
+STR_SET00_MISSION1_WHERE = "dat_str_set00_mission1_where"
+STR_SET00_MISSION1_WHAT = "dat_str_set00_mission1_what"
+STR_SET00_MISSION2_WHERE = "dat_str_set00_mission2_where"
+STR_SET00_MISSION2_WHAT = "dat_str_set00_mission2_what"
+STR_SET00_MISSION3_WHERE = "dat_str_set00_mission3_where"
+STR_SET00_MISSION3_WHAT = "dat_str_set00_mission3_what"
+STR_SET00_MISSION4_WHERE = "dat_str_set00_mission4_where"
+STR_SET00_MISSION4_WHAT = "dat_str_set00_mission4_what"
+STR_SET00_MISSION5_WHERE = "dat_str_set00_mission5_where"
+STR_SET00_MISSION5_WHAT = "dat_str_set00_mission5_what"
+STR_SET00_MISSION6_WHERE = "dat_str_set00_mission6_where"
+STR_SET00_MISSION6_WHAT = "dat_str_set00_mission6_what"
+STR_SET00_MISSION7_WHERE = "dat_str_set00_mission7_where"
+STR_SET00_MISSION7_WHAT = "dat_str_set00_mission7_what"
+STR_SET01_MISSION0_WHERE = "dat_str_set01_mission0_where"
+STR_SET01_MISSION0_WHAT = "dat_str_set01_mission0_what"
+STR_SET01_MISSION1_WHERE = "dat_str_set01_mission1_where"
+STR_SET01_MISSION1_WHAT = "dat_str_set01_mission1_what"
+STR_SET01_MISSION2_WHERE = "dat_str_set01_mission2_where"
+STR_SET01_MISSION2_WHAT = "dat_str_set01_mission2_what"
+STR_SET01_MISSION3_WHERE = "dat_str_set01_mission3_where"
+STR_SET01_MISSION3_WHAT = "dat_str_set01_mission3_what"
+STR_SET01_MISSION4_WHERE = "dat_str_set01_mission4_where"
+STR_SET01_MISSION4_WHAT = "dat_str_set01_mission4_what"
+STR_SET01_MISSION5_WHERE = "dat_str_set01_mission5_where"
+STR_SET01_MISSION5_WHAT = "dat_str_set01_mission5_what"
+STR_SET01_MISSION6_WHERE = "dat_str_set01_mission6_where"
+STR_SET01_MISSION6_WHAT = "dat_str_set01_mission6_what"
+STR_SET01_MISSION7_WHERE = "dat_str_set01_mission7_where"
+STR_SET01_MISSION7_WHAT = "dat_str_set01_mission7_what"
+STR_SET02_MISSION0_WHERE = "dat_str_set02_mission0_where"
+STR_SET02_MISSION0_WHAT = "dat_str_set02_mission0_what"
+STR_SET02_MISSION1_WHERE = "dat_str_set02_mission1_where"
+STR_SET02_MISSION1_WHAT = "dat_str_set02_mission1_what"
+STR_SET02_MISSION2_WHERE = "dat_str_set02_mission2_where"
+STR_SET02_MISSION2_WHAT = "dat_str_set02_mission2_what"
+STR_SET02_MISSION3_WHERE = "dat_str_set02_mission3_where"
+STR_SET02_MISSION3_WHAT = "dat_str_set02_mission3_what"
+STR_SET02_MISSION4_WHERE = "dat_str_set02_mission4_where"
+STR_SET02_MISSION4_WHAT = "dat_str_set02_mission4_what"
+STR_SET02_MISSION5_WHERE = "dat_str_set02_mission5_where"
+STR_SET02_MISSION5_WHAT = "dat_str_set02_mission5_what"
+STR_SET02_MISSION6_WHERE = "dat_str_set02_mission6_where"
+STR_SET02_MISSION6_WHAT = "dat_str_set02_mission6_what"
+STR_SET02_MISSION7_WHERE = "dat_str_set02_mission7_where"
+STR_SET02_MISSION7_WHAT = "dat_str_set02_mission7_what"
+STR_SET03_MISSION0_WHERE = "dat_str_set03_mission0_where"
+STR_SET03_MISSION0_WHAT = "dat_str_set03_mission0_what"
+STR_SET03_MISSION1_WHERE = "dat_str_set03_mission1_where"
+STR_SET03_MISSION1_WHAT = "dat_str_set03_mission1_what"
+STR_SET03_MISSION2_WHERE = "dat_str_set03_mission2_where"
+STR_SET03_MISSION2_WHAT = "dat_str_set03_mission2_what"
+STR_SET03_MISSION3_WHERE = "dat_str_set03_mission3_where"
+STR_SET03_MISSION3_WHAT = "dat_str_set03_mission3_what"
+STR_SET03_MISSION4_WHERE = "dat_str_set03_mission4_where"
+STR_SET03_MISSION4_WHAT = "dat_str_set03_mission4_what"
+STR_SET03_MISSION5_WHERE = "dat_str_set03_mission5_where"
+STR_SET03_MISSION5_WHAT = "dat_str_set03_mission5_what"
+STR_SET03_MISSION6_WHERE = "dat_str_set03_mission6_where"
+STR_SET03_MISSION6_WHAT = "dat_str_set03_mission6_what"
+STR_SET03_MISSION7_WHERE = "dat_str_set03_mission7_where"
+STR_SET03_MISSION7_WHAT = "dat_str_set03_mission7_what"
+STR_SET04_MISSION0_WHERE = "dat_str_set04_mission0_where"
+STR_SET04_MISSION0_WHAT = "dat_str_set04_mission0_what"
+STR_SET04_MISSION1_WHERE = "dat_str_set04_mission1_where"
+STR_SET04_MISSION1_WHAT = "dat_str_set04_mission1_what"
+STR_SET04_MISSION2_WHERE = "dat_str_set04_mission2_where"
+STR_SET04_MISSION2_WHAT = "dat_str_set04_mission2_what"
+STR_SET04_MISSION3_WHERE = "dat_str_set04_mission3_where"
+STR_SET04_MISSION3_WHAT = "dat_str_set04_mission3_what"
+STR_SET04_MISSION4_WHERE = "dat_str_set04_mission4_where"
+STR_SET04_MISSION4_WHAT = "dat_str_set04_mission4_what"
+STR_SET04_MISSION5_WHERE = "dat_str_set04_mission5_where"
+STR_SET04_MISSION5_WHAT = "dat_str_set04_mission5_what"
+STR_SET04_MISSION6_WHERE = "dat_str_set04_mission6_where"
+STR_SET04_MISSION6_WHAT = "dat_str_set04_mission6_what"
+STR_SET04_MISSION7_WHERE = "dat_str_set04_mission7_where"
+STR_SET04_MISSION7_WHAT = "dat_str_set04_mission7_what"
+STR_SET05_MISSION0_WHERE = "dat_str_set05_mission0_where"
+STR_SET05_MISSION0_WHAT = "dat_str_set05_mission0_what"
+STR_SET05_MISSION1_WHERE = "dat_str_set05_mission1_where"
+STR_SET05_MISSION1_WHAT = "dat_str_set05_mission1_what"
+STR_SET05_MISSION2_WHERE = "dat_str_set05_mission2_where"
+STR_SET05_MISSION2_WHAT = "dat_str_set05_mission2_what"
+STR_SET05_MISSION3_WHERE = "dat_str_set05_mission3_where"
+STR_SET05_MISSION3_WHAT = "dat_str_set05_mission3_what"
+STR_SET05_MISSION4_WHERE = "dat_str_set05_mission4_where"
+STR_SET05_MISSION4_WHAT = "dat_str_set05_mission4_what"
+STR_SET05_MISSION5_WHERE = "dat_str_set05_mission5_where"
+STR_SET05_MISSION5_WHAT = "dat_str_set05_mission5_what"
+STR_SET05_MISSION6_WHERE = "dat_str_set05_mission6_where"
+STR_SET05_MISSION6_WHAT = "dat_str_set05_mission6_what"
+STR_SET05_MISSION7_WHERE = "dat_str_set05_mission7_where"
+STR_SET05_MISSION7_WHAT = "dat_str_set05_mission7_what"
+STR_SET06_MISSION0_WHERE = "dat_str_set06_mission0_where"
+STR_SET06_MISSION0_WHAT = "dat_str_set06_mission0_what"
+STR_SET06_MISSION1_WHERE = "dat_str_set06_mission1_where"
+STR_SET06_MISSION1_WHAT = "dat_str_set06_mission1_what"
+STR_SET06_MISSION2_WHERE = "dat_str_set06_mission2_where"
+STR_SET06_MISSION2_WHAT = "dat_str_set06_mission2_what"
+STR_SET06_MISSION3_WHERE = "dat_str_set06_mission3_where"
+STR_SET06_MISSION3_WHAT = "dat_str_set06_mission3_what"
+STR_SET06_MISSION4_WHERE = "dat_str_set06_mission4_where"
+STR_SET06_MISSION4_WHAT = "dat_str_set06_mission4_what"
+STR_SET06_MISSION5_WHERE = "dat_str_set06_mission5_where"
+STR_SET06_MISSION5_WHAT = "dat_str_set06_mission5_what"
+STR_SET06_MISSION6_WHERE = "dat_str_set06_mission6_where"
+STR_SET06_MISSION6_WHAT = "dat_str_set06_mission6_what"
+STR_SET06_MISSION7_WHERE = "dat_str_set06_mission7_where"
+STR_SET06_MISSION7_WHAT = "dat_str_set06_mission7_what"
+STR_SET07_MISSION0_WHERE = "dat_str_set07_mission0_where"
+STR_SET07_MISSION0_WHAT = "dat_str_set07_mission0_what"
+STR_SET07_MISSION1_WHERE = "dat_str_set07_mission1_where"
+STR_SET07_MISSION1_WHAT = "dat_str_set07_mission1_what"
+STR_SET07_MISSION2_WHERE = "dat_str_set07_mission2_where"
+STR_SET07_MISSION2_WHAT = "dat_str_set07_mission2_what"
+STR_SET07_MISSION3_WHERE = "dat_str_set07_mission3_where"
+STR_SET07_MISSION3_WHAT = "dat_str_set07_mission3_what"
+STR_SET07_MISSION4_WHERE = "dat_str_set07_mission4_where"
+STR_SET07_MISSION4_WHAT = "dat_str_set07_mission4_what"
+STR_SET07_MISSION5_WHERE = "dat_str_set07_mission5_where"
+STR_SET07_MISSION5_WHAT = "dat_str_set07_mission5_what"
+STR_SET07_MISSION6_WHERE = "dat_str_set07_mission6_where"
+STR_SET07_MISSION6_WHAT = "dat_str_set07_mission6_what"
+STR_SET07_MISSION7_WHERE = "dat_str_set07_mission7_where"
+STR_SET07_MISSION7_WHAT = "dat_str_set07_mission7_what"
+STR_SET08_MISSION0_WHERE = "dat_str_set08_mission0_where"
+STR_SET08_MISSION0_WHAT = "dat_str_set08_mission0_what"
+STR_SET08_MISSION1_WHERE = "dat_str_set08_mission1_where"
+STR_SET08_MISSION1_WHAT = "dat_str_set08_mission1_what"
+STR_SET08_MISSION2_WHERE = "dat_str_set08_mission2_where"
+STR_SET08_MISSION2_WHAT = "dat_str_set08_mission2_what"
+STR_SET08_MISSION3_WHERE = "dat_str_set08_mission3_where"
+STR_SET08_MISSION3_WHAT = "dat_str_set08_mission3_what"
+STR_SET08_MISSION4_WHERE = "dat_str_set08_mission4_where"
+STR_SET08_MISSION4_WHAT = "dat_str_set08_mission4_what"
+STR_SET08_MISSION5_WHERE = "dat_str_set08_mission5_where"
+STR_SET08_MISSION5_WHAT = "dat_str_set08_mission5_what"
+STR_SET08_MISSION6_WHERE = "dat_str_set08_mission6_where"
+STR_SET08_MISSION6_WHAT = "dat_str_set08_mission6_what"
+STR_SET08_MISSION7_WHERE = "dat_str_set08_mission7_where"
+STR_SET08_MISSION7_WHAT = "dat_str_set08_mission7_what"
+STR_SET09_MISSION0_WHERE = "dat_str_set09_mission0_where"
+STR_SET09_MISSION0_WHAT = "dat_str_set09_mission0_what"
+STR_SET09_MISSION1_WHERE = "dat_str_set09_mission1_where"
+STR_SET09_MISSION1_WHAT = "dat_str_set09_mission1_what"
+STR_SET09_MISSION2_WHERE = "dat_str_set09_mission2_where"
+STR_SET09_MISSION2_WHAT = "dat_str_set09_mission2_what"
+STR_SET09_MISSION3_WHERE = "dat_str_set09_mission3_where"
+STR_SET09_MISSION3_WHAT = "dat_str_set09_mission3_what"
+STR_SET09_MISSION4_WHERE = "dat_str_set09_mission4_where"
+STR_SET09_MISSION4_WHAT = "dat_str_set09_mission4_what"
+STR_SET09_MISSION5_WHERE = "dat_str_set09_mission5_where"
+STR_SET09_MISSION5_WHAT = "dat_str_set09_mission5_what"
+STR_SET09_MISSION6_WHERE = "dat_str_set09_mission6_where"
+STR_SET09_MISSION6_WHAT = "dat_str_set09_mission6_what"
+STR_SET09_MISSION7_WHERE = "dat_str_set09_mission7_where"
+STR_SET09_MISSION7_WHAT = "dat_str_set09_mission7_what"
+STR_SET10_MISSION0_WHERE = "dat_str_set10_mission0_where"
+STR_SET10_MISSION0_WHAT = "dat_str_set10_mission0_what"
+STR_SET10_MISSION1_WHERE = "dat_str_set10_mission1_where"
+STR_SET10_MISSION1_WHAT = "dat_str_set10_mission1_what"
+STR_SET10_MISSION2_WHERE = "dat_str_set10_mission2_where"
+STR_SET10_MISSION2_WHAT = "dat_str_set10_mission2_what"
+STR_SET10_MISSION3_WHERE = "dat_str_set10_mission3_where"
+STR_SET10_MISSION3_WHAT = "dat_str_set10_mission3_what"
+STR_SET10_MISSION4_WHERE = "dat_str_set10_mission4_where"
+STR_SET10_MISSION4_WHAT = "dat_str_set10_mission4_what"
+STR_SET10_MISSION5_WHERE = "dat_str_set10_mission5_where"
+STR_SET10_MISSION5_WHAT = "dat_str_set10_mission5_what"
+STR_SET10_MISSION6_WHERE = "dat_str_set10_mission6_where"
+STR_SET10_MISSION6_WHAT = "dat_str_set10_mission6_what"
+STR_SET10_MISSION7_WHERE = "dat_str_set10_mission7_where"
+STR_SET10_MISSION7_WHAT = "dat_str_set10_mission7_what"
+STR_SET11_MISSION0_WHERE = "dat_str_set11_mission0_where"
+STR_SET11_MISSION0_WHAT = "dat_str_set11_mission0_what"
+STR_SET11_MISSION1_WHERE = "dat_str_set11_mission1_where"
+STR_SET11_MISSION1_WHAT = "dat_str_set11_mission1_what"
+STR_SET11_MISSION2_WHERE = "dat_str_set11_mission2_where"
+STR_SET11_MISSION2_WHAT = "dat_str_set11_mission2_what"
+STR_SET11_MISSION3_WHERE = "dat_str_set11_mission3_where"
+STR_SET11_MISSION3_WHAT = "dat_str_set11_mission3_what"
+STR_SET11_MISSION4_WHERE = "dat_str_set11_mission4_where"
+STR_SET11_MISSION4_WHAT = "dat_str_set11_mission4_what"
+STR_SET11_MISSION5_WHERE = "dat_str_set11_mission5_where"
+STR_SET11_MISSION5_WHAT = "dat_str_set11_mission5_what"
+STR_SET11_MISSION6_WHERE = "dat_str_set11_mission6_where"
+STR_SET11_MISSION6_WHAT = "dat_str_set11_mission6_what"
+STR_SET11_MISSION7_WHERE = "dat_str_set11_mission7_where"
+STR_SET11_MISSION7_WHAT = "dat_str_set11_mission7_what"
+STR_SET12_MISSION0_WHERE = "dat_str_set12_mission0_where"
+STR_SET12_MISSION0_WHAT = "dat_str_set12_mission0_what"
+STR_SET12_MISSION1_WHERE = "dat_str_set12_mission1_where"
+STR_SET12_MISSION1_WHAT = "dat_str_set12_mission1_what"
+STR_SET12_MISSION2_WHERE = "dat_str_set12_mission2_where"
+STR_SET12_MISSION2_WHAT = "dat_str_set12_mission2_what"
+STR_SET12_MISSION3_WHERE = "dat_str_set12_mission3_where"
+STR_SET12_MISSION3_WHAT = "dat_str_set12_mission3_what"
+STR_SET12_MISSION4_WHERE = "dat_str_set12_mission4_where"
+STR_SET12_MISSION4_WHAT = "dat_str_set12_mission4_what"
+STR_SET12_MISSION5_WHERE = "dat_str_set12_mission5_where"
+STR_SET12_MISSION5_WHAT = "dat_str_set12_mission5_what"
+STR_SET12_MISSION6_WHERE = "dat_str_set12_mission6_where"
+STR_SET12_MISSION6_WHAT = "dat_str_set12_mission6_what"
+STR_SET12_MISSION7_WHERE = "dat_str_set12_mission7_where"
+STR_SET12_MISSION7_WHAT = "dat_str_set12_mission7_what"
+STR_SET13_MISSION0_WHERE = "dat_str_set13_mission0_where"
+STR_SET13_MISSION0_WHAT = "dat_str_set13_mission0_what"
+STR_SET13_MISSION1_WHERE = "dat_str_set13_mission1_where"
+STR_SET13_MISSION1_WHAT = "dat_str_set13_mission1_what"
+STR_SET13_MISSION2_WHERE = "dat_str_set13_mission2_where"
+STR_SET13_MISSION2_WHAT = "dat_str_set13_mission2_what"
+STR_SET13_MISSION3_WHERE = "dat_str_set13_mission3_where"
+STR_SET13_MISSION3_WHAT = "dat_str_set13_mission3_what"
+STR_SET13_MISSION4_WHERE = "dat_str_set13_mission4_where"
+STR_SET13_MISSION4_WHAT = "dat_str_set13_mission4_what"
+STR_SET13_MISSION5_WHERE = "dat_str_set13_mission5_where"
+STR_SET13_MISSION5_WHAT = "dat_str_set13_mission5_what"
+STR_SET13_MISSION6_WHERE = "dat_str_set13_mission6_where"
+STR_SET13_MISSION6_WHAT = "dat_str_set13_mission6_what"
+STR_SET13_MISSION7_WHERE = "dat_str_set13_mission7_where"
+STR_SET13_MISSION7_WHAT = "dat_str_set13_mission7_what"
+STR_SET14_MISSION0_WHERE = "dat_str_set14_mission0_where"
+STR_SET14_MISSION0_WHAT = "dat_str_set14_mission0_what"
+STR_SET14_MISSION1_WHERE = "dat_str_set14_mission1_where"
+STR_SET14_MISSION1_WHAT = "dat_str_set14_mission1_what"
+STR_SET14_MISSION2_WHERE = "dat_str_set14_mission2_where"
+STR_SET14_MISSION2_WHAT = "dat_str_set14_mission2_what"
+STR_SET14_MISSION3_WHERE = "dat_str_set14_mission3_where"
+STR_SET14_MISSION3_WHAT = "dat_str_set14_mission3_what"
+STR_SET14_MISSION4_WHERE = "dat_str_set14_mission4_where"
+STR_SET14_MISSION4_WHAT = "dat_str_set14_mission4_what"
+STR_SET14_MISSION5_WHERE = "dat_str_set14_mission5_where"
+STR_SET14_MISSION5_WHAT = "dat_str_set14_mission5_what"
+STR_SET14_MISSION6_WHERE = "dat_str_set14_mission6_where"
+STR_SET14_MISSION6_WHAT = "dat_str_set14_mission6_what"
+STR_SET14_MISSION7_WHERE = "dat_str_set14_mission7_where"
+STR_SET14_MISSION7_WHAT = "dat_str_set14_mission7_what"
+STR_SET15_MISSION0_WHERE = "dat_str_set15_mission0_where"
+STR_SET15_MISSION0_WHAT = "dat_str_set15_mission0_what"
+STR_SET15_MISSION1_WHERE = "dat_str_set15_mission1_where"
+STR_SET15_MISSION1_WHAT = "dat_str_set15_mission1_what"
+STR_SET15_MISSION2_WHERE = "dat_str_set15_mission2_where"
+STR_SET15_MISSION2_WHAT = "dat_str_set15_mission2_what"
+STR_SET15_MISSION3_WHERE = "dat_str_set15_mission3_where"
+STR_SET15_MISSION3_WHAT = "dat_str_set15_mission3_what"
+STR_SET15_MISSION4_WHERE = "dat_str_set15_mission4_where"
+STR_SET15_MISSION4_WHAT = "dat_str_set15_mission4_what"
+STR_SET15_MISSION5_WHERE = "dat_str_set15_mission5_where"
+STR_SET15_MISSION5_WHAT = "dat_str_set15_mission5_what"
+STR_SET15_MISSION6_WHERE = "dat_str_set15_mission6_where"
+STR_SET15_MISSION6_WHAT = "dat_str_set15_mission6_what"
+STR_SET15_MISSION7_WHERE = "dat_str_set15_mission7_where"
+STR_SET15_MISSION7_WHAT = "dat_str_set15_mission7_what"
+STR_GENDER_PIC = "dat_str_gender_pic"
+STR_SELECT_ONE_MAXIMILLIAN = "dat_str_select_one_maximillian"
+STR_WHICH_DIFFICULTY_LEVEL = "dat_str_which_difficulty_level"
+BLOCK_1CFD = "asm_block_1cfd"
+BLOCK_233E = "dat_key_plot_start"
+STR_BRIEFING_PAN = "dat_str_briefing_pan"
+STR_PLOT_TXT = "dat_str_plot_txt"
+STR_MAX_REMINGTON_S = "dat_str_max_remington_s"
+STR_MATTRESS_FULL_CASH = "dat_str_mattress_full_cash"
+STR_PL000A = "dat_str_pl000a"
+STR_PL000A_2 = "dat_str_pl000a_2"
+STR_BRIEFING_PAN_2 = "dat_str_briefing_pan_2"
+STR_PLOT_TXT_2 = "dat_str_plot_txt_2"
+STR_MAX_S_CODE_NAME = "dat_str_max_s_code_name"
+STR_WHICH_DIFFICULTY_LEVEL_2 = "dat_str_which_difficulty_level_2"
+STR_COMBAT = "dat_str_combat"
+STR_DRIVING = "dat_str_driving"
+STR_CRYPTOGRAPHY = "dat_str_cryptography"
+STR_ELECTRONICS = "dat_str_electronics"
+STR_STAMINA = "dat_str_stamina"
+STR_TRAINING_PIC = "dat_str_training_pic"
+BLOCK_2464 = "dat_str_blank"
+STR_PRACTICE = "dat_str_practice"
+STR_TRAINING = "dat_str_training"
+STR_GOOD = "dat_str_good"
+STR_EXCELLENT = "dat_str_excellent"
+STR_AWESOME = "dat_str_awesome"
+BLOCK_24B0 = "dat_palette_badge"
+STR_MAX_I_M_SURE = "dat_str_max_i_m_sure"
+STR_AMONG_THESE_FACES = "dat_str_among_these_faces"
+STR_BRIEFING_PAN_3 = "dat_str_briefing_pan_3"
+STR_LOOKS_LIKE_ABOUT_WRAPS = "dat_str_looks_like_about_wraps"
+STR_WE_VE_BEEN_ABLE = "dat_str_we_ve_been_able"
+STR_ICONS_PIC = "dat_str_icons_pic"
+BLOCK_259B = "dat_key_plot_zero"
+NOTE_01 = "dat_note_01"
+NOTE_02 = "dat_note_02"
+NOTE_03 = "dat_note_03"
+NOTE_04 = "dat_note_04"
+NOTE_05 = "dat_note_05"
+NOTE_06 = "dat_note_06"
+NOTE_07 = "dat_note_07"
+NOTE_08 = "dat_note_08"
+NOTE_09 = "dat_note_09"
+NOTE_10 = "dat_note_10"
+NOTE_11 = "dat_note_11"
+NOTE_12 = "dat_note_12"
+NOTE_13 = "dat_note_13"
+NOTE_14 = "dat_note_14"
+NOTE_15 = "dat_note_15"
+NOTE_16 = "dat_note_16"
+NOTE_17 = "dat_note_17"
+NOTE_18 = "dat_note_18"
+BLOCK_28C0 = "asm_plot_key"
+STR_SENT_MESSAGE = "dat_str_sent_message"
+BLOCK_28E5 = "dat_str_caret"
+STR_SENT_MESSAGE_2 = "dat_str_sent_message_2"
+STR_SENT_PACKAGE = "dat_str_sent_package"
+BLOCK_290A = "dat_str_empty_4"
+STR_NOW_HAS = "dat_str_now_has"
+BLOCK_292A = "dat_str_empty_5"
+STR_LEFT = "dat_str_left"
+STR_TRAVELED = "dat_str_traveled"
+STR_BROKE = "dat_str_broke"
+BLOCK_2954 = "dat_str_slash_3"
+STR_ARRESTED = "dat_str_arrested"
+STR_CONFISCATED = "dat_str_confiscated"
+STR_WENT_INTO_HIDING = "dat_str_went_into_hiding"
+STR_MISSION_COMPLETED = "dat_str_mission_completed"
+STR_UNABLE = "dat_str_unable"
+STR_COMPLETE_MISSION = "dat_str_complete_mission"
+STR_CAME_OUT_HIDING = "dat_str_came_out_hiding"
+STR_ESCAPED_FROM_JAIL = "dat_str_escaped_from_jail"
+STR_RELEASED_BY_EXCHANGE = "dat_str_released_by_exchange"
+STR_TURNED = "dat_str_turned"
+BLOCK_2A03 = "dat_str_space_2"
+STR_EFFICIENCY_REPORT = "dat_str_efficiency_report"
+BLOCK_2A2C = "dat_str_org_sep"
+STR_AT_LARGE = "dat_str_at_large"
+STR_ARRESTED_2 = "dat_str_arrested_2"
+STR_TURNED_2 = "dat_str_turned_2"
+BLOCK_2A4A = "dat_str_ep_0"
+STR_CONFISCATED_2 = "dat_str_confiscated_2"
+BLOCK_2A62 = "dat_str_ep_50_2"
+STR_NOT_FOUND = "dat_str_not_found"
+BLOCK_2A72 = "dat_str_of_50"
+STR_PREVENTED_CRIME = "dat_str_prevented_crime"
+BLOCK_2A90 = "dat_str_ep_100"
+STR_DOUBLE_AGENT_S = "dat_str_double_agent_s"
+STR_REMAINED_UNDETECTED = "dat_str_remained_undetected"
+STR_WITHIN_CIA = "dat_str_within_cia"
+BLOCK_2AD2 = "dat_str_ep_slash"
+STR_EFFICIENCY_RATING = "dat_str_efficiency_rating"
+BLOCK_2AEA = "dat_str_dashes"
+STR_KIDNAPPING = "dat_str_kidnapping"
+STR_THEFT = "dat_str_theft"
+STR_ASSASSINATION = "dat_str_assassination"
+STR_DRUG_SMUGGLE = "dat_str_drug_smuggle"
+STR_THEFT_2 = "dat_str_theft_2"
+STR_PHOTO = "dat_str_photo"
+STR_BOMBING = "dat_str_bombing"
+STR_DATACRIME = "dat_str_datacrime"
+STR_TERRORIST_ATTACK = "dat_str_terrorist_attack"
+STR_FORGERY = "dat_str_forgery"
+STR_JAIL_BREAK = "dat_str_jail_break"
+STR_BLACKMAIL = "dat_str_blackmail"
+STR_MANUFACTURE = "dat_str_manufacture"
+STR_PFO = "dat_str_pfo"
+STR_M18 = "dat_str_m18"
+STR_JAMAICAN_GANG = "dat_str_jamaican_gang"
+STR_HAITIAN_JUNTA = "dat_str_haitian_junta"
+STR_RED_SEPTEMBER = "dat_str_red_september"
+STR_IRAQI_SP = "dat_str_iraqi_sp"
+STR_MUSLIM_JIHAD = "dat_str_muslim_jihad"
+STR_SHINING_WAY = "dat_str_shining_way"
+STR_TUPAMAROS = "dat_str_tupamaros"
+STR_COLOMBIAN_CARTEL = "dat_str_colombian_cartel"
+STR_MAFIA = "dat_str_mafia"
+STR_LIBYAN_EMB = "dat_str_libyan_emb"
+STR_FLN = "dat_str_fln"
+STR_AMAZON_CARTEL = "dat_str_amazon_cartel"
+STR_MERCENARIES = "dat_str_mercenaries"
+STR_DEATH_SQUADS = "dat_str_death_squads"
+STR_REV_GUARDS = "dat_str_rev_guards"
+STR_UNIONCORSIQUE = "dat_str_unioncorsique"
+STR_PIFA = "dat_str_pifa"
+STR_RED_ARMY = "dat_str_red_army"
+STR_RED_BATTALION = "dat_str_red_battalion"
+STR_DIRECT_ACTION = "dat_str_direct_action"
+STR_STASSI = "dat_str_stassi"
+STR_PRC = "dat_str_prc"
+STR_MARXISTS = "dat_str_marxists"
+STR_DIGNITY_BTTN = "dat_str_dignity_bttn"
+STR_CAREER = "dat_str_career"
+STR_CAREER_2 = "dat_str_career_2"
+STR_MAX = "dat_str_max"
+STR_REMINGTON = "dat_str_remington"
+STR_CASE = "dat_str_case"
+BLOCK_2CBF = "dat_str_comma"
+STR_ARRESTS = "dat_str_arrests"
+BLOCK_2CD1 = "dat_str_ep_colon"
+STR_COULDN_T_STOP = "dat_str_couldn_t_stop"
+STR_PREVENTED = "dat_str_prevented"
+BLOCK_2CF9 = "dat_str_slash_4"
+STR_ARRESTED_3 = "dat_str_arrested_3"
+STR_MASTERMIND = "dat_str_mastermind"
+STR_CAREER_3 = "dat_str_career_3"
+STR_ARRESTED_MASTERMINDS = "dat_str_arrested_masterminds"
+STR_AGENTS = "dat_str_agents"
+STR_CAREER_4 = "dat_str_career_4"
+STR_MASTERMINDS_ARRESTED = "dat_str_masterminds_arrested"
+STR_GENDER_PIC_2 = "dat_str_gender_pic_2"
+STR_MAX_2 = "dat_str_max_2"
+STR_REMINGTON_2 = "dat_str_remington_2"
+STR_ARRESTED_4 = "dat_str_arrested_4"
+STR_ARRESTED_5 = "dat_str_arrested_5"
+BLOCK_2DD5 = "asm_block_2dd5"
+STR_LAU = "dat_str_lau"
+STR_OFF = "dat_str_off"
+STR_BCH = "dat_str_bch"
+STR_CAS = "dat_str_cas"
+STR_AFTER_DIFFICULT_FEW = "dat_str_after_difficult_few"
+STR_WORD_LATEST_CASE_SEEMS = "dat_str_word_latest_case_seems"
+STR_AFTER_SUCCESSFUL_CASE = "dat_str_after_successful_case"
+STR_RE_FEELING_INVINCIBLE = "dat_str_re_feeling_invincible"
+STR_FINAL4_CAT = "dat_str_final4_cat"
+STR_FINAL3_CAT = "dat_str_final3_cat"
+STR_BACK_PIC = "dat_str_back_pic"
+STR_HAND = "dat_str_hand"
+STR_F_PIC = "dat_str_f_pic"
+STR_M_PIC = "dat_str_m_pic"
+STR_LAUDUDE1_PIC = "dat_str_laudude1_pic"
+STR_DUDE = "dat_str_dude"
+STR_BABE = "dat_str_babe"
+STR_PIC = "dat_str_pic"
+BLOCK_2F35 = "asm_block_2f35"
+STR_RED_HERRING = "dat_str_red_herring"
+STR_WE_HAVE_INDICATIONS = "dat_str_we_have_indications"
+STR_OPERATION_PREPARATION = "dat_str_operation_preparation"
+STR_EUROPE = "dat_str_europe"
+STR_AFRICA_MIDDLE_EAST = "dat_str_africa_middle_east"
+STR_CENTRAL_AMERICA = "dat_str_central_america"
+STR_THE = "dat_str_the"
+STR_KNOWN_INVOLVED = "dat_str_known_involved"
+STR_MISSION_PREVENT = "dat_str_mission_prevent"
+STR_CAPTURE_AS_MANY = "dat_str_capture_as_many"
+STR_CAUTION_ONE_MORE_DOUBLE = "dat_str_caution_one_more_double"
+STR_I_M_AFRAID_RE = "dat_str_i_m_afraid_re"
+STR_PERHAPS_SHOULD_PRACTICE = "dat_str_perhaps_should_practice"
+STR_OK_RE_CLEARED = "dat_str_ok_re_cleared"
+STR_HERE_SOME_INFO_WE = "dat_str_here_some_info_we"
+STR_WE_THINK_S_LINKED = "dat_str_we_think_s_linked"
+STR_BRIEFING_PAN_4 = "dat_str_briefing_pan_4"
+STR_10_DTA = "dat_str_10_dta"
+BLOCK_3275 = "asm_block_3275"
+STR_WORLD = "dat_str_world"
+BLOCK_328D = "asm_block_328d"
+STR_FAME_DTA = "dat_str_fame_dta"
+STR_FAME_DTA_2 = "dat_str_fame_dta_2"
+STR_FAME_DTA_3 = "dat_str_fame_dta_3"
+STR_FAME_DTA_4 = "dat_str_fame_dta_4"
+STR_HALL_FAME = "dat_str_hall_fame"
+STR_COVERT_ACTION = "dat_str_covert_action"
+STR_HALL_FAME_2 = "dat_str_hall_fame_2"
+BLOCK_32DA = "dat_str_dashes_2"
+STR_MAX_3 = "dat_str_max_3"
+STR_REMINGTON_CASE = "dat_str_remington_case"
+BLOCK_32FD = "dat_str_space_4"
+BLOCK_3319 = "dat_str_dashes_3"
+BLOCK_3325 = "asm_block_3325"
+STR_TIED = "dat_str_tied"
+STR_REGISTERED = "dat_str_registered"
+STR_ACQUIRED_BY = "dat_str_acquired_by"
+STR_DELIVERED = "dat_str_delivered"
+STR_REQUESTED = "dat_str_requested"
+STR_TIED_2 = "dat_str_tied_2"
+STR_REGISTERED_2 = "dat_str_registered_2"
+STR_TRACED = "dat_str_traced"
+STR_SMUGGLED_INTO = "dat_str_smuggled_into"
+STR_REQUESTED_2 = "dat_str_requested_2"
+STR_TIED_3 = "dat_str_tied_3"
+STR_RENTED_BY = "dat_str_rented_by"
+STR_FREQUENTED_BY = "dat_str_frequented_by"
+STR_IS_IN = "dat_str_is_in"
+STR_LINKED = "dat_str_linked"
+STR_PURCHASED_BY = "dat_str_purchased_by"
+STR_PURCHASED_BY_2 = "dat_str_purchased_by_2"
+STR_TRACED_2 = "dat_str_traced_2"
+STR_PURCHASED = "dat_str_purchased"
+STR_LINKED_2 = "dat_str_linked_2"
+STR_RECEIVED_BY = "dat_str_received_by"
+STR_SIGNED_BY = "dat_str_signed_by"
+STR_TRACED_3 = "dat_str_traced_3"
+STR_SENT = "dat_str_sent"
+STR_REFERS = "dat_str_refers"
+STR_WITHDRAWN_BY = "dat_str_withdrawn_by"
+STR_WITHDRAWN_BY_2 = "dat_str_withdrawn_by_2"
+STR_PAID_BY = "dat_str_paid_by"
+STR_TRANSACTION = "dat_str_transaction"
+STR_REQUESTED_3 = "dat_str_requested_3"
+STR_WITHDRAWN_BY_3 = "dat_str_withdrawn_by_3"
+STR_WITHDRAWN_BY_4 = "dat_str_withdrawn_by_4"
+STR_PAID_BY_2 = "dat_str_paid_by_2"
+STR_TRANSACTION_2 = "dat_str_transaction_2"
+STR_REQUESTED_4 = "dat_str_requested_4"
+STR_ASSIGNED = "dat_str_assigned"
+STR_ASSIGNED_2 = "dat_str_assigned_2"
+STR_ASSIGNED_3 = "dat_str_assigned_3"
+STR_USED = "dat_str_used"
+STR_ASSIGNED_4 = "dat_str_assigned_4"
+STR_JAN = "dat_str_jan"
+STR_FEB = "dat_str_feb"
+STR_MAR = "dat_str_mar"
+STR_APR = "dat_str_apr"
+STR_MAY = "dat_str_may"
+STR_JUN = "dat_str_jun"
+STR_JUL = "dat_str_jul"
+STR_AUG = "dat_str_aug"
+STR_SEP = "dat_str_sep"
+STR_OCT = "dat_str_oct"
+STR_NOV = "dat_str_nov"
+STR_DEC = "dat_str_dec"
+STR_CODED_MESSAGE = "shd_str_coded_message"
+STR_MEETING_NOTES = "shd_str_meeting_notes"
+STR_NEW_INFORMATION = "shd_str_new_information"
+STR_ADDITIONAL_INFORMATION = "shd_str_additional_information"
+BLOCK_35D8 = "shd_str_space_after_name"
+STR_OF_THE = "shd_str_of_the"
+BLOCK_35EE = "shd_str_in"
+BLOCK_364C = "asm_block_364c"
+BLOCK_3695 = "asm_block_3695"
+STR_HAS_BEEN_IDENTIFIED_AS = "shd_str_has_been_identified_as"
+STR_HAS_BEEN_POSITIVELY = "shd_str_has_been_positively"
+BLOCK_36F0 = "shd_str_newline_2"
+STR_WE_HAVE_ACQUIRED = "shd_str_we_have_acquired"
+BLOCK_3714 = "shd_str_stop"
+STR_HAS_BEEN_SPOTTED = "shd_str_has_been_spotted"
+BLOCK_372E = "shd_str_newline_3"
+STR_HAS_BEEN_IDENTIFIED_AS_2 = "shd_str_has_been_identified_as_org"
+BLOCK_375A = "shd_str_newline_4"
+STR_WE_HAVE_OBTAINED = "shd_str_we_have_obtained"
+BLOCK_3790 = "shd_str_newline_5"
+STR_WE_HAVE_DETERMINED_RANK = "shd_str_we_have_determined_rank"
+BLOCK_37B2 = "shd_str_newline_6"
+STR_WE_FOUND_RECRUITING = "shd_str_we_found_recruiting"
+BLOCK_37DB = "shd_str_newline_7"
+STR_WE_FOUND_RECRUITING_2 = "shd_str_we_found_recruiting_2"
+BLOCK_3804 = "shd_str_newline_8"
+STR_RECRUIT = "dat_str_recruit"
+STR_OPERATIVE = "dat_str_operative"
+STR_TECHNICIAN = "dat_str_technician"
+STR_AGENT = "dat_str_agent"
+STR_ORGANIZER = "dat_str_organizer"
+STR_SPECIAL_AGENT = "dat_str_special_agent"
+STR_GROUP_LEADER = "dat_str_group_leader"
+STR_MASTERMIND_2 = "dat_str_mastermind_2"
+STR_CAR = "dat_str_car"
+STR_WPN = "dat_str_wpn"
+STR_ADR = "dat_str_adr"
+STR_TKT = "dat_str_tkt"
+STR_MSG = "dat_str_msg"
+STR_FCE = "dat_str_fce"
+STR_FORD_ESCORT = "dat_str_ford_escort"
+STR_CHEVY_NOVA = "dat_str_chevy_nova"
+STR_TOYOTA_TERCEL = "dat_str_toyota_tercel"
+STR_VW_GOLF = "dat_str_vw_golf"
+STR_MAZDA_RX7 = "dat_str_mazda_rx7"
+STR_HONDA_CIVIC = "dat_str_honda_civic"
+STR_PEUGOT = "dat_str_peugot"
+STR_CHRYSLER = "dat_str_chrysler"
+STR_WALTHER_PPK = "dat_str_walther_ppk"
+STR_SMITH_WESSON_9MM = "dat_str_smith_wesson_9mm"
+STR_BERRETA_M92S = "dat_str_berreta_m92s"
+STR_BROWNING_9MM = "dat_str_browning_9mm"
+STR_HECHLER_KOCH_VP = "dat_str_hechler_koch_vp"
+STR_LUGER_9MM = "dat_str_luger_9mm"
+STR_COLT_45 = "dat_str_colt_45"
+STR_357_MAGNUM = "dat_str_357_magnum"
+STR_RUE_LAVERNE = "dat_str_rue_laverne"
+STR_HOCHSTRASSE = "dat_str_hochstrasse"
+STR_MAIN_ST = "dat_str_main_st"
+STR_WEBLEY_CT = "dat_str_webley_ct"
+STR_HOLMLEY_PARK = "dat_str_holmley_park"
+STR_OBENSGRABBE = "dat_str_obensgrabbe"
+STR_LA_PAZ_BLVD = "dat_str_la_paz_blvd"
+STR_NORTH_AVE = "dat_str_north_ave"
+STR_PANAM = "dat_str_panam"
+STR_UNITED = "dat_str_united"
+STR_SABENA = "dat_str_sabena"
+STR_LUFTHANSA = "dat_str_lufthansa"
+STR_EL_AL = "dat_str_el_al"
+STR_KLM = "dat_str_klm"
+STR_SWISSAIR = "dat_str_swissair"
+STR_BOAC = "dat_str_boac"
+STR_W_UNION = "dat_str_w_union"
+STR_RCA = "dat_str_rca"
+STR_TELEX = "dat_str_telex"
+STR_AMTEL = "dat_str_amtel"
+STR_INTERTEL = "dat_str_intertel"
+STR_SATCOMM = "dat_str_satcomm"
+STR_TELTRON = "dat_str_teltron"
+STR_COMLINK = "dat_str_comlink"
+STR_SWISS_PASSPORT = "dat_str_swiss_passport"
+STR_INTERPOL_ID = "dat_str_interpol_id"
+STR_BAHAMIAN_PASSPORT = "dat_str_bahamian_passport"
+STR_GOLD_CARD = "dat_str_gold_card"
+STR_SWEDISH_PASSPORT = "dat_str_swedish_passport"
+STR_GREEN_CARD = "dat_str_green_card"
+STR_VISTA_CARD = "dat_str_vista_card"
+STR_LIBERIAN_PASSPORT = "dat_str_liberian_passport"
+STR_CLANDESTINE_PHOTO = "dat_str_clandestine_photo"
+STR_ELECTRONIC_WIRETAP = "dat_str_electronic_wiretap"
+STR_COVERT_SURVEILLANCE = "dat_str_covert_surveillance"
+STR_FILE_RECORD_SEARCH = "dat_str_file_record_search"
+STR_LOCAL_INFORMANT = "dat_str_local_informant"
+STR_INTERPOL_DATA_BASE = "dat_str_interpol_data_base"
+STR_LOCAL_AUTHORITIES = "dat_str_local_authorities"
+STR_CLUE = "shd_str_clue"
+BLOCK_3C06 = "shd_str_source_2"
+BLOCK_3C10 = "shd_str_slash_source"
+BLOCK_3C1F = "shd_str_related_2"
+BLOCK_3C2F = "shd_str_newline_10"
+STR_NONE = "shd_str_none"
+BLOCK_3C39 = "asm_block_3c39"
+MSG_KEY = "dat_msg_key"
+MSG_NAME = "dat_msg_name"
+MSG_ORG = "dat_msg_org"
+MSG_CITY = "dat_msg_city"
+MSG_ROLE = "dat_msg_role"
+BLOCK_3C64 = "shd_key_clue"
+STR_CLUES_TXT = "shd_str_clues_txt"
+BLOCK_3C75 = "asm_block_3c75"
+STR_H_M_S_X = "shd_clue_keys"
+STR_FACE = "shd_str_face"
+STR_VALKERIE = "shd_str_valkerie"
+STR_THUNDERBOLT = "shd_str_thunderbolt"
+BLOCK_3CA2 = "shd_str_00"
+STR_CLUES_TXT_2 = "shd_str_clues_txt_2"
+BLOCK_3CC6 = "shd_str_empty_dossier"
+STR_NAME = "shd_str_name"
+STR_RANK = "shd_str_rank"
+STR_ORG = "shd_str_org"
+STR_CITY = "shd_str_city"
+STR_RECRUITED = "shd_str_recruited"
+BLOCK_3CEE = "shd_str_by"
+STR_ROLE = "shd_str_role"
+STR_ROLE_2 = "shd_str_role_2"
+STR_ROLE_3 = "shd_str_role_3"
+STR_UNDER_ARREST = "shd_str_under_arrest"
+STR_HIDING = "shd_str_hiding"
+STR_TURNED_3 = "shd_str_turned"
+BLOCK_3D49 = "shd_str_empty_dossier_line"
+STR_MESSAGE_NOT_DECODED = "shd_str_message_not_decoded"
+STR_MORE = "shd_str_more"
+BLOCK_3D6C = "shd_str_empty_dossier_page"
+STR_RCVD_MSG_FM = "shd_str_rcvd_msg_fm"
+STR_SENT_MSG = "shd_str_sent_msg"
+BLOCK_3D85 = "shd_str_space_9"
+STR_SOMEONE = "shd_str_someone"
+STR_OF_THE_2 = "shd_str_of_the_2"
+BLOCK_3D99 = "shd_str_in_4"
+STR_VICTIM = "dat_str_victim"
+MSG_SNDORG = "dat_msg_sndorg"
+MSG_RCVORG = "dat_msg_rcvorg"
+MSG_SNDLOC = "dat_msg_sndloc"
+MSG_RCVLOC = "dat_msg_rcvloc"
+MSG_HLPORG = "dat_msg_hlporg"
+STR_OBJECT = "dat_str_object"
+BLOCK_3EE6 = "shd_str_mode_read_text"
+STR_INFORMATION_REQUIRES = "shd_str_information_requires"
+STR_SLOC00_2 = "shd_str_sloc00"
+STR_TEXT_DTA_6 = "shd_str_text_dta_sloc"
+STR_RLOC00_2 = "shd_str_rloc00"
+STR_TEXT_DTA_7 = "shd_str_text_dta_rloc"
+STR_SORG00_2 = "shd_str_sorg00"
+STR_TEXT_DTA_8 = "shd_str_text_dta_sorg"
+STR_RORG00_2 = "shd_str_rorg00"
+STR_TEXT_DTA_9 = "shd_str_text_dta_rorg"
+BLOCK_3F74 = "shd_str_mark_80"
+STR_TEXT_DTA_10 = "shd_str_text_dta_msg"
+BLOCK_3F7F = "shd_str_mark_8f"
+STR_FLUF00_2 = "shd_str_fluf00"
+STR_TEXT_DTA_11 = "shd_str_text_dta_fluf"
+STR_ALRT00 = "shd_str_alrt00"
+STR_TEXT_DTA_12 = "shd_str_text_dta_help"
+STR_AIDD00 = "shd_str_aidd00"
+STR_TEXT_DTA_13 = "shd_str_text_dta_aidd"
+STR_TEXT_DTA_14 = "shd_str_text_dta_event"
+STR_MSG0000 = "shd_str_msg0000"
+STR_FACESF_PIC = "shd_str_facesf_pic"
+STR_FACES_PIC = "shd_str_faces_pic"
+BLOCK_3FDC = "shd_str_newline_wrap"
+STR_HIDEOUT = "shd_str_hideout"
+STR_AGENT_2 = "shd_str_agent"
+STR_SAFEHOUSE = "shd_str_safehouse"
+STR_ACTIVE_CEL = "shd_str_active_cel"
+STR_OFFICE = "shd_str_office"
+STR_AGENT_3 = "shd_str_agent_3"
+STR_GEORGINA = "dat_str_georgina"
+STR_ARKADA = "dat_str_arkada"
+STR_YURIA = "dat_str_yuria"
+STR_ANATOLA = "dat_str_anatola"
+STR_ANDRA = "dat_str_andra"
+STR_NIKOLA = "dat_str_nikola"
+STR_VIKTORA = "dat_str_viktora"
+STR_IVANA = "dat_str_ivana"
+STR_NATASHA = "dat_str_natasha"
+STR_SVETLANA = "dat_str_svetlana"
+STR_ANNA = "dat_str_anna"
+STR_LUDMILLA = "dat_str_ludmilla"
+STR_LEXANDRA = "dat_str_lexandra"
+STR_KATERINA = "dat_str_katerina"
+STR_OLGA = "dat_str_olga"
+STR_NADIA = "dat_str_nadia"
+STR_LEONA = "dat_str_leona"
+STR_PAT = "dat_str_pat"
+STR_CARLA = "dat_str_carla"
+STR_BOBBIE = "dat_str_bobbie"
+STR_JENNY = "dat_str_jenny"
+STR_FRIEDA = "dat_str_frieda"
+STR_ALICE = "dat_str_alice"
+STR_ROSE = "dat_str_rose"
+STR_DEIRDRE = "dat_str_deirdre"
+STR_MARTHA = "dat_str_martha"
+STR_LISA = "dat_str_lisa"
+STR_ERICA = "dat_str_erica"
+STR_LIZ = "dat_str_liz"
+STR_EMMA = "dat_str_emma"
+STR_ISADORA = "dat_str_isadora"
+STR_JANE = "dat_str_jane"
+STR_OMARA = "dat_str_omara"
+STR_ALICIA = "dat_str_alicia"
+STR_HASANA = "dat_str_hasana"
+STR_LEILA = "dat_str_leila"
+STR_YASRIA = "dat_str_yasria"
+STR_AILHA = "dat_str_ailha"
+STR_YOUSFA = "dat_str_yousfa"
+STR_AZIZA = "dat_str_aziza"
+STR_FATIMA = "dat_str_fatima"
+STR_BENAZIR = "dat_str_benazir"
+STR_OUIDA = "dat_str_ouida"
+STR_SELIMA = "dat_str_selima"
+STR_ISMAILA = "dat_str_ismaila"
+STR_PERSIS = "dat_str_persis"
+STR_HAUROUNA = "dat_str_haurouna"
+STR_ZARA = "dat_str_zara"
+STR_CARLOTTA = "dat_str_carlotta"
+STR_JOSITA = "dat_str_josita"
+STR_MIGUELA = "dat_str_miguela"
+STR_RAMONA = "dat_str_ramona"
+STR_LUISA = "dat_str_luisa"
+STR_JULIA = "dat_str_julia"
+STR_JUANITA = "dat_str_juanita"
+STR_RAQUEL = "dat_str_raquel"
+STR_ISABEL = "dat_str_isabel"
+STR_MARIA = "dat_str_maria"
+STR_ELENA = "dat_str_elena"
+STR_LINDA = "dat_str_linda"
+STR_CARMEN = "dat_str_carmen"
+STR_AGNES = "dat_str_agnes"
+STR_CELESTE = "dat_str_celeste"
+STR_PHYLLIS = "dat_str_phyllis"
+STR_GEORGI = "dat_str_georgi"
+STR_ARKADY = "dat_str_arkady"
+STR_YURI = "dat_str_yuri"
+STR_ANATOL = "dat_str_anatol"
+STR_ANDREI = "dat_str_andrei"
+STR_NIKITA = "dat_str_nikita"
+STR_VIKTOR = "dat_str_viktor"
+STR_IVAN = "dat_str_ivan"
+STR_BORIS = "dat_str_boris"
+STR_NIKOLAI = "dat_str_nikolai"
+STR_GRIGORI = "dat_str_grigori"
+STR_PAVEL = "dat_str_pavel"
+STR_MISCHA = "dat_str_mischa"
+STR_PETROV = "dat_str_petrov"
+STR_VLADIMIR = "dat_str_vladimir"
+STR_MIKHAIL = "dat_str_mikhail"
+STR_LEON = "dat_str_leon"
+STR_IAN = "dat_str_ian"
+STR_CARL = "dat_str_carl"
+STR_BOB = "dat_str_bob"
+STR_JIM = "dat_str_jim"
+STR_FRED = "dat_str_fred"
+STR_ALAN = "dat_str_alan"
+STR_RALPH = "dat_str_ralph"
+STR_ANTOINE = "dat_str_antoine"
+STR_HEINRICH = "dat_str_heinrich"
+STR_ERIC = "dat_str_eric"
+STR_GORDON = "dat_str_gordon"
+STR_DAVID = "dat_str_david"
+STR_PIERRE = "dat_str_pierre"
+STR_CLAUDE = "dat_str_claude"
+STR_GERARD = "dat_str_gerard"
+STR_OMAR = "dat_str_omar"
+STR_ALI = "dat_str_ali"
+STR_HASAN = "dat_str_hasan"
+STR_ABDUL = "dat_str_abdul"
+STR_YASR = "dat_str_yasr"
+STR_ABU = "dat_str_abu"
+STR_YOUSF = "dat_str_yousf"
+STR_SAADI = "dat_str_saadi"
+STR_ACHMET = "dat_str_achmet"
+STR_IBRAHIM = "dat_str_ibrahim"
+STR_SELIM = "dat_str_selim"
+STR_ISMAIL = "dat_str_ismail"
+STR_MAHMOUD = "dat_str_mahmoud"
+STR_HAROUND = "dat_str_haround"
+STR_SULEIMAN = "dat_str_suleiman"
+STR_YEZID = "dat_str_yezid"
+STR_CARLOS = "dat_str_carlos"
+STR_JOSE = "dat_str_jose"
+STR_MIGUEL = "dat_str_miguel"
+STR_RAMON = "dat_str_ramon"
+STR_LUIS = "dat_str_luis"
+STR_JULIO = "dat_str_julio"
+STR_JUAN = "dat_str_juan"
+STR_PEDRO = "dat_str_pedro"
+STR_ENRIQUE = "dat_str_enrique"
+STR_EDUARDO = "dat_str_eduardo"
+STR_ARTURO = "dat_str_arturo"
+STR_JORGE = "dat_str_jorge"
+STR_MANUEL = "dat_str_manuel"
+STR_HECTOR = "dat_str_hector"
+STR_FRANCO = "dat_str_franco"
+STR_JAIME = "dat_str_jaime"
+STR_KATKOV = "dat_str_katkov"
+STR_GORNY = "dat_str_gorny"
+STR_GROMYKO = "dat_str_gromyko"
+STR_KORMAROV = "dat_str_kormarov"
+STR_MOLOTOV = "dat_str_molotov"
+STR_CHARYK = "dat_str_charyk"
+STR_MARKOV = "dat_str_markov"
+STR_FILATOV = "dat_str_filatov"
+STR_BADENOV = "dat_str_badenov"
+STR_CHEKHOV = "dat_str_chekhov"
+STR_GOGOL = "dat_str_gogol"
+STR_ZHUKOV = "dat_str_zhukov"
+STR_NEVSKY = "dat_str_nevsky"
+STR_KEMIDOV = "dat_str_kemidov"
+STR_DUBROVNIK = "dat_str_dubrovnik"
+STR_KERENSKY = "dat_str_kerensky"
+STR_LORENZ = "dat_str_lorenz"
+STR_KOCH = "dat_str_koch"
+STR_BAADER = "dat_str_baader"
+STR_BROWN = "dat_str_brown"
+STR_JONES = "dat_str_jones"
+STR_BLOOM = "dat_str_bloom"
+STR_CAHILL = "dat_str_cahill"
+STR_GRIVAS = "dat_str_grivas"
+STR_COOK = "dat_str_cook"
+STR_MULLER = "dat_str_muller"
+STR_HANSEN = "dat_str_hansen"
+STR_OLSEN = "dat_str_olsen"
+STR_MERRICK = "dat_str_merrick"
+STR_BALLARD = "dat_str_ballard"
+STR_VERNE = "dat_str_verne"
+STR_KONRAD = "dat_str_konrad"
+STR_ABBAS = "dat_str_abbas"
+STR_SAID = "dat_str_said"
+STR_DAOUD = "dat_str_daoud"
+STR_MOUSSA = "dat_str_moussa"
+STR_NIDAL = "dat_str_nidal"
+STR_KHALED = "dat_str_khaled"
+STR_HAMMID = "dat_str_hammid"
+STR_AFAFAT = "dat_str_afafat"
+STR_AGHA = "dat_str_agha"
+STR_MURAD = "dat_str_murad"
+STR_AKBAR = "dat_str_akbar"
+STR_HOSAYN = "dat_str_hosayn"
+STR_RAISULI = "dat_str_raisuli"
+STR_MUSAFIR = "dat_str_musafir"
+STR_NASR = "dat_str_nasr"
+STR_RASHID = "dat_str_rashid"
+STR_MUNOZ = "dat_str_munoz"
+STR_DIAZ = "dat_str_diaz"
+STR_MUNOZ_2 = "dat_str_munoz_2"
+STR_PEREZ = "dat_str_perez"
+STR_RAMIREZ = "dat_str_ramirez"
+STR_ALVAREZ = "dat_str_alvarez"
+STR_GARCIA = "dat_str_garcia"
+STR_LOPEZ = "dat_str_lopez"
+STR_SANTOS = "dat_str_santos"
+STR_DIEGO = "dat_str_diego"
+STR_CORDOBA = "dat_str_cordoba"
+STR_VALDEZ = "dat_str_valdez"
+STR_SANTIAGO = "dat_str_santiago"
+STR_ENRIQUEZ = "dat_str_enriquez"
+STR_SANCHEZ = "dat_str_sanchez"
+STR_DELAROSA = "dat_str_delarosa"
+BLOCK_4523 = "shd_str_space_13"
+STR_MASTER_PLAN = "shd_str_master_plan"
+STR_SECRET = "shd_str_secret"
+STR_ARRESTED_6 = "shd_str_arrested_upper"
+STR_HIDING_2 = "shd_str_hiding_upper"
+STR_TURNED_4 = "shd_str_turned_upper"
+STR_PERSONNEL_FILE = "shd_str_personnel_file"
+STR_ACTION_TEAM = "shd_str_action_team"
+BLOCK_46F4 = "shd_str_comma_3"
+STR_NO_ACTIVITY = "shd_str_no_activity"
+BLOCK_4705 = "asm_block_4705"
+BLOCK_470F = "asm_block_470f"
+STR_NSYN_OVERFLOW = "shd_str_nsyn_overflow"
+STR_CHRONOLOGY = "shd_str_chronology"
+STR_NEWS = "shd_str_news"
+STR_SENT_MSG_2 = "shd_str_sent_msg_2"
+STR_MET = "shd_str_met"
+BLOCK_4748 = "shd_str_quote_3"
+STR_MEETING_NOTED = "shd_str_meeting_noted"
+STR_MORE_2 = "shd_str_more_2"
+STR_CHRONOLOGY_2 = "shd_str_chronology_2"
+STR_NEWS_2 = "shd_str_news_2"
+STR_NONE_2 = "shd_str_none_log"
+BLOCK_4777 = "asm_block_4777"
+STR_ONE_MOMENT_PLEASE = "shd_str_one_moment_please"
+STR_SURE_WANT_QUIT_NO = "shd_str_sure_want_quit_no_2"
+STR_PANI = "dat_str_pani"
+BLOCK_47BB = "asm_block_47bb"
+BLOCK_47C2 = "asm_block_47c2"
+STR_BRIEFING_PAN_5 = "shd_str_briefing_pan"
+STR_BLD = "shd_str_bld"
+BLOCK_47FB = "asm_block_47fb"
+STR_ANIMATION_PAN_2 = "shd_str_animation_pan"
+STR_SELECT_LOAD_FILE = "shd_str_select_load_file"
+STR_SVE = "shd_str_sve"
+STR_MAX_4 = "shd_str_max"
+STR_REMINGTON_00 = "shd_str_remington_00"
+STR_RANK_2 = "shd_str_rank_2"
+BLOCK_4865 = "shd_str_colon"
+STR_LOCAL = "shd_str_local"
+STR_NATIONAL = "shd_str_national"
+STR_REGIONAL = "shd_str_regional"
+STR_GLOBAL = "shd_str_global"
+BLOCK_4898 = "shd_str_stop_blank"
+STR_EMPTY = "shd_str_empty_slot"
+STR_SELECT_SAVE_FILE = "shd_str_select_save_file"
+STR_GAME_HAS_BEEN_SAVED = "shd_str_game_has_been_saved"
+STR_GAME_NOT_SAVED = "shd_str_game_not_saved"
+STR_WRITE_ACCESS_DENIED = "shd_str_write_access_denied"
+STR_DISK_FULL = "shd_str_disk_full"
+STR_PRESS_KEY_CONTINUE = "shd_str_press_key_continue"
+STR_SVE_2 = "shd_str_sve_2"
+STR_FILE_ERROR = "shd_str_file_error_write"
+BLOCK_4932 = "shd_str_newline_save"
+STR_SAVE_PROGRESS = "shd_str_save_progress"
+STR_WHICH_DRIVE_CONTAINS = "shd_str_which_drive_contains"
+STR_WHICH_DRIVE_CONTAINS_2 = "shd_str_which_drive_contains_2"
+STR_PRESS_DRIVE_LETTER = "shd_str_press_drive_letter"
+STR_PRESS_ESCAPE_CANCEL = "shd_str_press_escape_cancel"
+STR_NO_DISK_DRIVE = "shd_str_no_disk_drive"
+STR_ENV_SVE_6 = "shd_str_env_sve_put"
+STR_ENV_SVE_7 = "shd_str_env_sve"
+STR_FILE_ERROR_2 = "shd_str_file_error"
+BLOCK_4A4D = "shd_str_newline_12"
+STR_FINAL_EXE = "dat_str_final_exe"
+STR_GAME_EXE = "dat_str_game_exe"
+STR_TAC_EXE = "dat_str_tac_exe"
+STR_HQ_PAN = "dat_str_hq_pan"
+STR_PLEASE_INSERT_DISK = "shd_str_please_insert_disk"
+STR_IF_3_5_INSERT = "shd_str_if_3_5_insert"
+BLOCK_4A9D = "shd_str_close_paren"
+STR_PRESS_RETURN_CONTINUE = "shd_str_press_return_continue"
+STR_PANI_2 = "dat_str_pani_2"
+BLOCK_4AD7 = "asm_block_4ad7"
+STR_PANI_3 = "shd_str_pani"
+BLOCK_4B45 = "asm_block_4b45"
+MESSAGE_POOL = "dat_message_pool"
+STR_MS_DOS_LIED_US = "dat_str_ms_dos_lied_us"
+STR_FILENAME_NOT_FOUND = "dat_str_filename_not_found"
+STR_NOT_ENOUGH_MEMORY_LOAD = "dat_str_not_enough_memory_load"
+STR_OVERLAY_LOAD_FAILED = "dat_str_overlay_load_failed"
+STR_OVERLAY_HAS_OVERRUN = "dat_str_overlay_has_overrun"
+STR_UNABLE_SHRINK_OVERLAY = "dat_str_unable_shrink_overlay"
+STR_ERROR_RELEASING_OVERLAY = "dat_str_error_releasing_overlay"
+BLOCK_4C86 = "asm_block_4c86"
+BLOCK_4C91 = "asm_block_4c91"
+BLOCK_4E49 = "asm_block_4e49"
+BLOCK_500B = "asm_block_500b"
+BLOCK_5019 = "asm_block_5019"
+BLOCK_5690 = "asm_block_5690"
+STR_V_C_FILE_INFO = "dat_str_v_c_file_info"
+BLOCK_56EB = "asm_block_56eb"
+BLOCK_56F7 = "asm_block_56f7"
+BLOCK_56FD = "asm_block_56fd"
+BLOCK_56FF = "asm_block_56ff"
+BLOCK_5704 = "asm_block_5704"
+BLOCK_5709 = "asm_block_5709"
+BLOCK_5722 = "asm_block_5722"
+BLOCK_5730 = "asm_block_5730"
+BLOCK_574A = "asm_block_574a"
+BLOCK_5751 = "asm_block_5751"
+BLOCK_575A = "asm_block_575a"
+BLOCK_5866 = "asm_block_5866"
+BLOCK_586C = "asm_block_586c"
+BLOCK_5870 = "asm_block_5870"
+BLOCK_5884 = "asm_block_5884"
+BLOCK_5998 = "asm_block_5998"
+STR_PST = "dat_str_pst"
+BLOCK_59D5 = "asm_block_59d5"
+BLOCK_59E0 = "asm_block_59e0"
+DAY_NAMES = "run_day_names"
+BLOCK_5A1D = "asm_block_5a1d"
+ERR_ERROR_0 = "run_err_error_0"
+BLOCK_5A2A = "asm_block_5a2a"
+ERR_NO_SUCH_FILE_DIRECTORY = "run_err_no_such_file_directory"
+BLOCK_5A48 = "asm_block_5a48"
+ERR_ARG_LIST_TOO_LONG = "run_err_arg_list_too_long"
+ERR_EXEC_FORMAT_ERROR = "run_err_exec_format_error"
+ERR_BAD_FILE_NUMBER = "run_err_bad_file_number"
+BLOCK_5A7D = "asm_block_5a7d"
+ERR_NOT_ENOUGH_CORE = "run_err_not_enough_core"
+ERR_PERMISSION_DENIED = "run_err_permission_denied"
+ERR_FILE_EXISTS = "run_err_file_exists"
+ERR_CROSS_DEVICE_LINK = "run_err_cross_device_link"
+BLOCK_5AC4 = "asm_block_5ac4"
+ERR_INVALID_ARGUMENT = "run_err_invalid_argument"
+BLOCK_5AD6 = "asm_block_5ad6"
+ERR_TOO_MANY_OPEN_FILES = "run_err_too_many_open_files"
+BLOCK_5AEC = "asm_block_5aec"
+ERR_NO_SPACE_LEFT_DEVICE = "run_err_no_space_left_device"
+BLOCK_5B08 = "asm_block_5b08"
+ERR_MATH_ARGUMENT = "run_err_math_argument"
+ERR_RESULT_TOO_LARGE = "run_err_result_too_large"
+BLOCK_5B29 = "asm_block_5b29"
+ERR_RESOURCE_DEADLOCK_WOULD = "run_err_resource_deadlock_would"
+ERR_UNKNOWN_ERROR = "run_err_unknown_error"
+STR_Z_Z_ZEZFZGZHZIZ_ZMZ = "dat_str_z_z_zezfzgzhziz_zmz"
+BLOCK_5BA4 = "asm_block_5ba4"
+BLOCK_5BB2 = "asm_block_5bb2"
+SEG_CONST0 = "asm_seg_const0"
+NMSG_MARKER = "run_nmsg_marker"
+BLOCK_5BE0 = "asm_block_5be0"
+MSG_R6003 = "run_msg_r6003"
+BLOCK_5C01 = "asm_block_5c01"
+MSG_R6009 = "run_msg_r6009"
+BLOCK_5C2F = "asm_block_5c2f"
+MSG_RUNTIME_ERROR = "run_msg_runtime_error"
+BLOCK_5C46 = "asm_block_5c46"
+MSG_R6002 = "run_msg_r6002"
+BLOCK_5C6D = "asm_block_5c6d"
+MSG_R6001 = "run_msg_r6001"
+BLOCK_5C92 = "asm_block_5c92"
+BLOCK_5C96 = "asm_block_5c96"
+BLOCK_5C97 = "asm_block_5c97"
+BLOCK_5C98 = "asm_block_5c98"
+BLOCK_5CBC = "asm_number_digits"
+BLOCK_5D45 = "asm_block_5d45"
+BLOCK_5D84 = "asm_block_5d84"
+BLOCK_5DDC = "asm_block_5ddc"
+BLOCK_5DFC = "asm_block_5dfc"
+BLOCK_5E10 = "asm_block_5e10"
+BLOCK_5E53 = "asm_block_5e53"
+BLOCK_5FA0 = "asm_block_5fa0"
+BLOCK_77B3 = "asm_block_77b3"
+BLOCK_79D6 = "asm_block_79d6"
+BLOCK_7DE4 = "asm_block_7de4"
+BLOCK_7DE8 = "asm_block_7de8"
+BLOCK_8094 = "asm_block_8094"
+BLOCK_8290 = "asm_block_8290"
+BLOCK_96CE = "asm_block_96ce"
+BLOCK_96E0 = "asm_block_96e0"
+CAMPAIGN_20d8_9bf0 = "shm_probed_campaign"
+BLOCK_9E9A = "asm_block_9e9a"
+BLOCK_9F84 = "asm_block_9f84"
+BLOCK_A7BE = "shm_orgs"
+BLOCK_ABF2 = "asm_block_abf2"
+BUF_CRIME_BLOCK = "shm_crime_block"
+BLOCK_AC6C = "shm_substitute_tail"
+BLOCK_AE2D = "asm_block_ae2d"
+BLOCK_AE34 = "asm_block_ae34"
+BLOCK_AE7C = "asm_block_ae7c"
+BLOCK_B080 = "shm_anim_row_2"
+BLOCK_B2C8 = "asm_block_b2c8"
+BLOCK_B376 = "asm_block_b376"
+STR_DOLLAR_1 = "dat_str_dollar_1"
+STR_DOLLAR_2 = "dat_str_dollar_2"
+STR_DOLLAR_3 = "dat_str_dollar_3"
+STR_DOLLAR_4 = "dat_str_dollar_4"
+STR_DOLLAR_5 = "dat_str_dollar_5"
+STR_DOLLAR_6 = "dat_str_dollar_6"
+STR_DOLLAR_7 = "dat_str_dollar_7"
+STR_DOLLAR_8 = "dat_str_dollar_8"
+STR_DOLLAR_9 = "dat_str_dollar_9"
+STR_DOLLAR_10 = "dat_str_dollar_10"
+STR_DOLLAR_11 = "dat_str_dollar_11"
+STR_DOLLAR_12 = "dat_str_dollar_12"
+STR_DOLLAR_13 = "dat_str_dollar_13"
+STR_DOLLAR_14 = "dat_str_dollar_14"
+STR_DOLLAR_15 = "dat_str_dollar_15"
+STR_DOLLAR_16 = "dat_str_dollar_16"
+STR_DOLLAR_17 = "dat_str_dollar_17"
+STR_DOLLAR_18 = "dat_str_dollar_18"
+SUBST_BUFFER_0 = "asm_subst_buffer_0"
+SUBST_BUFFER_1 = "asm_subst_buffer_1"
+SUBST_BUFFER_2 = "asm_subst_buffer_2"
+SUBST_BUFFER_3 = "asm_subst_buffer_3"
+SUBST_BUFFER_4 = "asm_subst_buffer_4"
+SUBST_BUFFER_5 = "asm_subst_buffer_5"
+SUBST_BUFFER_6 = "asm_subst_buffer_6"
+SUBST_BUFFER_7 = "asm_subst_buffer_7"
+SUBST_BUFFER_8 = "asm_subst_buffer_8"
+RASTPORT_HIDDEN = "dat_rastport_hidden"
+PAGE_ROW_TABLES = "addr_page_row_tables"
+PAGE_ROW_LEFT_0 = "asm_page_row_left_0"
+PAGE_ROW_RIGHT_0 = "asm_page_row_right_0"
+PAGE_ROW_LEFT_1 = "asm_page_row_left_1"
+PAGE_ROW_RIGHT_1 = "asm_page_row_right_1"
+RASTPORT_SHOWN = "dat_rastport_shown"
+RASTPORT_ANIM = "dat_rastport_anim"
+CRIME_NAMES = "addr_crime_names"

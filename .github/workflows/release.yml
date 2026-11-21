@@ -1,0 +1,156 @@
+# Builds the portable programs for Linux and Windows, once with no mod flag and
+# once with the mod flags set, and publishes the archives as a release when
+# version.txt names a version that has none yet.
+name: Release
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  # SDL2's MinGW development files, which Ubuntu does not package.
+  SDL2_VERSION: "2.32.10"
+  SDL2_SHA256: 83a5d74012311edc3c0d40ea6faecbe57ad692aa033fa5dc273cc937e3938ff2
+
+jobs:
+  build:
+    name: Build (${{ matrix.variant }})
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - variant: standard
+            suffix: ""
+            defines: ""
+          # The README's mod flags, bar COVERT_SKIP_INTRO, which is for the
+          # DOS build.
+          - variant: mods
+            suffix: "-mods"
+            defines: >-
+              FIX_TAC_MOVE
+              TAC_EQUIPMENT_GUIDANCE
+              TAC_UNIMPLEMENTED_ROOMS
+              TAC_ROOM_RECOLOUR
+              TAC_PLAYER_DISGUISE_SPRITE
+              TAC_PHOTOS_BY_DEFAULT
+              CRIME_ULTIMATE_PLOT_FIX
+              EXTRA_MENU_OPTIONS
+              DIAGNOSTICS
+              FLEXIBLE_ORIENTATION
+              COVERT_MENU_OPTIONS
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-mingw-w64-x86-64 libsdl2-dev zip
+          python -m pip install -r requirements.txt
+
+      - name: Fetch SDL2 for MinGW
+        run: |
+          archive="SDL2-devel-$SDL2_VERSION-mingw.tar.gz"
+          curl -fsSL -o "$RUNNER_TEMP/$archive" \
+            "https://github.com/libsdl-org/SDL/releases/download/release-$SDL2_VERSION/$archive"
+          echo "$SDL2_SHA256  $RUNNER_TEMP/$archive" | sha256sum --check
+          tar -xzf "$RUNNER_TEMP/$archive" -C "$RUNNER_TEMP"
+          root="$RUNNER_TEMP/SDL2-$SDL2_VERSION/x86_64-w64-mingw32"
+          test -f "$root/include/SDL2/SDL.h"
+          test -f "$root/bin/SDL2.dll"
+          echo "MINGW_ROOT=$root" >> "$GITHUB_ENV"
+
+      - name: Read the version
+        id: version
+        run: |
+          version="$(tr -d '[:space:]' < version.txt)"
+          if [[ ! "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error file=version.txt::'$version' is not a version of the form 1.2.3"
+            exit 1
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Build
+        env:
+          DEFINES: ${{ matrix.defines }}
+        run: |
+          args=()
+          for name in $DEFINES; do args+=(--define "$name"); done
+          python scripts/build/portable.py --all "${args[@]}" --log-console-level INFO
+
+      # portable.py builds without a window where it finds no SDL2, and that is
+      # not a program to release.
+      - name: Check the programs have a window
+        run: |
+          test -f portable/windows/SDL2.dll
+          readelf -d portable/linux/covert | grep -q libSDL2
+
+      # Each archive unpacks to a folder of its own name.
+      - name: Package
+        env:
+          NAME: covert-action-${{ steps.version.outputs.version }}${{ matrix.suffix }}
+        run: |
+          mkdir dist
+          for platform in windows linux; do
+            mv "portable/$platform" "portable/$NAME-$platform"
+            cp LICENSE "portable/$NAME-$platform/LICENSE.txt"
+          done
+          (cd portable && zip -9 -r "../dist/$NAME-windows.zip" "$NAME-windows")
+          tar -czf "dist/$NAME-linux.tar.gz" -C portable "$NAME-linux"
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: ${{ matrix.variant }}
+          path: dist/
+          if-no-files-found: error
+
+  release:
+    name: Release
+    needs: build
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/download-artifact@v8
+        with:
+          path: dist
+          merge-multiple: true
+
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version="$(tr -d '[:space:]' < version.txt)"
+          tag="v$version"
+          if gh release view "$tag" > /dev/null 2>&1; then
+            echo "$tag is already released, so there is nothing to publish."
+            exit 0
+          fi
+          cat > notes.md <<EOF
+          The portable build of *Sid Meier's Covert Action* for Windows and Linux.
+
+          **You must own the game.** These archives hold the programs alone and none of the game's data.
+
+          - \`covert-action-$version-windows.zip\` and \`covert-action-$version-linux.tar.gz\`: no mod flag set.
+          - \`covert-action-$version-mods-windows.zip\` and \`covert-action-$version-mods-linux.tar.gz\`: every [mod flag](https://github.com/$GITHUB_REPOSITORY#mod-flags) set but \`COVERT_SKIP_INTRO\`.
+
+          Unpack one into your game's folder, the one holding \`FONTS.CV\`, and run \`covert\` from the folder it makes there. Or unpack it anywhere and set \`COVERT_GAME\` to the game's folder. The Linux program needs SDL2 installed.
+          EOF
+          gh release create "$tag" dist/* --target "$GITHUB_SHA" --title "$tag" \
+            --notes-file notes.md --generate-notes

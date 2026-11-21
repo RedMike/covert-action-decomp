@@ -1,0 +1,249 @@
+# Module manifest for INTRO.EXE.
+
+name = "INTRO"
+output = "INTRO.EXE"
+
+target = "MPS/COVERT/INTRO.EXE"
+packed = false
+
+[link]
+flags = []
+# The MSC 5.1 small-model run-time.
+libs = ["SLIBCE.LIB"]
+load_libs = []
+
+[[objects]]
+target = "INTRO.ASM"
+sources = ["INTRO.ASM"]
+tool = "masm"
+
+[[objects]]
+target = "INTRO.C"
+sources = [
+    "MAIN.C",
+    "CURSOR.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[porting]
+externs = [
+    "main",
+    "FUN_1000_044a",
+]
+publics = [
+    "FUN_1000_0551",
+    "FUN_1000_062d",
+    "FUN_1000_0692",
+    "FUN_1000_0767",
+    "FUN_1000_07b2",
+    "FUN_10cb_02d0",
+    "FUN_10cb_0354",
+    "FUN_10cb_046d",
+    "DAT_112c_0506",
+    "DAT_112c_0508",
+    "GRAPHICS_OPTIONS",
+    "SOUND_OPTIONS",
+    "DAT_112c_04ea",
+    "DAT_112c_04f6",
+    "SOUND_CHOICES",
+    "EXTRA_SOUND_LETTERS",
+    "GRAPHICS_CHOICES",
+    "UNION_REGS_112c_07de",
+    "EXE_MISC",
+    "TITLE_HEAD",
+    "BOX_TOP",
+    "TITLE_VERSION",
+    "TITLE_MPSLABS",
+    "TITLE_COPYRIGHT",
+    "TITLE_RIGHTS",
+    "BOX_BOTTOM",
+    "TITLE_TAIL",
+    "PROMPT_PAD_1",
+    "MENU_JOYSTICK",
+    "MENU_KEYBOARD",
+    "PROMPT_PAD_2",
+    "MSG_ONE_MOMENT",
+]
+
+[names]
+main = "c_main"
+FUN_1000_044a = "c_cursor_at"
+# From here to asm_dos_print is one hand-written assembly file, kept whole.
+FUN_1000_0474 = "asm_FUN_1000_0474"
+FUN_1000_0482 = "asm_FUN_1000_0482"
+FUN_1000_04a2 = "asm_FUN_1000_04a2"
+FUN_1000_04d2 = "asm_FUN_1000_04d2"
+FUN_1000_04ed = "asm_FUN_1000_04ed"
+FUN_1000_0504 = "asm_FUN_1000_0504"
+FUN_1000_051f = "asm_FUN_1000_051f"
+FUN_1000_053b = "asm_FUN_1000_053b"
+FUN_1000_0551 = "asm_strcat"
+FUN_1000_0579 = "asm_FUN_1000_0579"
+FUN_1000_059c = "asm_FUN_1000_059c"
+FUN_1000_05b2 = "asm_FUN_1000_05b2"
+FUN_1000_05c8 = "asm_FUN_1000_05c8"
+FUN_1000_05e6 = "asm_FUN_1000_05e6"
+FUN_1000_0602 = "asm_FUN_1000_0602"
+FUN_1000_062d = "asm_int86"
+FUN_1000_0692 = "asm_itoa"
+FUN_1000_06d2 = "asm_FUN_1000_06d2"
+FUN_1000_06fd = "asm_FUN_1000_06fd"
+FUN_1000_0745 = "asm_FUN_1000_0745"
+FUN_1000_0767 = "asm_write_at"
+FUN_1000_07b2 = "asm_dos_print"
+
+# The MSC run-time, from _astart on.
+FUN_1000_09bd = "run_crt0dat_09bd"
+FUN_1000_09cc = "run_crt0dat_09cc"
+FUN_1000_0a00 = "__fptrap"
+
+# CODE_1 is the driver dispatch segment.
+FUN_10cb_000a = "drv_real_dispatch"
+FUN_10cb_0074 = "drv_jump_gfx_sprite_put_clipped"
+FUN_10cb_00ac = "drv_jump_gfx_overlay_remove"
+FUN_10cb_00dd = "drv_jump_FUN_10cb_00dd"
+FUN_10cb_0115 = "drv_jump_gfx_overlay_put"
+FUN_10cb_02d0 = "drv_jump_dos_key"
+FUN_10cb_0354 = "drv_real_load"
+FUN_10cb_0410 = "drv_real_FUN_10cb_0410"
+FUN_10cb_0419 = "drv_real_load_data"
+FUN_10cb_046d = "drv_real_link_slots"
+UNION_REGS_112c_07de = "asm_regs"
+
+# Data.
+DAT_112c_0510 = "drv_DAT_112c_0510"
+DAT_112c_0512 = "drv_DAT_112c_0512"
+DAT_112c_0514 = "drv_DAT_112c_0514"
+DAT_112c_0516 = "drv_DAT_112c_0516"
+DAT_112c_0518 = "drv_DAT_112c_0518"
+DAT_112c_051a = "drv_DAT_112c_051a"
+DAT_112c_064a = "__asizds"
+DAT_112c_064c = "__atopsp"
+DAT_112c_064e = "__aexit_rtn"
+DAT_112c_0650 = "__abrktb"
+"s_;C_FILE_INFO_112c_06a2" = "__acfinfo"
+DAT_112c_06b1 = "run_crt0dat_06b1"
+DAT_112c_06c1 = "__psp"
+DAT_112c_06c3 = "__dosvermajor"
+DAT_112c_06ca = "__osfile"
+DAT_112c_06cb = "run_crt0dat_06cb"
+DAT_112c_06cd = "run_crt0dat_06cd"
+DAT_112c_06ce = "run_crt0dat_06ce"
+DAT_112c_06cf = "run_crt0dat_06cf"
+DAT_112c_06d0 = "run_crt0dat_06d0"
+DAT_112c_06de = "___argc"
+DAT_112c_06e0 = "___argv"
+DAT_112c_06e2 = "_environ"
+DAT_112c_06e4 = "__pgmptr"
+DAT_112c_06e8 = "run_crt0dat_06e8"
+DAT_112c_06e9 = "run_crt0dat_06e9"
+DAT_112c_06f2 = "__adbgmsg"
+DAT_112c_06f4 = "run_stdargv_06f4"
+DAT_112c_06f8 = "__fpinit"
+DAT_112c_06fa = "run_crt0dat_06fa"
+DAT_112c_06fc = "run_crt0dat_06fc"
+DAT_112c_0700 = "run_crt0dat_0700"
+DAT_112c_070c = "run_crt0msg_070c"
+"s_R6000_-_stack_overflow_112c_070e" = "run_msg_r6000"
+DAT_1000_0766 = "dat_TEXT_ATTRIBUTE"
+DAT_112c_0506 = "dat_blank_line"
+DAT_112c_0508 = "dat_banner_blank"
+GRAPHICS_OPTIONS = "dat_graphics_options"
+SOUND_OPTIONS = "dat_sound_options"
+DAT_112c_04ea = "dat_sound_letters"
+DAT_112c_04f6 = "dat_graphics_letters"
+EXTRA_SOUND_LETTERS = "asm_extra_sound_letters"
+SOUND_CHOICES = "asm_sound_choices"
+GRAPHICS_CHOICES = "asm_graphics_choices"
+FUN_1000_0852 = "__cintDIV"
+FUN_10cb_04a0 = "drv_real_free"
+FUN_10cb_04b6 = "drv_real_mouse_open"
+FUN_10cb_0505 = "drv_real_mouse_close"
+FUN_10cb_0520 = "drv_real_FUN_10cb_0520"
+FUN_10cb_0527 = "drv_real_mouse_set_cursor"
+FUN_10cb_053e = "drv_real_FUN_10cb_053e"
+FUN_10cb_0549 = "drv_real_cursor_show"
+FUN_10cb_056b = "drv_real_mouse_int"
+FUN_10cb_0591 = "drv_real_cursor_redraw"
+FUN_10cb_05c3 = "drv_real_mouse_event"
+
+BLOCK_112C_050A = "asm_block_112c_050a"
+
+RUN_BANNER_PAD = "run_banner_pad"
+RUN_BANNER = "run_banner"
+RUN_BANNER_TAIL = "run_banner_tail"
+MODE_VGA = "dat_mode_vga"
+MODE_MCGA = "dat_mode_mcga"
+MODE_EGA = "dat_mode_ega"
+MODE_TANDY = "dat_mode_tandy"
+MODE_CGA = "dat_mode_cga"
+MODE_NO_SOUND = "dat_mode_no_sound"
+MODE_IBM_SOUND = "dat_mode_ibm_sound"
+MODE_TANDY_SOUND = "dat_mode_tandy_sound"
+MODE_ADLIB = "dat_mode_adlib"
+MODE_ROLAND = "dat_mode_roland"
+MODE_CUSTOM_SOUND = "dat_mode_custom_sound"
+DRV_EGRAPHIC_1 = "dat_drv_egraphic_1"
+DRV_MGRAPHIC = "dat_drv_mgraphic"
+DRV_EGRAPHIC_2 = "dat_drv_egraphic_2"
+DRV_TGRAPHIC = "dat_drv_tgraphic"
+DRV_CGRAPHIC = "dat_drv_cgraphic"
+LINE_BLANK_TEXT = "dat_blank_line_text"
+LINE_BOX_TEXT = "dat_banner_blank_text"
+EXE_MISC = "dat_exe_misc"
+TITLE_HEAD = "dat_title_head"
+BOX_TOP = "dat_box_top"
+TITLE_VERSION = "dat_title_version"
+TITLE_MPSLABS = "dat_title_mpslabs"
+TITLE_COPYRIGHT = "dat_title_copyright"
+TITLE_RIGHTS = "dat_title_rights"
+BOX_BOTTOM = "dat_box_bottom"
+TITLE_TAIL = "dat_title_tail"
+PROMPT_GRAPHICS = "dat_prompt_graphics"
+PROMPT_PAD_1 = "asm_prompt_pad_1"
+PROMPT_SOUND = "dat_prompt_sound"
+MENU_JOYSTICK = "dat_menu_joystick"
+MENU_KEYBOARD = "dat_menu_keyboard"
+PROMPT_PAD_2 = "asm_prompt_pad_2"
+MSG_ONE_MOMENT = "dat_msg_one_moment"
+SOUND_LETTER_PAD = "asm_sound_letter_pad"
+GRAPHIC_LETTER_TAIL = "asm_graphic_letter_tail"
+MSG_ALLOCATED = "dat_msg_allocated"
+MSG_MEMORY_AVAILABLE = "dat_msg_memory_available"
+MSG_FILE_NOT_FOUND = "dat_msg_file_not_found"
+MSG_LOAD_NO_MEMORY = "dat_msg_load_no_memory"
+MSG_LOAD_FAILED = "dat_msg_load_failed"
+MSG_OVERLAY_OVERRUN = "dat_msg_overlay_overrun"
+MSG_SHRINK_FAILED = "dat_msg_shrink_failed"
+MSG_RELEASE_FAILED = "dat_msg_release_failed"
+MESSAGE_POOL_PAD = "asm_message_pool_pad"
+CRT0DAT_0634 = "run_crt0dat_0634"
+ABRKTB_TAIL = "run_abrktb_tail"
+CRT0DAT_06B0 = "run_crt0dat_06b0"
+CRT0DAT_06B3 = "run_crt0dat_06b3"
+CRT0DAT_06C5 = "run_crt0dat_06c5"
+CRT0DAT_06CC = "run_crt0dat_06cc"
+CRT0DAT_06D1 = "run_crt0dat_06d1"
+CRT0DAT_06EA = "run_crt0dat_06ea"
+STDARGV_06F6 = "run_stdargv_06f6"
+NMSG_MARKER = "run_nmsg_marker"
+CRT0MSG_0728 = "run_crt0msg_0728"
+MSG_R6003 = "run_msg_r6003"
+CRT0MSG_0749 = "run_crt0msg_0749"
+MSG_R6009 = "run_msg_r6009"
+CRT0MSG_0777 = "run_crt0msg_0777"
+MSG_RUNTIME_ERROR = "run_msg_runtime_error"
+CRT0MSG_078E = "run_crt0msg_078e"
+MSG_R6002 = "run_msg_r6002"
+CRT0MSG_07B5 = "run_crt0msg_07b5"
+MSG_R6001 = "run_msg_r6001"
+CRT0MSG_07DA = "run_crt0msg_07da"
+CRT0MSG_07DC = "run_crt0msg_07dc"
+BSS_07DD = "asm_bss_07dd"
+BSS_07EC = "asm_bss_07ec"
+BSS_07FD = "asm_bss_07fd"
+BSS_0821 = "asm_bss_0821"
+BSS_082A = "asm_bss_082a"
+
+DRIVER_NAME_TABLE = "dat_driver_names"

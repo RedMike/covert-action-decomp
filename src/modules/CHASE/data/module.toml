@@ -1,0 +1,1340 @@
+# Module manifest for CHASE.EXE, the car chase minigame.
+#
+# The driver dispatch segment links first, so the module's code is the second
+# block with the MSC run-time at its tail.
+
+name = "CHASE"
+output = "CHASE.EXE"
+
+target = "MPS/COVERT/CHASE.EXE"
+packed = true
+
+# A build with a define is medium-model: no 64 KB code ceiling.
+mod_model = "medium"
+
+[link]
+flags = []
+# The MSC 5.1 small-model run-time.
+libs = ["SLIBCE.LIB"]
+load_libs = []
+
+# Objects, in link order: the assembly first, then the C.
+[[objects]]
+target = "CHASE.ASM"
+sources = ["CHASE.ASM"]
+tool = "masm"
+
+[[objects]]
+target = "MAIN.C"
+sources = [
+    "MAIN.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "SETUP.C"
+sources = [
+    "HOOK-HAND-BACK.C",
+    "SOUND.C",
+    "shared/PAGE-SHOW.C",
+    "stubs/STUBS.C",
+    "stubs/HOOK-REPAINT.C",
+    "stubs/STUBS-2.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "SETUP1.C"
+sources = [
+    "SETUP.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "SECTIONR.C"
+sources = [
+    "shared/SECTION-READ.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "CHASESTA.C"
+sources = [
+    "CHASE-START.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "CARPICK.C"
+sources = [
+    "CAR-PICK.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+# One tick of the chase, and the sight line a follower steers by.
+[[objects]]
+target = "SIGHT.C"
+sources = [
+    "STEP.C",
+    "SIGHT.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "STREET.C"
+sources = [
+    "STREET.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "BOARDMAR.C"
+sources = [
+    "BOARD-MARK.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "BOARDDOT.C"
+sources = [
+    "shared/BOARD-DOT.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "BOARDDRA.C"
+sources = [
+    "BOARD-DRAW.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "BOARDEXI.C"
+sources = [
+    "BOARD-EXIT.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "NOTHING.C"
+sources = ["HOOK-STEP.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "DASHBOAR.C"
+sources = [
+    "DASHBOARD.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "DOOR1.C"
+sources = [
+    "DOOR.C",
+    "shared/SIGN.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "CLOCK.C"
+sources = [
+    "CLOCK.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+# The empty routine before the board generator, and the generator.
+[[objects]]
+target = "MAZE.C"
+sources = [
+    "stubs/HOOK-MAIN.C",
+    "MAZE.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "NEARCAR.C"
+sources = [
+    "NEAR-CAR.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "MENU1.C"
+sources = [
+    "shared/MENU.C",
+    "shared/MENU-DRAW.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "PANEL.C"
+sources = [
+    "shared/PANEL.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "BOXES.C"
+sources = [
+    "shared/FRAME.C",
+    "shared/HELP.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "HELPCLR.C"
+sources = [
+    "shared/HELP-CLEAR.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "KEYREAD.C"
+sources = [
+    "shared/KEY-READ.C",
+    "shared/PAGE-CLEAR.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "JOYWAIT.C"
+sources = [
+    "shared/JOYSTICK-WAIT.C",
+    "shared/JOYSTICK-KEY.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "JOYREAD.C"
+sources = [
+    "shared/JOYSTICK-READ.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "JOYBTN.C"
+sources = [
+    "shared/JOYSTICK-BUTTON.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "LOADDISK.C"
+sources = [
+    "shared/LOADDISK.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "ANI_STUB.C"
+sources = ["stubs/ANI_STUBS.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "ANI_STOP.C"
+sources = ["stubs/ANI_STOP.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "MOUSEMOD.C"
+sources = [
+    "shared/MOUSE-MODE.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "MOUSEPUT.C"
+sources = [
+    "shared/MOUSE-PUT.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "MOUSEPRS.C"
+sources = [
+    "shared/MOUSE-PRESS.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "MOUSEREL.C"
+sources = [
+    "shared/MOUSE-RELEASE.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "MOUSERNG.C"
+sources = [
+    "shared/MOUSE-RANGE.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "LINE.C"
+sources = [
+    "shared/LINE.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "TEXTOUT.C"
+sources = [
+    "shared/TEXT-OUT.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "RETRACE.C"
+sources = [
+    "shared/RETRACE.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "PAGESWAP.C"
+sources = [
+    "shared/PAGE-SWAP.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "BOXFILL.C"
+sources = [
+    "shared/BOX-FILL.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "VIDEOMOD.C"
+sources = [
+    "shared/VIDEO-MODE.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "RANDOM.C"
+sources = [
+    "shared/RANDOM.C",
+    "shared/CLAMP.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "ARCFILE.C"
+sources = [
+    "shared/ARCHIVE-FILE.C",
+    "shared/FILE-CREATE.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Ot", "/Oa", "/Zl"]
+
+[[objects]]
+target = "FILE.C"
+sources = [
+    "shared/FILE.C",
+    "shared/ANI_CODE.C",
+    "shared/ANI_PALETTE.C",
+    "shared/ANI_LOAD.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Ol", "/Zl"]
+
+[[objects]]
+target = "ANI_LD2.C"
+sources = [
+    "shared/ANI_LOAD2.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "ANI_PLY2.C"
+sources = [
+    "shared/ANI_PLAY2.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Ol", "/Zl"]
+
+[[objects]]
+target = "ANI_MEM.C"
+sources = [
+    "shared/ANI_MEM.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Ol", "/Zl"]
+
+[[objects]]
+target = "SRCFILE.C"
+sources = [
+    "shared/SOURCE-FILE.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "ARCHIVE.C"
+sources = [
+    "shared/MEMORY-REFILL.C",
+    "shared/PRIME-FILE.C",
+    "shared/FILE-REFILL.C",
+    "shared/FATAL-ERROR.C",
+    "shared/ARCHIVE-OPEN.C",
+    "shared/ARCHIVE-CLOSE.C",
+    "shared/ARCHIVE-FIND.C",
+    "shared/ARCHIVE-SEEK.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Ot", "/Oa", "/Ol", "/Zl"]
+
+[porting]
+externs = [
+    "FUN_10df_044e",
+    "FUN_10df_0467",
+    "FUN_10df_0482",
+    "FUN_10df_04a1",
+    "FUN_10df_04a2",
+    "FUN_10df_04a3",
+    "FUN_10df_04a4",
+    "FUN_10df_06ae",
+    "FUN_10df_0708",
+    "FUN_10df_0842",
+    "FUN_10df_0dc6",
+    "FUN_10df_1ceb",
+    "FUN_10df_1ede",
+    "FUN_10df_1f80",
+    "FUN_10df_1ff8",
+    "FUN_10df_2012",
+    "FUN_10df_2400",
+    "FUN_10df_248c",
+    "FUN_10df_2496",
+    "FUN_10df_29d8",
+    "FUN_10df_2bb3",
+    "FUN_10df_2bd0",
+    "FUN_10df_2c50",
+    "FUN_10df_2c51",
+    "FUN_10df_3190",
+    "FUN_10df_321c",
+    "FUN_10df_36eb",
+    "FUN_10df_3a9c",
+    "FUN_10df_3af4",
+    "FUN_10df_3b4d",
+    "FUN_10df_3c0e",
+    "FUN_10df_3c60",
+    "FUN_10df_3d91",
+    "FUN_10df_3dba",
+    "FUN_10df_3ded",
+    "FUN_10df_3e6a",
+    "FUN_10df_3ee6",
+    "FUN_10df_3f08",
+    "FUN_10df_403a",
+    "FUN_10df_403b",
+    "FUN_10df_403c",
+    "FUN_10df_403e",
+    "FUN_10df_4054",
+    "FUN_10df_406a",
+    "FUN_10df_4080",
+    "FUN_10df_40a8",
+    "FUN_10df_40ce",
+    "FUN_10df_4106",
+    "FUN_10df_413e",
+    "FUN_10df_4186",
+    "FUN_10df_41a6",
+    "FUN_10df_41c7",
+    "FUN_10df_41f0",
+    "FUN_10df_4228",
+    "FUN_10df_4246",
+    "FUN_10df_4262",
+    "FUN_10df_428c",
+    "FUN_10df_42a6",
+    "FUN_10df_42c0",
+    "FUN_10df_42d7",
+    "FUN_10df_42f0",
+    "FUN_10df_430e",
+    "FUN_10df_436e",
+    "FUN_10df_4398",
+    "FUN_10df_43bc",
+    "FUN_10df_4400",
+    "FUN_10df_4446",
+    "FUN_10df_4488",
+    "FUN_10df_44ec",
+    "FUN_10df_452c",
+    "FUN_10df_4598",
+    "FUN_10df_45aa",
+    "FUN_10df_4606",
+    "FUN_10df_466a",
+    "FUN_10df_4688",
+    "FUN_10df_46bc",
+    "FUN_10df_46cc",
+    "FUN_10df_46f4",
+    "FUN_10df_4716",
+    "FUN_10df_4746",
+    "FUN_10df_4776",
+    "FUN_10df_479c",
+    "FUN_10df_485c",
+    "main",
+]
+
+publics = [
+    "BLOCK_684E",
+    "ARCHIVE_BUFFER",
+    "DAT_1663_1612",
+    "DAT_1663_16f4",
+    "DAT_1663_16f6",
+    "DAT_1663_16f8",
+    "DAT_1663_170c",
+    "DAT_1663_178c",
+    "SIDE_DX",
+    "SIDE_DY",
+    "GEAR_STEPS",
+    "STREET_X",
+    "STREET_Y",
+    "DAT_1663_17da",
+    "DAT_1663_17ee",
+    "DAT_1663_1802",
+    "DAT_1663_1816",
+    "DAT_1663_185b",
+    "DAT_1663_189c",
+    "DAT_1663_18be",
+    "DAT_1663_18c0",
+    "CLOCK_TEXT",
+    "DAT_1663_1912",
+    "DAT_1663_1914",
+    "DAT_1663_1916",
+    "DAT_1663_1952",
+    "DAT_1663_1962",
+    "DAT_1663_19ec",
+    "DISK_LETTER",
+    "DAT_1663_1a08",
+    "DAT_1663_1b32",
+    "DAT_1663_1b34",
+    "DAT_1663_1f53",
+    "SECTION_PTR",
+    "DAT_1663_23b6",
+    "DAT_1663_23b8",
+    "DAT_1663_23ba",
+    "DAT_1663_23bc",
+    "DAT_1663_23be",
+    "DAT_1663_23c0",
+    "DAT_1663_23c2",
+    "DAT_1663_23c4",
+    "DAT_1663_23c6",
+    "DAT_1663_23c8",
+    "DAT_1663_23ca",
+    "DAT_1663_23cc",
+    "DAT_1663_23ce",
+    "SEQ_BLOCK_1663_23e0",
+    "MENU_LINE_START",
+    "DAT_1663_243e",
+    "DAT_1663_2440",
+    "DAT_1663_2442",
+    "DAT_1663_2444",
+    "DAT_1663_2456",
+    "DAT_1663_2458",
+    "DAT_1663_245a",
+    "DAT_1663_3c5c",
+    "DAT_1663_3c5e",
+    "DAT_1663_3c60",
+    "DAT_1663_3e80",
+    "JOYSTICK",
+    "DAT_1663_3e84",
+    "DAT_1663_3e86",
+    "DAT_1663_4286",
+    "DAT_1663_4288",
+    "DAT_1663_428c",
+    "DAT_1663_428e",
+    "CARS",
+    "DAT_1663_42cc",
+    "DAT_1663_455c",
+    "DAT_1663_455e",
+    "DAT_1663_4560",
+    "DAT_1663_4562",
+    "DAT_1663_4782",
+    "DAT_1663_4784",
+    "DAT_1663_4786",
+    "DAT_1663_4788",
+    "DAT_1663_50c8",
+    "DAT_1663_50ca",
+    "DAT_1663_50cc",
+    "UNION_REGS_1663_50ce",
+    "DAT_1663_50dc",
+    "DAT_1663_50de",
+    "DAT_1663_5be0",
+    "DAT_1663_5be2",
+    "DAT_1663_5be4",
+    "DAT_1663_5be6",
+    "DAT_1663_5be8",
+    "DAT_1663_5bea",
+    "DAT_1663_5bec",
+    "DAT_1663_5bee",
+    "DAT_1663_5bf0",
+    "DAT_1663_5bf2",
+    "DAT_1663_5bf4",
+    "DAT_1663_5bf8",
+    "DAT_1663_5bfa",
+    "DAT_1663_5bfc",
+    "DAT_1663_5bfe",
+    "DAT_1663_5c00",
+    "DAT_1663_5c02",
+    "DAT_1663_5c04",
+    "DAT_1663_5c06",
+    "DAT_1663_5c08",
+    "DAT_1663_5c0a",
+    "DAT_1663_5c0c",
+    "DAT_1663_5c0e",
+    "WINDSCREEN_CAR_SPRITES",
+    "UNION_REGS_1663_5c54",
+    "DAT_1663_5c62",
+    "DAT_1663_5c64",
+    "DAT_1663_5c66",
+    "DAT_1663_5c68",
+    "DAT_1663_626a",
+    "DAT_1663_6276",
+    "DAT_1663_647a",
+    "DAT_1663_647c",
+    "DAT_1663_647e",
+    "DAT_1663_6480",
+    "DAT_1663_6482",
+    "DAT_1663_6484",
+    "DAT_1663_6486",
+    "DAT_1663_6488",
+    "DAT_1663_66ce",
+    "DAT_1663_66d0",
+    "DAT_1663_66f0",
+    "DAT_1663_673c",
+    "DAT_1663_67fe",
+    "DAT_1663_6800",
+    "DAT_1663_6802",
+    "DAT_1663_6822",
+    "DAT_1663_6842",
+    "DAT_1663_6844",
+    "DAT_1663_6846",
+    "DAT_1663_6848",
+    "DAT_1663_684a",
+    "DAT_1663_684c",
+    "DAT_1663_69ce",
+    "DAT_1663_69d0",
+    "DAT_1663_69d2",
+    "FUN_1000_0002",
+    "FUN_1000_010c",
+    "FUN_1000_011a",
+    "FUN_1000_0121",
+    "FUN_1000_0128",
+    "FUN_1000_0134",
+    "FUN_1000_013d",
+    "FUN_1000_0144",
+    "FUN_1000_0183",
+    "FUN_1000_018a",
+    "FUN_1000_0191",
+    "FUN_1000_0198",
+    "FUN_1000_01b4",
+    "FUN_1000_01c2",
+    "FUN_1000_01c9",
+    "FUN_1000_01dc",
+    "FUN_1000_01ec",
+    "FUN_1000_01f3",
+    "FUN_1000_01fa",
+    "FUN_1000_0382",
+    "FUN_1000_0389",
+    "FUN_1000_03ac",
+    "FUN_1000_03b3",
+    "FUN_1000_03cf",
+    "FUN_1000_052d",
+    "FUN_1000_0576",
+    "FUN_1000_097a",
+    "FUN_1000_09fe",
+    "FUN_1000_0a8e",
+    "FUN_1000_0ad6",
+    "FUN_1000_0af0",
+    "__dos_close",
+    "FUN_10df_57b6",
+    "__aNlmul",
+    "__aNlshr",
+    "__dos_creat",
+    "__dos_freemem",
+    "__dos_getdrive",
+    "__dos_open",
+    "__dos_write",
+    "_abs",
+    "_exit",
+    "_inp",
+    "_int86",
+    "_intdos",
+    "_itoa",
+    "_movedata",
+    "_perror",
+    "_rand",
+    "_read",
+    "_srand",
+    "_strcat",
+    "_strcmp",
+    "_strcpy",
+    "_strlen",
+    "_strnicmp",
+    "_time",
+    "STR_CARS_PIC",
+    "STR_TRACKING",
+    "STR_MPH",
+    "STR_EXCELLENT",
+    "STR_FAIR",
+    "STR_LOW",
+    "STR_MODERATE",
+    "STR_HIGH",
+    "STR_EXTREME",
+    "STR_PLEASE_INSERT_DISK",
+    "STR_IF_3_5_INSERT",
+    "STR_PRESS_RETURN_CONTINUE",
+    "STR_BRIEFING_PAN",
+    "STR_ANIMATION_PAN",
+    "STR_BLD",
+    "STR_WE_VE_TOTALLY_LOST",
+    "STR_SHE",
+    "STR_TURNS_CORNER_DASHES",
+    "STR_WE_LL_HAVE_LESS",
+    "STR_DASH_INTO_BUILDING",
+    "STR_SHE_2",
+    "STR_PULLS_OVER_WALKS_INTO",
+    "STR_PURSUERS_RUN_OFF_ROAD",
+    "STR_RUN",
+    "STR_HIS",
+    "STR_HER",
+    "STR_CAR_OFF_ROAD_MAKE",
+    "STR_LOC",
+    "STR_ONE_MOMENT_PLEASE",
+    "STR_SURE_WANT_QUIT_NO_2",
+    "STR_SURE_WANT_QUIT_NO",
+    "BLOCK_182C",
+    "BLOCK_626C",
+    "COLOURS_CAR_PICK",
+    "COLOURS_MENU",
+    "COLOURS_MENU_2",
+    "STR_EMPTY_2",
+    "BLOCK_19C1",
+    "BLOCK_178E",
+    "BLOCK_16FA",
+    "BLOCK_00D5",
+    "BLOCK_0182",
+    "BLOCK_23D0",
+    "BLOCK_648A",
+    "STR_OK",
+    "PALETTE_MENU",
+    "PALETTE_FACE",
+    "CAMPAIGN_1663_42ce",
+    "BLOCK_5C6A",
+    "BLOCK_673E",
+    "CRIME_EVENTS",
+    "STR_CHASE_PIC",
+    "STR_STREET_PIC",
+]
+
+[names]
+BLOCK_673E = "shm_role_scan_states"
+BLOCK_5C6A = "shm_crime_roles"
+PALETTE_FACE = "shd_palette_face"
+PALETTE_MENU = "shd_palette_menu"
+STR_OK = "shd_str_ok"
+BLOCK_16FA = "dat_palette_chase"
+BLOCK_178E = "dat_palette_default"
+STR_EMPTY_2 = "dat_str_empty_2"
+COLOURS_MENU_2 = "shd_colours_screen_2"
+COLOURS_MENU = "shd_colours_screen"
+COLOURS_CAR_PICK = "dat_colours_car_pick"
+DAT_1663_5c00 = "asm_DAT_1663_5c00"
+DAT_1663_1816 = "dat_windscreen"
+DAT_1663_18be = "dat_windscreen_shown"
+DAT_1663_18c0 = "dat_windscreen_car_shown"
+DAT_1663_23c2 = "asm_windscreen_near"
+DAT_1663_23c4 = "asm_windscreen_range"
+DAT_1663_23c6 = "asm_windscreen_car_x"
+DAT_1663_23c8 = "asm_windscreen_car_y"
+DAT_1663_23ca = "asm_compass_dx"
+DAT_1663_23cc = "asm_compass_dy"
+DAT_1663_23ce = "asm_dash_scratch"
+DAT_1663_185b = "asm_car_stats"
+DAT_1663_42cc = "asm_tick"
+CARS = "asm_cars"
+DAT_1663_4784 = "asm_stuck_count"
+DAT_1663_50cc = "asm_head_on"
+DAT_1663_5c62 = "asm_countdown"
+DAT_1663_626a = "asm_DAT_1663_626a"
+GEAR_STEPS = "dat_gear_steps"
+STREET_X = "dat_street_x"
+STREET_Y = "dat_street_y"
+DAT_1663_3e84 = "asm_sight_dir"
+DAT_1663_1802 = "dat_dash_page"
+DAT_1663_50c8 = "asm_windscreen_frame"
+DAT_1663_189c = "dat_car_offset"
+DAT_1663_23ba = "asm_view_set"
+DAT_1663_23bc = "asm_view_at"
+DAT_1663_23be = "asm_view_col"
+DAT_1663_23c0 = "asm_view_row"
+CLOCK_TEXT = "dat_clock_text"
+DAT_1663_17ee = "dat_tile_page"
+DAT_1663_4788 = "asm_cell_map"
+SIDE_DX = "dat_side_dx"
+SIDE_DY = "dat_side_dy"
+DAT_1663_17da = "asm_active_car"
+SECTION_PTR = "shm_save_block"
+DAT_1663_23b6 = "shm_save_offset"
+DAT_1663_23b8 = "asm_arena"
+DAT_1663_428c = "asm_goal_spot"
+DAT_1663_4562 = "shm_cities"
+DAT_1663_4786 = "shm_suspect_count"
+DAT_1663_5be0 = "shm_log_count"
+DAT_1663_5be4 = "shm_case_seed"
+DAT_1663_5be6 = "shm_building_count"
+DAT_1663_5be8 = "shm_case_tick"
+DAT_1663_5bea = "asm_graphics_word"
+DAT_1663_5bee = "shm_case_city_1"
+DAT_1663_5bf0 = "shm_case_city_2"
+DAT_1663_5bfe = "shm_crime_event_count"
+DAT_1663_5c02 = "asm_start_spot"
+DAT_1663_5c06 = "shm_mission"
+DAT_1663_5c0a = "shm_case_org_1"
+DAT_1663_5c0e = "shm_case_org_2"
+DAT_1663_5c64 = "shm_double_agent_cities"
+DAT_1663_5c66 = "shm_crime_role_count"
+DAT_1663_6802 = "asm_spot_x"
+DAT_1663_6822 = "asm_spot_y"
+DAT_1663_6844 = "shm_case_city"
+DAT_1663_6846 = "asm_suspicion_scale"
+DAT_1663_6848 = "shm_orgs_known"
+DAT_1663_684a = "shm_jailbreak_suspect"
+DAT_1663_684c = "shm_case_spare_2"
+DAT_1663_69ce = "asm_goal_x"
+DAT_1663_69d0 = "asm_goal_y"
+DAT_1663_69d2 = "shm_case_org"
+
+FUN_10df_403b = "c_seq_step"
+ARCHIVE_BUFFER = "shm_archive_buffer"
+
+# errno, which c_set_mode_keeping_errno saves and restores around int86.
+DAT_1663_1f53 = "_errno"
+RASTPORT_1600 = "dat_map_page_port"
+DAT_1663_1612 = "shd_map_page"
+DAT_1663_16f8 = "shd_pan_disk"
+DAT_1663_1912 = "shd_city_on_screen"
+DAT_1663_1914 = "shd_drive"
+DAT_1663_1916 = "shm_pan_width"
+DAT_1663_1952 = "shm_pan_building"
+DAT_1663_1962 = "shd_joystick_dirs"
+DAT_1663_19ec = "shd_disk_names"
+DISK_LETTER = "shd_disk_letter"
+DAT_1663_1b32 = "shd_archive_buffer_end"
+DAT_1663_1b34 = "shd_archive_fd"
+SEQ_BLOCK_1663_23e0 = "shm_active_pan"
+MENU_LINE_START = "shm_menu_line_start"
+DAT_1663_243e = "shm_menu_colour_plain"
+DAT_1663_2440 = "shm_menu_colour_item"
+DAT_1663_2442 = "shm_menu_lines"
+DAT_1663_2444 = "shm_menu_colour_pick"
+DAT_1663_2456 = "shm_source_fd"
+DAT_1663_2458 = "shm_source_dst"
+DAT_1663_245a = "shm_source_src"
+DAT_1663_3c5c = "shm_sprite_width"
+DAT_1663_3c5e = "shm_sprite_height"
+DAT_1663_3c60 = "shm_palette_count"
+JOYSTICK = "shm_joystick"
+DAT_1663_3e86 = "shm_scratch"
+DAT_1663_455c = "shm_seed"
+DAT_1663_4782 = "shm_menu_tick"
+DAT_1663_50ca = "shm_menu_face"
+UNION_REGS_1663_50ce = "shm_mouse_regs"
+DAT_1663_5be2 = "shm_menu_first_line"
+DAT_1663_5bec = "shm_source_at"
+DAT_1663_5bf2 = "shm_pan_playing"
+DAT_1663_5bf4 = "shm_menu_no_pick"
+DAT_1663_5bf8 = "shm_menu_items"
+DAT_1663_5c04 = "shm_menu_relayout"
+DAT_1663_5c08 = "shm_menu_colour_bar"
+DAT_1663_5c0c = "shm_menu_text_width"
+DAT_1663_5c68 = "shm_menu_marked"
+DAT_1663_6276 = "shm_refill"
+DAT_1663_647a = "shm_menu_face_x"
+DAT_1663_647c = "shm_menu_draw_only"
+DAT_1663_6480 = "shm_mouse_buttons"
+DAT_1663_6482 = "shm_mouse_x"
+DAT_1663_6484 = "shm_mouse_y"
+DAT_1663_6486 = "shm_mouse_count"
+DAT_1663_6488 = "shm_menu_face_y"
+DAT_1663_66d0 = "shm_menu_shortcut"
+DAT_1663_66f0 = "shm_menu_pick"
+DAT_1663_673c = "shm_menu_right"
+DAT_1663_6800 = "shm_menu_bottom"
+FUN_10df_321c = "c_menu_run"
+FUN_10df_36eb = "c_menu_draw"
+FUN_10df_3a9c = "c_menu_box"
+FUN_10df_3af4 = "c_outline_box"
+FUN_10df_3b4d = "c_pan_arm"
+FUN_10df_3c0e = "c_pan_restore"
+FUN_10df_3c60 = "c_menu_key"
+FUN_10df_3d91 = "c_pan_blank"
+FUN_10df_3dba = "c_wait_for_release"
+FUN_10df_3ded = "c_joystick_key"
+FUN_10df_3e6a = "c_joystick_read"
+FUN_10df_3ee6 = "c_joystick_button"
+FUN_10df_3f08 = "c_want_disk"
+FUN_10df_403a = "c_seq_start"
+FUN_10df_403c = "c_seq_stop"
+FUN_10df_403e = "c_mouse_reset"
+FUN_10df_4054 = "c_mouse_show"
+FUN_10df_406a = "c_mouse_hide"
+FUN_10df_4080 = "c_mouse_where"
+FUN_10df_40a8 = "c_mouse_move"
+FUN_10df_40ce = "c_mouse_presses"
+FUN_10df_4106 = "c_mouse_releases"
+FUN_10df_413e = "c_mouse_fence"
+FUN_10df_4186 = "c_draw_line"
+FUN_10df_41a6 = "c_write_text"
+FUN_10df_41c7 = "c_write_text_trimmed"
+FUN_10df_41f0 = "c_wait_retraces"
+FUN_10df_4228 = "c_screen_save"
+FUN_10df_4246 = "c_screen_restore"
+FUN_10df_4262 = "c_fill_box"
+FUN_10df_428c = "c_set_graphics_mode"
+FUN_10df_42a6 = "c_set_text_mode"
+FUN_10df_42c0 = "c_seed_random"
+FUN_10df_42d7 = "c_random_below"
+FUN_10df_42f0 = "c_clamp"
+FUN_10df_430e = "c_open"
+FUN_10df_436e = "c_create"
+FUN_10df_4398 = "c_close"
+FUN_10df_43bc = "c_read_all"
+FUN_10df_4400 = "c_read_all_far"
+FUN_10df_4446 = "c_write_file"
+FUN_10df_4488 = "c_decode_picture"
+FUN_10df_44ec = "c_decode_palette"
+FUN_10df_452c = "c_decode_scan"
+FUN_10df_4598 = "c_load_picture"
+FUN_10df_45aa = "c_load_anim"
+FUN_10df_4606 = "c_animation_from_memory"
+FUN_10df_466a = "c_decode_from_file"
+FUN_10df_4688 = "c_refill_from_memory"
+FUN_10df_46bc = "c_prime_file"
+FUN_10df_46cc = "c_refill_from_file"
+FUN_10df_46f4 = "c_fatal"
+FUN_10df_4716 = "c_set_mode_keeping_errno"
+FUN_10df_4746 = "c_archive_open"
+FUN_10df_4776 = "c_archive_close"
+FUN_10df_479c = "c_archive_find"
+FUN_10df_485c = "c_seek"
+FUN_1000_0002 = "drv_real_FUN_1000_0002"
+FUN_1000_00b0 = "drv_real_FUN_1000_00b0"
+FUN_1000_00ca = "drv_real_dispatch"
+FUN_1000_010c = "drv_jump_gfx_page_seg"
+FUN_1000_011a = "drv_jump_gfx_grab"
+FUN_1000_0121 = "drv_jump_gfx_fill"
+FUN_1000_0128 = "drv_jump_gfx_char_width"
+FUN_1000_0134 = "drv_jump_gfx_sprite_put_clipped"
+FUN_1000_013d = "drv_jump_gfx_pool_release"
+FUN_1000_0144 = "drv_jump_gfx_free_page"
+FUN_1000_016c = "drv_jump_gfx_overlay_remove"
+FUN_1000_0183 = "drv_jump_gfx_pool_alloc"
+FUN_1000_018a = "drv_jump_gfx_row_put"
+FUN_1000_0191 = "drv_jump_gfx_copy_rect"
+FUN_1000_0198 = "drv_jump_gfx_text"
+FUN_1000_019d = "drv_jump_FUN_1000_019d"
+FUN_1000_01b4 = "drv_jump_gfx_set_page_seg"
+FUN_1000_01c2 = "drv_jump_gfx_set_palette"
+FUN_1000_01c9 = "drv_jump_gfx_set_colour_map"
+FUN_1000_01d5 = "drv_jump_gfx_overlay_put"
+FUN_1000_01dc = "drv_jump_gfx_show_page"
+FUN_1000_01ec = "drv_jump_gfx_sprite_end"
+FUN_1000_01f3 = "drv_jump_gfx_sprite_row"
+FUN_1000_01fa = "drv_jump_gfx_sprite_begin"
+FUN_1000_020f = "drv_jump_gfx_plot"
+FUN_1000_0216 = "drv_jump_gfx_edge_fill"
+FUN_1000_021d = "drv_jump_gfx_write_reset"
+FUN_1000_0224 = "drv_jump_gfx_set_colour"
+FUN_1000_022b = "drv_jump_gfx_line"
+FUN_1000_0255 = "drv_jump_gfx_select_page"
+FUN_1000_025c = "drv_jump_gfx_select_pic"
+FUN_1000_0382 = "drv_jump_keyboard_empty"
+FUN_1000_0389 = "drv_jump_read_key"
+FUN_1000_03ac = "drv_jump_joy_calibrate"
+FUN_1000_03b3 = "drv_jump_joy_read"
+FUN_1000_03cf = "drv_jump_snd_command"
+FUN_1000_0414 = "drv_real_load"
+FUN_1000_04d0 = "drv_real_FUN_1000_04d0"
+FUN_1000_04d9 = "drv_real_load_data"
+FUN_1000_052d = "drv_real_link_slots"
+FUN_1000_0560 = "drv_real_free"
+FUN_1000_0576 = "drv_real_fill_rect"
+FUN_1000_05e2 = "drv_real_FUN_1000_05e2"
+FUN_1000_05f8 = "drv_real_FUN_1000_05f8"
+FUN_1000_05fe = "drv_real_FUN_1000_05fe"
+FUN_1000_0634 = "drv_real_FUN_1000_0634"
+FUN_1000_068f = "drv_real_FUN_1000_068f"
+FUN_1000_069e = "drv_real_FUN_1000_069e"
+FUN_1000_075e = "drv_real_FUN_1000_075e"
+FUN_1000_079c = "drv_real_FUN_1000_079c"
+FUN_1000_07a0 = "drv_real_FUN_1000_07a0"
+FUN_1000_07ac = "drv_real_FUN_1000_07ac"
+FUN_1000_0938 = "drv_real_FUN_1000_0938"
+FUN_1000_0959 = "drv_real_FUN_1000_0959"
+FUN_1000_097a = "drv_real_draw_line"
+FUN_1000_09bf = "drv_real_FUN_1000_09bf"
+FUN_1000_09fe = "drv_real_unpack_start"
+FUN_1000_0a8e = "drv_real_palette_read"
+FUN_1000_0ad6 = "drv_real_palette_put"
+FUN_1000_0af0 = "drv_real_unpack_row"
+FUN_1000_0b0f = "drv_real_FUN_1000_0b0f"
+FUN_1000_0b4d = "drv_real_FUN_1000_0b4d"
+FUN_1000_0b83 = "drv_real_FUN_1000_0b83"
+FUN_1000_0bff = "drv_real_FUN_1000_0bff"
+FUN_1000_0cb0 = "drv_real_mouse_open"
+FUN_1000_0cff = "drv_real_mouse_close"
+FUN_1000_0d1a = "drv_real_FUN_1000_0d1a"
+FUN_1000_0d21 = "drv_real_mouse_set_cursor"
+FUN_1000_0d38 = "drv_real_FUN_1000_0d38"
+FUN_1000_0d43 = "drv_real_cursor_show"
+FUN_1000_0d65 = "drv_real_mouse_int"
+FUN_1000_0d8b = "drv_real_cursor_redraw"
+FUN_1000_0dbd = "drv_real_mouse_event"
+main = "c_main"
+DAT_1663_5bfa = "asm_engine_note"
+UNION_REGS_1663_5c54 = "shm_regs"
+DAT_1663_16f4 = "asm_chase_kind"
+DAT_1663_178c = "asm_page_3"
+DAT_1663_3e80 = "asm_org_alert_level"
+DAT_1663_4286 = "asm_night"
+DAT_1663_4288 = "shm_difficulty"
+DAT_1663_428e = "shm_clock_minutes"
+DAT_1663_455e = "shm_options"
+DAT_1663_4560 = "shm_cga"
+DAT_1663_50dc = "asm_outcome"
+DAT_1663_50de = "asm_frame_tick"
+DAT_1663_5bfc = "asm_fresh_board"
+WINDSCREEN_CAR_SPRITES = "asm_windscreen_car_sprites"
+DAT_1663_647e = "shm_skills"
+DAT_1663_66ce = "shm_finished"
+DAT_1663_67fe = "shm_graphics_letter"
+DAT_1663_6842 = "asm_suspect_alert"
+DAT_1663_16f6 = "asm_game_speed"
+DAT_1663_170c = "dat_windscreen_car_rects"
+DAT_1663_19f6 = "dat_screen_port"
+DAT_1663_1a08 = "shd_screen"
+FUN_10df_044e = "c_hook_hand_back"
+FUN_10df_0467 = "c_sound_command"
+FUN_10df_0482 = "c_set_display_page"
+FUN_10df_04a1 = "c_nothing"
+FUN_10df_04a2 = "c_hook_repaint"
+FUN_10df_04a3 = "c_draw_face"
+FUN_10df_04a4 = "c_setup"
+FUN_10df_06ae = "c_get_section"
+FUN_10df_0708 = "c_chase_start"
+FUN_10df_0842 = "c_pick_cars"
+FUN_10df_0dc6 = "c_chase_step"
+FUN_10df_1ceb = "c_sight"
+FUN_10df_1ede = "c_is_open"
+FUN_10df_1f80 = "c_board_mark"
+FUN_10df_1ff8 = "c_board_dot"
+FUN_10df_2012 = "c_board_draw"
+FUN_10df_2400 = "c_board_car"
+FUN_10df_248c = "c_hook_step"
+FUN_10df_2496 = "c_dashboard"
+FUN_10df_29d8 = "c_turning_animation"
+FUN_10df_2bb3 = "c_sign"
+FUN_10df_2bd0 = "c_clock_text"
+FUN_10df_2c50 = "c_hook_main"
+FUN_10df_2c51 = "c_make_maze"
+FUN_10df_3190 = "c_near_destination"
+FUN_10df_4a9b = "run_crt0dat_4a9b"
+FUN_10df_4aaa = "run_crt0dat_4aaa"
+FUN_10df_4ade = "__fptrap"
+FUN_10df_4dce = "__maperror"
+FUN_10df_4dd4 = "run_dosret_4dd4"
+FUN_10df_4f86 = "run_write_4f86"
+FUN_10df_4fc6 = "run_write_4fc6"
+FUN_10df_4fd4 = "run_write_4fd4"
+thunk___catox = "_atol"
+FUN_10df_57b6 = "__dos_read"
+DAT_1000_0000 = "drv_DAT_1000_0000"
+DAT_1663_0042 = "drv_DAT_1663_0042"
+DAT_1663_0044 = "drv_DAT_1663_0044"
+DAT_1663_1a0a = "drv_DAT_1663_1a0a"
+DAT_1663_1a0b = "drv_DAT_1663_1a0b"
+DAT_1663_1a0c = "drv_DAT_1663_1a0c"
+DAT_1663_1a0e = "drv_DAT_1663_1a0e"
+DAT_1663_1a10 = "drv_DAT_1663_1a10"
+DAT_1663_1a12 = "drv_DAT_1663_1a12"
+DAT_1663_1a14 = "drv_DAT_1663_1a14"
+DAT_1663_1a16 = "drv_DAT_1663_1a16"
+DAT_1663_1a18 = "drv_DAT_1663_1a18"
+DAT_1663_1a1a = "drv_DAT_1663_1a1a"
+DAT_1663_1b37 = "drv_DAT_1663_1b37"
+DAT_1663_1b39 = "drv_DAT_1663_1b39"
+DAT_1663_1b3b = "drv_DAT_1663_1b3b"
+DAT_1663_1b3d = "drv_DAT_1663_1b3d"
+DAT_1663_1b3f = "drv_DAT_1663_1b3f"
+DAT_1663_1cf5 = "drv_DAT_1663_1cf5"
+DAT_1663_1cf7 = "drv_DAT_1663_1cf7"
+DAT_1663_1eaf = "drv_DAT_1663_1eaf"
+DAT_1663_1eb1 = "drv_DAT_1663_1eb1"
+DAT_1663_1eb3 = "drv_DAT_1663_1eb3"
+DAT_1663_1eb5 = "drv_DAT_1663_1eb5"
+DAT_1663_1eb7 = "drv_DAT_1663_1eb7"
+DAT_1663_1eb9 = "drv_DAT_1663_1eb9"
+DAT_1663_1ebc = "drv_DAT_1663_1ebc"
+DAT_1663_1ebd = "drv_DAT_1663_1ebd"
+DAT_1663_1ebf = "drv_DAT_1663_1ebf"
+DAT_1663_1ec1 = "drv_DAT_1663_1ec1"
+DAT_1663_1ec3 = "drv_DAT_1663_1ec3"
+DAT_1663_1ec5 = "drv_DAT_1663_1ec5"
+DAT_1663_1ec7 = "drv_DAT_1663_1ec7"
+DAT_1663_1eca = "drv_DAT_1663_1eca"
+DAT_1663_1ecc = "drv_DAT_1663_1ecc"
+DAT_1663_1ece = "drv_DAT_1663_1ece"
+DAT_1663_1ed0 = "drv_DAT_1663_1ed0"
+DAT_1663_1ed2 = "drv_DAT_1663_1ed2"
+DAT_1663_1ed4 = "drv_DAT_1663_1ed4"
+DAT_1663_1ed6 = "drv_DAT_1663_1ed6"
+DAT_1663_1ed8 = "drv_DAT_1663_1ed8"
+DAT_1663_1eda = "drv_DAT_1663_1eda"
+DAT_1663_1edc = "drv_DAT_1663_1edc"
+DAT_1663_1ede = "drv_DAT_1663_1ede"
+DAT_1663_1ee0 = "drv_DAT_1663_1ee0"
+DAT_1663_1ee2 = "__asizds"
+DAT_1663_1ee4 = "__atopsp"
+DAT_1663_1ee6 = "__aexit_rtn"
+DAT_1663_1ee8 = "__abrktb"
+"s_;C_FILE_INFO_1663_1f3a" = "__acfinfo"
+DAT_1663_1f47 = "__aintdiv"
+DAT_1663_1f49 = "run_crt0dat_1f49"
+DAT_1663_1f59 = "__psp"
+DAT_1663_1f5b = "__dosvermajor"
+DAT_1663_1f5e = "__doserrno"
+DAT_1663_1f60 = "__nfile"
+DAT_1663_1f62 = "__osfile"
+DAT_1663_1f63 = "run_crt0dat_1f63"
+DAT_1663_1f65 = "run_crt0dat_1f65"
+DAT_1663_1f66 = "run_crt0dat_1f66"
+DAT_1663_1f67 = "run_crt0dat_1f67"
+DAT_1663_1f68 = "run_crt0dat_1f68"
+DAT_1663_1f76 = "___argc"
+DAT_1663_1f78 = "___argv"
+DAT_1663_1f7a = "_environ"
+DAT_1663_1f7c = "__pgmptr"
+DAT_1663_1f80 = "run_crt0dat_1f80"
+DAT_1663_1f81 = "run_crt0dat_1f81"
+DAT_1663_1f8a = "__adbgmsg"
+DAT_1663_1f8c = "STKHQQ"
+DAT_1663_1f8e = "run_stdargv_1f8e"
+DAT_1663_20e8 = "run_timeset_20e8"
+DAT_1663_20ec = "_timezone"
+DAT_1663_20ee = "run_timeset_20ee"
+DAT_1663_20f0 = "_daylight"
+DAT_1663_20f2 = "_tzname"
+DAT_1663_2132 = "run_rand_2132"
+DAT_1663_2134 = "run_rand_2134"
+DAT_1663_22b4 = "run_syserr_22b4"
+DAT_1663_22b6 = "_sys_nerr"
+DAT_1663_22ba = "__fpinit"
+DAT_1663_22bc = "run_crt0dat_22bc"
+DAT_1663_22be = "run_crt0dat_22be"
+DAT_1663_22c2 = "run_crt0dat_22c2"
+DAT_1663_22d0 = "run_crt0msg_22d0"
+s_R6000_-_stack_overflow_1663_22d2 = "run_crt0msg_22d2"
+DAT_1663_245c = "drv_DAT_1663_245c"
+DAT_1663_245e = "drv_DAT_1663_245e"
+DAT_1663_245f = "drv_DAT_1663_245f"
+DAT_1663_2461 = "drv_DAT_1663_2461"
+DAT_1663_3c62 = "drv_DAT_1663_3c62"
+DAT_1663_3c64 = "drv_DAT_1663_3c64"
+DAT_1663_3c66 = "drv_DAT_1663_3c66"
+DAT_1663_3c67 = "drv_DAT_1663_3c67"
+DAT_1663_3c68 = "drv_DAT_1663_3c68"
+DAT_1663_3c69 = "drv_DAT_1663_3c69"
+DAT_1663_3c6a = "drv_DAT_1663_3c6a"
+DAT_1663_3c6c = "drv_DAT_1663_3c6c"
+DAT_1663_3c6e = "drv_DAT_1663_3c6e"
+DAT_1663_3c70 = "drv_DAT_1663_3c70"
+DAT_1663_3c71 = "drv_DAT_1663_3c71"
+DAT_1663_3c72 = "drv_DAT_1663_3c72"
+DAT_1663_3c74 = "drv_DAT_1663_3c74"
+DAT_1663_3e76 = "run_tzset_3e76"
+FUN_10df_4dae = "__dosret0"
+FUN_10df_56c2 = "__cltoasub"
+
+RUN_BANNER_PAD = "run_banner_pad"
+RUN_BANNER = "run_banner"
+BLOCK_0046 = "asm_block_0046"
+STR_ENV_SVE = "dat_str_env_sve"
+STR_CHASE_PIC = "dat_str_chase_pic"
+STR_STREET_PIC = "dat_str_street_pic"
+STR_WE_VE_TOTALLY_LOST = "dat_str_we_ve_totally_lost"
+BLOCK_00D5 = "dat_str_he"
+STR_SHE = "dat_str_she"
+STR_TURNS_CORNER_DASHES = "dat_str_turns_corner_dashes"
+STR_WE_LL_HAVE_LESS = "dat_str_we_ll_have_less"
+STR_DASH_INTO_BUILDING = "dat_str_dash_into_building"
+BLOCK_0182 = "dat_str_he_2"
+STR_SHE_2 = "dat_str_she_2"
+STR_PULLS_OVER_WALKS_INTO = "dat_str_pulls_over_walks_into"
+STR_PURSUERS_RUN_OFF_ROAD = "dat_str_pursuers_run_off_road"
+STR_RUN = "dat_str_run"
+STR_HIS = "dat_str_his"
+STR_HER = "dat_str_her"
+STR_CAR_OFF_ROAD_MAKE = "dat_str_car_off_road_make"
+BLOCK_1614 = "asm_block_1614"
+BLOCK_17DC = "dat_tile_page_port"
+BLOCK_17F0 = "dat_dash_page_port"
+BLOCK_1804 = "dat_windscreen_port"
+STR_CARS_PIC = "dat_str_cars_pic"
+STR_TRACKING = "dat_str_tracking"
+BLOCK_182C = "dat_str_empty"
+STR_MPH = "dat_str_mph"
+STR_EXCELLENT = "dat_str_excellent"
+STR_FAIR = "dat_str_fair"
+STR_LOW = "dat_str_low"
+STR_MODERATE = "dat_str_moderate"
+STR_HIGH = "dat_str_high"
+STR_EXTREME = "dat_str_extreme"
+STR_SURE_WANT_QUIT_NO = "dat_str_sure_want_quit_no"
+STR_LOC = "dat_str_loc"
+STR_ONE_MOMENT_PLEASE = "shd_str_one_moment_please"
+STR_SURE_WANT_QUIT_NO_2 = "shd_str_sure_want_quit_no_2"
+STR_PANI = "dat_str_pani"
+BLOCK_1911 = "asm_block_1911"
+BLOCK_1918 = "asm_block_1918"
+STR_BRIEFING_PAN = "shd_str_briefing_pan"
+STR_BLD = "shd_str_bld"
+BLOCK_1951 = "asm_block_1951"
+STR_ANIMATION_PAN = "shd_str_animation_pan"
+STR_FINAL_EXE = "dat_str_final_exe"
+STR_GAME_EXE = "dat_str_game_exe"
+STR_TAC_EXE = "dat_str_tac_exe"
+STR_HQ_PAN = "dat_str_hq_pan"
+STR_PLEASE_INSERT_DISK = "shd_str_please_insert_disk"
+STR_IF_3_5_INSERT = "shd_str_if_3_5_insert"
+BLOCK_19C1 = "shd_str_close_paren"
+STR_PRESS_RETURN_CONTINUE = "shd_str_press_return_continue"
+MESSAGE_POOL = "dat_message_pool"
+STR_MS_DOS_LIED_US = "dat_str_ms_dos_lied_us"
+STR_FILENAME_NOT_FOUND = "dat_str_filename_not_found"
+STR_NOT_ENOUGH_MEMORY_LOAD = "dat_str_not_enough_memory_load"
+STR_OVERLAY_LOAD_FAILED = "dat_str_overlay_load_failed"
+STR_OVERLAY_HAS_OVERRUN = "dat_str_overlay_has_overrun"
+STR_UNABLE_SHRINK_OVERLAY = "dat_str_unable_shrink_overlay"
+STR_ERROR_RELEASING_OVERLAY = "dat_str_error_releasing_overlay"
+BLOCK_1B36 = "asm_block_1b36"
+BLOCK_1B41 = "asm_block_1b41"
+BLOCK_1CF9 = "asm_block_1cf9"
+BLOCK_1EBB = "asm_block_1ebb"
+BLOCK_1EC9 = "asm_block_1ec9"
+BLOCK_1EEA = "asm_block_1eea"
+BLOCK_1F4B = "asm_block_1f4b"
+BLOCK_1F55 = "asm_block_1f55"
+BLOCK_1F5D = "asm_block_1f5d"
+BLOCK_1F5F = "asm_block_1f5f"
+BLOCK_1F64 = "asm_block_1f64"
+BLOCK_1F69 = "asm_block_1f69"
+BLOCK_1F82 = "asm_block_1f82"
+BLOCK_1F90 = "asm_block_1f90"
+STR_PST = "dat_str_pst"
+BLOCK_20E9 = "asm_block_20e9"
+BLOCK_20F4 = "asm_block_20f4"
+DAY_NAMES = "run_day_names"
+MONTH_NAMES = "run_month_names"
+BLOCK_2131 = "asm_block_2131"
+ERR_ERROR_0 = "run_err_error_0"
+BLOCK_213E = "asm_block_213e"
+ERR_NO_SUCH_FILE_DIRECTORY = "run_err_no_such_file_directory"
+BLOCK_215C = "asm_block_215c"
+ERR_ARG_LIST_TOO_LONG = "run_err_arg_list_too_long"
+ERR_EXEC_FORMAT_ERROR = "run_err_exec_format_error"
+ERR_BAD_FILE_NUMBER = "run_err_bad_file_number"
+BLOCK_2191 = "asm_block_2191"
+ERR_NOT_ENOUGH_CORE = "run_err_not_enough_core"
+ERR_PERMISSION_DENIED = "run_err_permission_denied"
+ERR_FILE_EXISTS = "run_err_file_exists"
+ERR_CROSS_DEVICE_LINK = "run_err_cross_device_link"
+BLOCK_21D8 = "asm_block_21d8"
+ERR_INVALID_ARGUMENT = "run_err_invalid_argument"
+BLOCK_21EA = "asm_block_21ea"
+ERR_TOO_MANY_OPEN_FILES = "run_err_too_many_open_files"
+BLOCK_2200 = "asm_block_2200"
+ERR_NO_SPACE_LEFT_DEVICE = "run_err_no_space_left_device"
+BLOCK_221C = "asm_block_221c"
+ERR_MATH_ARGUMENT = "run_err_math_argument"
+ERR_RESULT_TOO_LARGE = "run_err_result_too_large"
+BLOCK_223D = "asm_block_223d"
+ERR_RESOURCE_DEADLOCK_WOULD = "run_err_resource_deadlock_would"
+ERR_UNKNOWN_ERROR = "run_err_unknown_error"
+STR_6_Y_Z_O = "dat_str_6_y_z_o"
+BLOCK_229F = "asm_block_229f"
+BLOCK_22B8 = "asm_block_22b8"
+BLOCK_22C6 = "asm_block_22c6"
+NMSG_MARKER = "run_nmsg_marker"
+BLOCK_22EC = "asm_block_22ec"
+MSG_R6003 = "run_msg_r6003"
+BLOCK_230D = "asm_block_230d"
+MSG_R6009 = "run_msg_r6009"
+BLOCK_233B = "asm_block_233b"
+MSG_RUNTIME_ERROR = "run_msg_runtime_error"
+BLOCK_2352 = "asm_block_2352"
+MSG_R6002 = "run_msg_r6002"
+BLOCK_2379 = "asm_block_2379"
+MSG_R6001 = "run_msg_r6001"
+BLOCK_239E = "asm_block_239e"
+BLOCK_23A2 = "asm_block_23a2"
+BLOCK_23D0 = "asm_number_digits_2"
+BLOCK_23EE = "asm_block_23ee"
+BLOCK_2446 = "asm_block_2446"
+BLOCK_2462 = "asm_block_2462"
+BLOCK_3C75 = "asm_block_3c75"
+BLOCK_3E78 = "asm_block_3e78"
+BLOCK_428A = "asm_block_428a"
+CAMPAIGN_1663_42ce = "shm_campaign"
+CRIME_EVENTS = "shm_crime_events"
+BLOCK_5BF6 = "asm_block_5bf6"
+BLOCK_5C10 = "asm_block_5c10"
+BLOCK_5C32 = "asm_block_5c32"
+BLOCK_626C = "asm_number_digits"
+BLOCK_648A = "shm_orgs"
+BLOCK_66CA = "asm_block_66ca"
+BLOCK_66F2 = "asm_block_66f2"
+BLOCK_67FF = "asm_block_67ff"
+BLOCK_684E = "shm_anim_row_2"
+BLOCK_69D4 = "asm_block_69d4"

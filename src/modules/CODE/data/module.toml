@@ -1,0 +1,803 @@
+# Module manifest for CODE.EXE, the cryptography minigame.
+#
+# The driver dispatch segment is linked first, so the module's own code is the
+# second block and the MSC run-time sits in its tail.
+
+name = "CODE"
+output = "CODE.EXE"
+
+target = "MPS/COVERT/CODE.EXE"
+packed = true
+
+# A build with a define is medium-model: no 64 KB code ceiling.
+mod_model = "medium"
+
+[link]
+flags = []
+# The MSC 5.1 small-model run-time.
+libs = ["SLIBCE.LIB"]
+load_libs = []
+
+# Objects, in link order.
+[[objects]]
+target = "CODE.ASM"
+sources = ["CODE.ASM"]
+tool = "masm"
+
+[[objects]]
+target = "MAIN.C"
+sources = ["MAIN.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "SETUP.C"
+sources = [
+    "HOOK-HAND-BACK.C",
+    "shared/SOUND.C",
+    "shared/PAGE-SHOW.C",
+    "stubs/STUBS.C",
+    "stubs/HOOK-REPAINT.C",
+    "stubs/STUBS-2.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+# Its routines are one object: no even boundary lies between them.
+[[objects]]
+target = "PUZZLE.C"
+sources = [
+    "PUZZLE-SET.C",
+    "PUZZLE-DRAW.C",
+    "SOLVE-ONE.C",
+    "GUESS-ROW.C",
+    "SCRAMBLE.C",
+    "FLASH-LETTER.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "PLAY.C"
+sources = [
+    "PLAY.C",
+    "GUESS-DRAW.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "SOLVED.C"
+sources = ["SOLVED.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "CLOCK.C"
+sources = ["CLOCK.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "PANEL.C"
+sources = ["shared/PANEL.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "BOXES.C"
+sources = [
+    "shared/FRAME.C",
+    "shared/HELP.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "HELPCLR.C"
+sources = ["shared/HELP-CLEAR.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+# One object: the second routine starts at an odd address.
+[[objects]]
+target = "KEYREAD.C"
+sources = [
+    "shared/KEY-READ.C",
+    "shared/PAGE-CLEAR.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "LOADDISK.C"
+sources = ["shared/LOADDISK.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "JOYWAIT.C"
+sources = [
+    "shared/JOYSTICK-WAIT.C",
+    "shared/JOYSTICK-KEY.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "JOYREAD.C"
+sources = ["shared/JOYSTICK-READ.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "JOYBTN.C"
+sources = ["shared/JOYSTICK-BUTTON.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "MENU.C"
+sources = [
+    "shared/MENU.C",
+    "shared/MENU-DRAW.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "ANI_STUB.C"
+sources = ["stubs/ANI_STUBS.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "MOUSEPUT.C"
+sources = ["shared/MOUSE-PUT.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "MOUSEPRS.C"
+sources = ["shared/MOUSE-PRESS.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "MOUSEREL.C"
+sources = ["shared/MOUSE-RELEASE.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "MOUSERNG.C"
+sources = ["shared/MOUSE-RANGE.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "LINE.C"
+sources = ["shared/LINE.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "TEXTOUT.C"
+sources = ["shared/TEXT-OUT.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "RANDOM.C"
+sources = [
+    "shared/RANDOM.C",
+    "shared/CLAMP.C",
+]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "MOUSEMOD.C"
+sources = ["shared/MOUSE-MODE.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "ANI_STOP.C"
+sources = ["stubs/ANI_STOP.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "RETRACE.C"
+sources = ["shared/RETRACE.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "PAGESWAP.C"
+sources = ["shared/PAGE-SWAP.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "BOXFILL.C"
+sources = ["shared/BOX-FILL.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[[objects]]
+target = "VIDEOMOD.C"
+sources = ["shared/VIDEO-MODE.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[porting]
+externs = [
+    "FUN_10b4_1b7a",
+    "FUN_10b4_18d2",
+    "FUN_10b4_1a03",
+    "main",
+    "FUN_10b4_0164",
+    "FUN_10b4_017d",
+    "FUN_10b4_0194",
+    "FUN_10b4_01b3",
+    "FUN_10b4_01b4",
+    "FUN_10b4_01b5",
+    "FUN_10b4_01b6",
+    "FUN_10b4_02ed",
+    "FUN_10b4_07ed",
+    "FUN_10b4_0863",
+    "FUN_10b4_08c9",
+    "FUN_10b4_0997",
+    "FUN_10b4_0a1a",
+    "FUN_10b4_0c1b",
+    "FUN_10b4_0d64",
+    "FUN_10b4_0dee",
+    "FUN_10b4_170e",
+    "FUN_10b4_1766",
+    "FUN_10b4_17bf",
+    "FUN_10b4_1880",
+    "FUN_10b4_1a2c",
+    "FUN_10b4_1a5f",
+    "FUN_10b4_1adc",
+    "FUN_10b4_1b58",
+    "FUN_10b4_0e8e",
+    "FUN_10b4_135d",
+    "FUN_10b4_1cac",
+    "FUN_10b4_1cad",
+    "FUN_10b4_1d1a",
+    "FUN_10b4_1d40",
+    "FUN_10b4_1d78",
+    "FUN_10b4_1db0",
+    "FUN_10b4_1df8",
+    "FUN_10b4_1e18",
+    "FUN_10b4_1e39",
+    "FUN_10b4_1f32",
+    "FUN_10b4_1f49",
+    "FUN_10b4_1f62",
+    "FUN_10b4_1cae",
+    "FUN_10b4_1cb0",
+    "FUN_10b4_1cc6",
+    "FUN_10b4_1cdc",
+    "FUN_10b4_1cf2",
+    "FUN_10b4_1e62",
+    "FUN_10b4_1e9a",
+    "FUN_10b4_1eb8",
+    "FUN_10b4_1ed4",
+    "FUN_10b4_1efe",
+    "FUN_10b4_1f18",
+]
+publics = [
+    "__aNlshr",
+    "__aNlmul",
+    "_rand",
+    "_srand",
+    "_time",
+    "FUN_1000_01c9",
+    "FUN_1000_0208",
+    "FUN_1000_03cf",
+    "FUN_1000_0121",
+    "FUN_1000_0128",
+    "FUN_1000_0198",
+    "FUN_1000_097a",
+    "FUN_1000_01c2",
+    "FUN_1000_01dc",
+    "FUN_1000_0382",
+    "FUN_1000_03b3",
+    "FUN_1000_03ac",
+    "FUN_1000_0576",
+    "FUN_1000_052d",
+    "FUN_1000_0191",
+    "FUN_1000_0002",
+    "DAT_136d_1246",
+    "DISK_LETTER",
+    "FUN_1000_0389",
+    "_strcat",
+    "_strcpy",
+    "_strcmp",
+    "_strlen",
+    "_itoa",
+    "_inp",
+    "_exit",
+    "_kbhit",
+    "__dos_getdrive",
+    "_int86",
+    "_strupr",
+    "_abs",
+    "CLOCK_TEXT",
+    "DAT_136d_1042",
+    "DAT_136d_1056",
+    "DAT_136d_116c",
+    "DAT_136d_116e",
+    "DAT_136d_1170",
+    "DAT_136d_11bc",
+    "DAT_136d_11ac",
+    "SEQ_BLOCK_136d_1af8",
+    "MENU_LINE_START",
+    "DAT_136d_1b56",
+    "DAT_136d_1b58",
+    "DAT_136d_1b5a",
+    "DAT_136d_1b5c",
+    "JOYSTICK",
+    "DAT_136d_1d7c",
+    "DAT_136d_1d7e",
+    "DAT_136d_1d92",
+    "DAT_136d_1d94",
+    "DAT_136d_1d96",
+    "DAT_136d_1d98",
+    "DAT_136d_1d9a",
+    "DAT_136d_1d9c",
+    "DAT_136d_1d9e",
+    "DAT_136d_1dae",
+    "DAT_136d_1db0",
+    "DAT_136d_1dbc",
+    "DAT_136d_1d76",
+    "UNION_REGS_136d_1d80",
+    "DAT_136d_1db4",
+    "DAT_136d_1db6",
+    "DAT_136d_1db8",
+    "DAT_136d_1dba",
+    "DAT_136d_1dc0",
+    "DAT_136d_1de0",
+    "DAT_136d_1de2",
+    "DAT_136d_1de4",
+    "DAT_136d_105a",
+    "DAT_136d_1078",
+    "DAT_136d_1096",
+    "ONE_CHAR",
+    "DAT_136d_1a7a",
+    "DAT_136d_1a7c",
+    "DAT_136d_1ac0",
+    "DAT_136d_1db2",
+    "DAT_136d_1abe",
+    "DAT_136d_1b72",
+    "UNION_REGS_136d_1da0",
+    "DAT_136d_1262",
+    "DAT_136d_1d72",
+    "DAT_136d_1d78",
+    "DAT_136d_1d7a",
+    "DAT_136d_1d8e",
+    "DAT_136d_1d90",
+    "DAT_136d_1dbe",
+    "STR_PLEASE_INSERT_DISK",
+    "STR_IF_3_5_INSERT",
+    "STR_CLOSE_PAREN",
+    "STR_PRESS_RETURN_CONTINUE",
+    "STR_BRIEFING_PAN",
+    "STR_ANIMATION_PAN",
+    "STR_BLD",
+    "STR_OK",
+    "STR_ONE_MOMENT_PLEASE",
+    "STR_SURE_WANT_QUIT_NO_2",
+    "STR_SURE_WANT_QUIT_NO",
+    "STR_PAUSED",
+    "STR_MESSAGE_DECODED",
+    "STR_CRYPTO_WORKSTATION_MSG",
+    "PALETTE_MENU",
+    "PALETTE_FACE",
+    "COLOURS_MENU",
+    "COLOURS_MENU_2",
+    "COLOURS_PAPER",
+    "BLOCK_10D4",
+    "STR_BLANK",
+    "STR_DASH",
+    "BUF_COUNT_DIGITS",
+    "BLOCK_1058",
+]
+
+[names]
+BUF_COUNT_DIGITS = "asm_count_digits"
+STR_DASH = "dat_str_dash"
+STR_BLANK = "dat_str_blank"
+COLOURS_MENU_2 = "shd_colours_screen_2"
+COLOURS_MENU = "shd_colours_screen"
+COLOURS_PAPER = "shd_colours_paper"
+PALETTE_FACE = "shd_palette_face"
+PALETTE_MENU = "shd_palette_menu"
+thunk___catox = "_atol"
+FUN_1000_00b0 = "drv_real_FUN_1000_00b0"
+FUN_1000_0134 = "drv_jump_gfx_sprite_put_clipped"
+FUN_1000_016c = "drv_jump_gfx_overlay_remove"
+FUN_1000_019d = "drv_jump_FUN_1000_019d"
+FUN_1000_01d5 = "drv_jump_gfx_overlay_put"
+FUN_1000_0414 = "drv_real_load"
+FUN_1000_04d0 = "drv_real_FUN_1000_04d0"
+FUN_1000_04d9 = "drv_real_load_data"
+FUN_1000_0560 = "drv_real_free"
+FUN_1000_05e2 = "drv_real_FUN_1000_05e2"
+FUN_1000_05f8 = "drv_real_FUN_1000_05f8"
+FUN_1000_0634 = "drv_real_FUN_1000_0634"
+FUN_1000_068f = "drv_real_FUN_1000_068f"
+FUN_1000_069e = "drv_real_FUN_1000_069e"
+FUN_1000_075e = "drv_real_FUN_1000_075e"
+FUN_1000_079c = "drv_real_FUN_1000_079c"
+FUN_1000_07a0 = "drv_real_FUN_1000_07a0"
+FUN_1000_09fe = "drv_real_mouse_open"
+FUN_1000_0a4d = "drv_real_mouse_close"
+FUN_1000_0a68 = "drv_real_FUN_1000_0a68"
+FUN_1000_0a6f = "drv_real_mouse_set_cursor"
+FUN_1000_0a86 = "drv_real_FUN_1000_0a86"
+FUN_1000_0a91 = "drv_real_cursor_show"
+FUN_1000_0ab3 = "drv_real_mouse_int"
+FUN_1000_0b0b = "drv_real_mouse_event"
+FUN_10b4_1f18 = "c_set_text_mode"
+FUN_10b4_1efe = "c_set_graphics_mode"
+FUN_10b4_1eb8 = "c_screen_restore"
+FUN_10b4_1e9a = "c_screen_save"
+FUN_10b4_1a03 = "c_pan_blank"
+FUN_10b4_1cf2 = "c_mouse_where"
+FUN_10b4_1cdc = "c_mouse_hide"
+FUN_10b4_1cc6 = "c_mouse_show"
+FUN_10b4_1cb0 = "c_mouse_reset"
+main = "c_main"
+FUN_10b4_0164 = "c_hook_hand_back"
+FUN_10b4_017d = "c_sound_command"
+FUN_10b4_0194 = "c_set_display_page"
+FUN_10b4_01b3 = "c_nothing"
+FUN_10b4_01b4 = "c_hook_repaint"
+FUN_10b4_01b5 = "c_draw_face"
+FUN_10b4_01b6 = "c_puzzle_set"
+FUN_10b4_02ed = "c_puzzle_draw"
+FUN_10b4_07ed = "c_give_letter"
+FUN_10b4_0863 = "c_fill_guess_row"
+FUN_10b4_08c9 = "c_hint_animate"
+FUN_10b4_0997 = "c_flash_letter"
+FUN_10b4_0a1a = "c_play_turn"
+FUN_10b4_0c1b = "c_draw_guesses"
+FUN_10b4_0d64 = "c_is_solved"
+FUN_10b4_0dee = "c_clock_draw"
+CLOCK_TEXT = "shd_clock_text"
+DAT_136d_1042 = "shd_pan_disk"
+DAT_136d_1250 = "dat_screen_port"
+DAT_136d_1056 = "shd_map_page"
+DAT_136d_116c = "shd_city_on_screen"
+DAT_136d_116e = "shd_drive"
+DAT_136d_1170 = "shm_pan_width"
+DAT_136d_11bc = "shd_joystick_dirs"
+DAT_136d_11ac = "shm_pan_building"
+SEQ_BLOCK_136d_1af8 = "shm_active_pan"
+MENU_LINE_START = "shm_menu_line_start"
+DAT_136d_1b56 = "shm_menu_colour_plain"
+DAT_136d_1b58 = "shm_menu_colour_item"
+DAT_136d_1b5a = "shm_menu_lines"
+DAT_136d_1b5c = "shm_menu_colour_pick"
+JOYSTICK = "shm_joystick"
+DAT_136d_1d7c = "shm_menu_tick"
+DAT_136d_1d7e = "shm_menu_face"
+DAT_136d_1d92 = "shm_menu_first_line"
+DAT_136d_1d94 = "shm_pan_playing"
+DAT_136d_1d96 = "shm_menu_no_pick"
+DAT_136d_1d98 = "shm_menu_items"
+DAT_136d_1d9a = "shm_menu_relayout"
+DAT_136d_1d9c = "shm_menu_colour_bar"
+DAT_136d_1d9e = "shm_menu_text_width"
+DAT_136d_1dae = "shm_menu_marked"
+DAT_136d_1db0 = "shm_menu_face_x"
+DAT_136d_1dbc = "shm_menu_face_y"
+DAT_136d_1d76 = "shm_seed"
+UNION_REGS_136d_1d80 = "shm_mouse_regs"
+DAT_136d_1db4 = "shm_mouse_buttons"
+DAT_136d_1db6 = "shm_mouse_x"
+DAT_136d_1db8 = "shm_mouse_y"
+DAT_136d_1dba = "shm_mouse_count"
+DAT_136d_1dc0 = "shm_menu_shortcut"
+DAT_136d_1de0 = "shm_menu_pick"
+DAT_136d_1de2 = "shm_menu_right"
+DAT_136d_1de4 = "shm_menu_bottom"
+DAT_136d_1db2 = "shm_menu_draw_only"
+DAT_136d_1078 = "dat_plain"
+DAT_136d_1096 = "dat_guess"
+ONE_CHAR = "dat_one_char"
+DAT_136d_1a7a = "asm_clock_seconds"
+DAT_136d_1a7c = "asm_letter_known"
+DAT_136d_1ac0 = "asm_letter_count"
+DAT_136d_105a = "dat_cipher"
+DAT_136d_1abe = "asm_alphabet_size"
+DAT_136d_1b72 = "shm_scratch"
+UNION_REGS_136d_1da0 = "shm_regs"
+DAT_136d_1246 = "shd_disk_names"
+DISK_LETTER = "shd_disk_letter"
+DAT_136d_1262 = "shd_screen"
+DAT_136d_1d72 = "asm_difficulty"
+DAT_136d_1d78 = "shm_options"
+DAT_136d_1d7a = "shm_graphics_letter"
+DAT_136d_1d8e = "asm_solved"
+DAT_136d_1d90 = "shm_clock_minutes"
+DAT_136d_1dbe = "shm_finished"
+FUN_1000_0002 = "drv_real_FUN_1000_0002"
+FUN_1000_00ca = "drv_real_dispatch"
+FUN_1000_0121 = "drv_jump_gfx_fill"
+FUN_1000_0128 = "drv_jump_gfx_char_width"
+FUN_1000_0191 = "drv_jump_gfx_copy_rect"
+FUN_1000_0198 = "drv_jump_gfx_text"
+FUN_1000_01c2 = "drv_jump_gfx_set_palette"
+FUN_1000_01c9 = "drv_jump_gfx_set_colour_map"
+FUN_1000_01dc = "drv_jump_gfx_show_page"
+FUN_1000_0208 = "drv_jump_gfx_open"
+FUN_1000_020f = "drv_jump_gfx_plot"
+FUN_1000_0216 = "drv_jump_gfx_edge_fill"
+FUN_1000_021d = "drv_jump_gfx_write_reset"
+FUN_1000_0224 = "drv_jump_gfx_set_colour"
+FUN_1000_022b = "drv_jump_gfx_line"
+FUN_1000_0255 = "drv_jump_gfx_select_page"
+FUN_1000_025c = "drv_jump_gfx_select_pic"
+FUN_1000_0382 = "drv_jump_keyboard_empty"
+FUN_1000_0389 = "drv_jump_read_key"
+FUN_1000_03ac = "drv_jump_joy_calibrate"
+FUN_1000_03b3 = "drv_jump_joy_read"
+FUN_1000_03cf = "drv_jump_snd_command"
+FUN_1000_052d = "drv_real_link_slots"
+FUN_1000_0576 = "drv_real_fill_rect"
+FUN_1000_05fe = "drv_real_FUN_1000_05fe"
+FUN_1000_07ac = "drv_real_FUN_1000_07ac"
+FUN_1000_0938 = "drv_real_FUN_1000_0938"
+FUN_1000_0959 = "drv_real_FUN_1000_0959"
+FUN_1000_097a = "drv_real_draw_line"
+FUN_1000_09bf = "drv_real_FUN_1000_09bf"
+FUN_1000_0ad9 = "drv_real_cursor_redraw"
+FUN_10b4_0e8e = "c_menu_run"
+FUN_10b4_135d = "c_menu_draw"
+FUN_10b4_170e = "c_menu_box"
+FUN_10b4_1766 = "c_outline_box"
+FUN_10b4_17bf = "c_pan_arm"
+FUN_10b4_1880 = "c_pan_restore"
+FUN_10b4_18d2 = "c_menu_key"
+FUN_10b4_1a2c = "c_wait_for_release"
+FUN_10b4_1a5f = "c_joystick_key"
+FUN_10b4_1adc = "c_joystick_read"
+FUN_10b4_1b58 = "c_joystick_button"
+FUN_10b4_1b7a = "c_want_disk"
+FUN_10b4_1cac = "c_seq_start"
+FUN_10b4_1cad = "c_seq_step"
+FUN_10b4_1cae = "c_seq_stop"
+FUN_10b4_1d1a = "c_mouse_move"
+FUN_10b4_1d40 = "c_mouse_presses"
+FUN_10b4_1d78 = "c_mouse_releases"
+FUN_10b4_1db0 = "c_mouse_fence"
+FUN_10b4_1df8 = "c_draw_line"
+FUN_10b4_1e18 = "c_write_text"
+FUN_10b4_1e39 = "c_write_text_trimmed"
+FUN_10b4_1e62 = "c_wait_retraces"
+FUN_10b4_1ed4 = "c_fill_box"
+FUN_10b4_1f32 = "c_seed_random"
+FUN_10b4_1f49 = "c_random_below"
+FUN_10b4_1f62 = "c_clamp"
+FUN_10b4_217f = "run_crt0dat_217f"
+FUN_10b4_218e = "run_crt0dat_218e"
+FUN_10b4_21c2 = "__fptrap"
+FUN_10b4_249c = "__maperror"
+FUN_10b4_24a2 = "run_dosret_24a2"
+
+DAT_1000_0000 = "drv_DAT_1000_0000"
+DAT_136d_0042 = "drv_DAT_136d_0042"
+DAT_136d_0044 = "drv_DAT_136d_0044"
+DAT_136d_1264 = "drv_DAT_136d_1264"
+DAT_136d_1265 = "drv_DAT_136d_1265"
+DAT_136d_1266 = "drv_DAT_136d_1266"
+DAT_136d_1268 = "drv_DAT_136d_1268"
+DAT_136d_138d = "drv_DAT_136d_138d"
+DAT_136d_138f = "drv_DAT_136d_138f"
+DAT_136d_1391 = "drv_DAT_136d_1391"
+DAT_136d_1393 = "drv_DAT_136d_1393"
+DAT_136d_1395 = "drv_DAT_136d_1395"
+DAT_136d_154b = "drv_DAT_136d_154b"
+DAT_136d_154d = "drv_DAT_136d_154d"
+DAT_136d_1709 = "drv_DAT_136d_1709"
+DAT_136d_170b = "drv_DAT_136d_170b"
+DAT_136d_1712 = "drv_DAT_136d_1712"
+DAT_136d_1713 = "drv_DAT_136d_1713"
+DAT_136d_1715 = "drv_DAT_136d_1715"
+DAT_136d_1717 = "drv_DAT_136d_1717"
+DAT_136d_1719 = "drv_DAT_136d_1719"
+DAT_136d_171b = "drv_DAT_136d_171b"
+DAT_136d_171d = "drv_DAT_136d_171d"
+DAT_136d_1720 = "drv_DAT_136d_1720"
+DAT_136d_1722 = "drv_DAT_136d_1722"
+DAT_136d_1728 = "drv_DAT_136d_1728"
+DAT_136d_172a = "drv_DAT_136d_172a"
+DAT_136d_172c = "drv_DAT_136d_172c"
+DAT_136d_1738 = "__asizds"
+DAT_136d_173a = "__atopsp"
+DAT_136d_173c = "__aexit_rtn"
+DAT_136d_173e = "__abrktb"
+"s_;C_FILE_INFO_136d_1790" = "__acfinfo"
+DAT_136d_179d = "__aintdiv"
+DAT_136d_17a9 = "_errno"
+DAT_136d_17af = "__psp"
+DAT_136d_17b1 = "__dosvermajor"
+DAT_136d_17b4 = "__doserrno"
+DAT_136d_17b8 = "__osfile"
+DAT_136d_17b9 = "run_crt0dat_17b9"
+DAT_136d_17bb = "run_crt0dat_17bb"
+DAT_136d_17bc = "run_crt0dat_17bc"
+DAT_136d_17bd = "run_crt0dat_17bd"
+DAT_136d_17be = "run_crt0dat_17be"
+DAT_136d_17cc = "___argc"
+DAT_136d_17ce = "___argv"
+DAT_136d_17d0 = "_environ"
+DAT_136d_17d2 = "__pgmptr"
+DAT_136d_17d6 = "run_crt0dat_17d6"
+DAT_136d_17d7 = "run_crt0dat_17d7"
+DAT_136d_17e0 = "__adbgmsg"
+DAT_136d_17e2 = "run_stdargv_17e2"
+DAT_136d_18fa = "__chbuf"
+DAT_136d_1938 = "run_timeset_1938"
+DAT_136d_193c = "_timezone"
+DAT_136d_193e = "run_timeset_193e"
+DAT_136d_1940 = "_daylight"
+DAT_136d_1942 = "_tzname"
+DAT_136d_1944 = "run_timeset_1944"
+DAT_136d_1982 = "run_rand_1982"
+DAT_136d_1984 = "run_rand_1984"
+DAT_136d_1988 = "__fpinit"
+DAT_136d_198a = "run_crt0dat_198a"
+DAT_136d_198c = "run_crt0dat_198c"
+DAT_136d_1990 = "run_crt0dat_1990"
+DAT_136d_199e = "run_crt0msg_199e"
+"s_R6000_-_stack_overflow_136d_19a0" = "run_crt0msg_19a0"
+DAT_136d_1b6e = "run_tzset_1b6e"
+FUN_10b4_26ce = "_getche"
+
+RUN_BANNER_PAD = "run_banner_pad"
+RUN_BANNER = "run_banner"
+BLOCK_0046 = "asm_block_0046"
+NOTE_01 = "dat_note_01"
+NOTE_02 = "dat_note_02"
+NOTE_03 = "dat_note_03"
+NOTE_04 = "dat_note_04"
+NOTE_05 = "dat_note_05"
+NOTE_06 = "dat_note_06"
+NOTE_07 = "dat_note_07"
+NOTE_08 = "dat_note_08"
+NOTE_09 = "dat_note_09"
+NOTE_10 = "dat_note_10"
+NOTE_11 = "dat_note_11"
+NOTE_12 = "dat_note_12"
+NOTE_13 = "dat_note_13"
+NOTE_14 = "dat_note_14"
+NOTE_15 = "dat_note_15"
+NOTE_16 = "dat_note_16"
+NOTE_17 = "dat_note_17"
+NOTE_18 = "dat_note_18"
+NOTE_19 = "dat_note_19"
+NOTE_20 = "dat_note_20"
+NOTE_21 = "dat_note_21"
+NOTE_22 = "dat_note_22"
+NOTE_23 = "dat_note_23"
+NOTE_24 = "dat_note_24"
+NOTE_25 = "dat_note_25"
+NOTE_26 = "dat_note_26"
+NOTE_27 = "dat_note_27"
+NOTE_28 = "dat_note_28"
+NOTE_29 = "dat_note_29"
+NOTE_30 = "dat_note_30"
+NOTE_31 = "dat_note_31"
+NOTE_32 = "dat_note_32"
+NOTE_33 = "dat_note_33"
+NOTE_34 = "dat_note_34"
+NOTE_35 = "dat_note_35"
+NOTE_36 = "dat_note_36"
+NOTE_37 = "dat_note_37"
+NOTE_38 = "dat_note_38"
+NOTE_39 = "dat_note_39"
+NOTE_40 = "dat_note_40"
+NOTE_41 = "dat_note_41"
+NOTE_42 = "dat_note_42"
+NOTE_43 = "dat_note_43"
+NOTE_44 = "dat_note_44"
+NOTE_45 = "dat_note_45"
+NOTE_46 = "dat_note_46"
+NOTE_47 = "dat_note_47"
+NOTE_48 = "dat_note_48"
+NOTE_49 = "dat_note_49"
+NOTE_50 = "dat_note_50"
+NOTE_51 = "dat_note_51"
+NOTE_52 = "dat_note_52"
+NOTE_53 = "dat_note_53"
+NOTE_54 = "dat_note_54"
+NOTE_55 = "dat_note_55"
+NOTE_56 = "dat_note_56"
+BLOCK_0EF4 = "asm_block_0ef4"
+BLOCK_1044 = "dat_map_page_port"
+BLOCK_1058 = "dat_str_empty"
+BLOCK_1095 = "asm_block_1095"
+STR_CRYPTO_WORKSTATION_MSG = "dat_str_crypto_workstation_msg"
+BLOCK_10D4 = "dat_str_zero"
+STR_SURE_WANT_QUIT_NO = "dat_str_sure_want_quit_no"
+STR_PAUSED = "dat_str_paused"
+STR_MESSAGE_DECODED = "dat_str_message_decoded"
+BLOCK_1127 = "asm_block_1127"
+STR_ONE_MOMENT_PLEASE = "shd_str_one_moment_please"
+STR_SURE_WANT_QUIT_NO_2 = "shd_str_sure_want_quit_no_2"
+STR_PANI = "dat_str_pani"
+BLOCK_116B = "asm_block_116b"
+BLOCK_1172 = "asm_block_1172"
+STR_OK = "shd_str_ok"
+STR_BRIEFING_PAN = "shd_str_briefing_pan"
+STR_BLD = "shd_str_bld"
+BLOCK_11AB = "asm_block_11ab"
+STR_ANIMATION_PAN = "shd_str_animation_pan"
+STR_FINAL_EXE = "dat_str_final_exe"
+STR_GAME_EXE = "dat_str_game_exe"
+STR_TAC_EXE = "dat_str_tac_exe"
+STR_HQ_PAN = "dat_str_hq_pan"
+STR_PLEASE_INSERT_DISK = "shd_str_please_insert_disk"
+STR_IF_3_5_INSERT = "shd_str_if_3_5_insert"
+STR_CLOSE_PAREN = "shd_str_close_paren"
+STR_PRESS_RETURN_CONTINUE = "shd_str_press_return_continue"
+BLOCK_126A = "asm_block_126a"
+MSG_ALLOCATED_1MB_SPACE = "dat_msg_allocated_1mb_space"
+MSG_MS_DOS_LIED_US = "dat_msg_ms_dos_lied_us"
+MSG_FILENAME_NOT_FOUND = "dat_msg_filename_not_found"
+MSG_NOT_ENOUGH_MEMORY_LOAD = "dat_msg_not_enough_memory_load"
+MSG_OVERLAY_LOAD_FAILED = "dat_msg_overlay_load_failed"
+MSG_OVERLAY_HAS_OVERRUN = "dat_msg_overlay_has_overrun"
+MSG_UNABLE_SHRINK_OVERLAY = "dat_msg_unable_shrink_overlay"
+MSG_ERROR_RELEASING_OVERLAY = "dat_msg_error_releasing_overlay"
+MESSAGE_POOL_PAD = "asm_message_pool_pad"
+BLOCK_1397 = "asm_block_1397"
+BLOCK_154F = "asm_block_154f"
+BLOCK_170D = "asm_block_170d"
+BLOCK_171F = "asm_block_171f"
+BLOCK_1724 = "asm_block_1724"
+BLOCK_172E = "asm_block_172e"
+BLOCK_1740 = "asm_block_1740"
+BLOCK_17A1 = "asm_block_17a1"
+BLOCK_17AB = "asm_block_17ab"
+BLOCK_17B3 = "asm_block_17b3"
+BLOCK_17B5 = "asm_block_17b5"
+BLOCK_17BA = "asm_block_17ba"
+BLOCK_17BF = "asm_block_17bf"
+BLOCK_17D8 = "asm_block_17d8"
+BLOCK_17E4 = "asm_block_17e4"
+TZ_DAYS_LEAP = "run_tz_days_leap"
+TZ_DAYS_COMMON = "run_tz_days_common"
+TZ_NAME = "run_tz_name"
+TZ_STANDARD = "run_tz_standard"
+BLOCK_1939 = "asm_block_1939"
+DAY_NAMES = "run_day_names"
+MONTH_NAMES = "run_month_names"
+BLOCK_1981 = "asm_block_1981"
+BLOCK_1986 = "asm_block_1986"
+BLOCK_1994 = "asm_block_1994"
+NMSG_MARKER = "run_nmsg_marker"
+BLOCK_19BA = "asm_block_19ba"
+MSG_R6003 = "run_msg_r6003"
+BLOCK_19DB = "asm_block_19db"
+MSG_R6009 = "run_msg_r6009"
+BLOCK_1A09 = "asm_block_1a09"
+MSG_RUNTIME_ERROR = "run_msg_runtime_error"
+BLOCK_1A20 = "asm_block_1a20"
+MSG_R6002 = "run_msg_r6002"
+BLOCK_1A47 = "asm_block_1a47"
+MSG_R6001 = "run_msg_r6001"
+BLOCK_1A6C = "asm_block_1a6c"
+BLOCK_1A70 = "asm_block_1a70"
+BLOCK_1A71 = "asm_block_1a71"
+BLOCK_1A72 = "asm_block_1a72"
+BLOCK_1B06 = "asm_block_1b06"
+BLOCK_1B5E = "asm_block_1b5e"
+BLOCK_1D74 = "asm_block_1d74"
+BLOCK_1DE6 = "asm_block_1de6"
+NOTE_TABLE = "addr_note_table"

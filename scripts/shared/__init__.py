@@ -1,0 +1,1 @@
+"""What every script shares: logging and timing."""

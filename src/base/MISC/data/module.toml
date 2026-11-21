@@ -1,0 +1,58 @@
+# Module manifest for MISC.EXE.
+
+name = "MISC"
+output = "MISC.EXE"
+
+target = "MPS/COVERT/MISC.EXE"
+packed = false
+
+[link]
+flags = ["/CPARMAXALLOC:2"]
+
+libs = []
+load_libs = []
+
+# Objects, in link order.
+[[objects]]
+target = "MISC.ASM"
+sources = ["MISC.ASM"]
+tool = "masm"
+
+[porting]
+externs = []
+
+# Assembly symbols the C side needs to reach.
+publics = []
+
+[names]
+dos_key = "asm_dos_key"
+read_key = "asm_read_key"
+key_waiting = "asm_keyboard_empty"
+clear_shift = "asm_clear_shift"
+joy_button = "asm_joy_button"
+joy_calibrate = "asm_joy_calibrate"
+seed_axis = "asm_seed_axis"
+joy_read = "asm_joy_read"
+joy_sample = "asm_joy_sample"
+scale_axis = "asm_scale_axis"
+banner = "dat_banner"
+overlay_code_segment = "addr_overlay_code_segment"
+overlay_data_segment = "addr_overlay_data_segment"
+overlay_data_size = "dat_overlay_data_size"
+overlay_word_2e = "dat_overlay_base_slot"
+overlay_entry_count = "dat_overlay_entry_count"
+overlay_entries = "addr_overlay_entries"
+copyright = "dat_copyright"
+HEADER_PAD = "asm_header_pad"
+BANNER_PAD = "asm_banner_pad"
+SHIFT_PAD = "asm_shift_pad"
+CODE_PAD = "asm_code_pad"
+DATA_HEAD = "asm_data_head"
+SPARE = "asm_spare"
+lo_span = "asm_lo_span"
+hi_span = "asm_hi_span"
+lo_bound = "asm_lo_bound"
+hi_bound = "asm_hi_bound"
+centre = "asm_centre"
+raw = "asm_raw"
+result = "asm_result"

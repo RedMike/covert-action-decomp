@@ -1,0 +1,244 @@
+# Module manifest for COVERT.EXE.
+
+name = "COVERT"
+output = "COVERT.EXE"
+
+target = "MPS/COVERT/COVERT.EXE"
+packed = false
+
+[link]
+flags = []
+# The MSC 5.1 small-model run-time.
+libs = ["SLIBCE.LIB"]
+load_libs = []
+
+[[objects]]
+target = "COVERT.ASM"
+sources = ["COVERT.ASM"]
+tool = "masm"
+
+[[objects]]
+target = "MAIN.C"
+sources = ["MAIN.C"]
+tool = "cl"
+flags = ["/Gs", "/Os", "/Oa", "/Zl"]
+
+[porting]
+externs = [
+    "main",
+]
+publics = [
+    "MODULE_TABLE",
+    "s_?graphic.exe_117e_0108",
+    "s_?sound.ca_117e_0116",
+    "DAT_117e_0120",
+    "COMM_BLOCK_117e_0480",
+
+    "FUN_111a_0044",
+    "FUN_111a_00ec",
+    "FUN_111a_0140",
+    "FUN_111a_0300",
+    "FUN_111a_030e",
+    "FUN_111a_034c",
+    "FUN_111a_0465",
+    "_spawnl",
+    "_spawnlp",
+    "_int86",
+
+    "EXE_INTRO",
+    "STR_EMPTY_ARG",
+    "FILE_FONTS",
+    "EXE_MISC",
+    "EXE_MCV",
+    "EXT_CV",
+    "ARG_SLASH_2",
+    "MODULE_SPAWN_ARG",
+    "UNION_REGS_117e_3360",
+]
+
+[names]
+STR_EMPTY_ARG = "dat_str_empty_arg"
+FUN_111a_0002 = "drv_real_dispatch"
+FUN_111a_006c = "drv_jump_gfx_sprite_put_clipped"
+FUN_111a_00a4 = "drv_jump_gfx_overlay_remove"
+FUN_111a_00d5 = "drv_jump_FUN_111a_00d5"
+FUN_111a_010d = "drv_jump_gfx_overlay_put"
+FUN_111a_0408 = "drv_real_fail"
+FUN_111a_0411 = "drv_real_load_data"
+FUN_111a_0498 = "drv_real_free"
+FUN_111a_04ae = "drv_real_mouse_open"
+FUN_111a_04fd = "drv_real_mouse_close"
+FUN_111a_0518 = "drv_real_mouse_take_buttons"
+FUN_111a_051f = "drv_real_mouse_set_cursor"
+FUN_111a_0536 = "drv_real_cursor_hide"
+FUN_111a_0541 = "drv_real_cursor_show"
+FUN_111a_0563 = "drv_real_mouse_int"
+FUN_111a_0589 = "drv_real_cursor_redraw"
+FUN_111a_05bb = "drv_real_mouse_event"
+FUN_1000_0436 = "__fptrap"
+FUN_1000_0726 = "__maperror"
+FUN_1000_072c = "run_dosret_072c"
+FUN_1000_0982 = "run_brkctl_0982"
+FUN_1000_03f3 = "run_crt0dat_03f3"
+FUN_1000_0402 = "run_crt0dat_0402"
+MODULE_TABLE = "dat_MODULE_TABLE"
+"s_?graphic.exe_117e_0108" = "dat_GRAPHIC_NAME"
+"s_?sound.ca_117e_0116" = "dat_SOUND_NAME"
+DAT_117e_0120 = "asm_DRIVER_HANDLE"
+COMM_BLOCK_117e_0480 = "asm_COMM_BLOCK"
+FUN_111a_0044 = "drv_jump_gfx_page_seg"
+FUN_111a_00ec = "drv_jump_gfx_set_page_seg"
+FUN_111a_0140 = "drv_jump_gfx_open"
+FUN_111a_0300 = "drv_jump_snd_open"
+FUN_111a_030e = "drv_jump_snd_close"
+FUN_111a_034c = "drv_real_load"
+FUN_111a_0465 = "drv_real_link_slots"
+main = "c_main"
+DAT_1000_0e22 = "run_dospawn_0e22"
+DAT_1000_0e24 = "run_dospawn_0e24"
+DAT_1000_0e26 = "run_dospawn_0e26"
+DAT_1000_0e28 = "run_dospawn_0e28"
+DAT_1000_0e2a = "run_dospawn_0e2a"
+DAT_117e_0122 = "drv_DAT_117e_0122"
+DAT_117e_0123 = "drv_DAT_117e_0123"
+DAT_117e_0124 = "drv_DAT_117e_0124"
+DAT_117e_024c = "drv_DAT_117e_024c"
+DAT_117e_024e = "drv_DAT_117e_024e"
+DAT_117e_0250 = "drv_DAT_117e_0250"
+DAT_117e_0252 = "drv_DAT_117e_0252"
+DAT_117e_0254 = "drv_DAT_117e_0254"
+DAT_117e_0256 = "drv_DAT_117e_0256"
+DAT_117e_0258 = "drv_DAT_117e_0258"
+DAT_117e_025a = "drv_DAT_117e_025a"
+DAT_117e_025c = "drv_DAT_117e_025c"
+DAT_117e_025e = "drv_DAT_117e_025e"
+DAT_117e_0260 = "drv_DAT_117e_0260"
+DAT_117e_0262 = "__asizds"
+DAT_117e_0264 = "__atopsp"
+DAT_117e_0266 = "__aexit_rtn"
+DAT_117e_0268 = "__abrktb"
+DAT_117e_026a = "run_crt0_02aa"
+DAT_117e_026c = "run_crt0_02ac"
+DAT_117e_026e = "run_crt0_02ae"
+DAT_117e_02b8 = "__abrkp"
+"s_;C_FILE_INFO_117e_02ba" = "__acfinfo"
+DAT_117e_02c9 = "run_crt0dat_0309"
+DAT_117e_02d3 = "_errno"
+DAT_117e_02d9 = "__psp"
+DAT_117e_02db = "__dosvermajor"
+DAT_117e_02de = "__doserrno"
+DAT_117e_02e0 = "__nfile"
+DAT_117e_02e2 = "__osfile"
+DAT_117e_02e3 = "run_crt0dat_0323"
+DAT_117e_02e5 = "run_crt0dat_0325"
+DAT_117e_02e6 = "run_crt0dat_0326"
+DAT_117e_02e7 = "run_crt0dat_0327"
+DAT_117e_02e8 = "run_crt0dat_0328"
+DAT_117e_02f4 = "run_crt0dat_0334"
+DAT_117e_02f5 = "run_crt0dat_0335"
+DAT_117e_02f6 = "___argc"
+DAT_117e_02f8 = "___argv"
+DAT_117e_02fa = "_environ"
+DAT_117e_02fc = "__pgmptr"
+DAT_117e_0300 = "run_crt0dat_0340"
+DAT_117e_0301 = "run_crt0dat_0341"
+DAT_117e_0302 = "__child"
+DAT_117e_030a = "__adbgmsg"
+DAT_117e_030c = "STKHQQ"
+DAT_117e_030e = "run_stdargv_034e"
+DAT_117e_0324 = "__asegds"
+DAT_117e_0326 = "run_nmalloc_0366"
+DAT_117e_032a = "run_nmalloc_036a"
+DAT_117e_0334 = "__amblksiz"
+DAT_117e_0348 = "run_dospawn_0388"
+DAT_117e_034a = "run_dospawn_038a"
+DAT_117e_034c = "run_dospawn_038c"
+DAT_117e_038a = "__fpinit"
+DAT_117e_038c = "run_crt0dat_03cc"
+DAT_117e_038e = "run_crt0dat_03ce"
+DAT_117e_0392 = "run_crt0dat_03d2"
+DAT_117e_0396 = "run_execload_03d6"
+DAT_117e_03a0 = "run_crt0msg_03e0"
+"s_R6000_-_stack_overflow_117e_03a2" = "run_msg_r6000"
+FUN_1000_0706 = "__dosret0"
+FUN_1000_070e = "__dosreturn"
+
+RUN_BANNER_PAD = "run_banner_pad"
+RUN_BANNER = "run_banner"
+RUN_BANNER_TAIL = "run_banner_tail"
+EXE_GAME = "dat_module_0"
+EXE_TAC_1 = "dat_module_1"
+EXE_CODE_1 = "dat_module_2"
+EXE_CHASE_1 = "dat_module_3"
+EXE_BUG_1 = "dat_module_4"
+EXE_CHASE_2 = "dat_module_5"
+EXE_CHASE_3 = "dat_module_6"
+EXE_TAC_2 = "dat_module_7"
+EXE_TAC_3 = "dat_module_8"
+EXE_FINAL_1 = "dat_module_9"
+EXE_TAC_4 = "dat_module_10"
+EXE_FINAL_2 = "dat_module_11"
+EXE_BUG_2 = "dat_module_12"
+EXE_TAC_5 = "dat_module_13"
+EXE_CHASE_4 = "dat_module_14"
+EXE_CODE_2 = "dat_module_15"
+EXE_BUG_3 = "dat_module_16"
+EXE_FINAL_3 = "dat_module_17"
+EXE_INTRO = "dat_exe_intro"
+FILE_FONTS = "dat_file_fonts"
+EXE_MISC = "dat_exe_misc"
+ARG_SLASH_2 = "dat_arg_slash_2"
+EXT_CV = "dat_ext_cv"
+EXE_MCV = "dat_exe_mcv"
+MODULE_SPAWN_ARG = "dat_module_spawn_arg"
+MODULE_SPAWN_PAD = "dat_module_spawn_pad"
+GRAPHIC_NAME_PAD = "dat_graphic_name_pad"
+MSG_ALLOCATED = "dat_msg_allocated"
+MSG_DOS_LIED = "dat_msg_dos_lied"
+MSG_FILE_NOT_FOUND = "dat_msg_file_not_found"
+MSG_LOAD_NO_MEMORY = "dat_msg_load_no_memory"
+MSG_LOAD_FAILED = "dat_msg_load_failed"
+MSG_OVERLAY_OVERRUN = "dat_msg_overlay_overrun"
+MSG_SHRINK_FAILED = "dat_msg_shrink_failed"
+MSG_RELEASE_FAILED = "dat_msg_release_failed"
+MESSAGE_POOL_PAD = "asm_message_pool_pad"
+ABRKTB_TAIL = "run_abrktb_tail"
+CRT0DAT_0308 = "run_crt0dat_0308"
+CRT0DAT_030B = "run_crt0dat_030b"
+CRT0DAT_0315 = "run_crt0dat_0315"
+CRT0DAT_031D = "run_crt0dat_031d"
+CRT0DAT_0324 = "run_crt0dat_0324"
+CRT0DAT_0329 = "run_crt0dat_0329"
+CRT0DAT_0344 = "run_crt0dat_0344"
+STDARGV_0350 = "run_stdargv_0350"
+NMALLOC_0368 = "run_nmalloc_0368"
+NMALLOC_036C = "run_nmalloc_036c"
+NMALLOC_0376 = "run_nmalloc_0376"
+ACFINFO_SPAWN = "run_acfinfo_spawn"
+SPAWNVP_PTRS = "run_spawnvp_ptrs"
+SPAWNVP_BUFS = "run_spawnvp_bufs"
+EXT_COM = "run_ext_com"
+EXT_EXE = "run_ext_exe"
+ENV_PATH = "run_env_path"
+PATH_SEP = "run_path_sep"
+SPAWNVP_TAIL = "run_spawnvp_tail"
+CRT0DAT_03C8 = "run_crt0dat_03c8"
+NMSG_MARKER = "run_nmsg_marker"
+CRT0MSG_03FC = "run_crt0msg_03fc"
+MSG_R6003 = "run_msg_r6003"
+CRT0MSG_041D = "run_crt0msg_041d"
+MSG_R6009 = "run_msg_r6009"
+CRT0MSG_044B = "run_crt0msg_044b"
+MSG_RUNTIME_ERROR = "run_msg_runtime_error"
+CRT0MSG_0462 = "run_crt0msg_0462"
+MSG_R6002 = "run_msg_r6002"
+CRT0MSG_0489 = "run_crt0msg_0489"
+MSG_R6001 = "run_msg_r6001"
+CRT0MSG_04AE = "run_crt0msg_04ae"
+BSS_0471 = "asm_bss_0471"
+BSS_0474 = "asm_bss_0474"
+UNION_REGS_117e_3360 = "asm_regs"
+BSS_336E = "asm_bss_336e"
+STACK = "asm_stack"
+BLOCK_117E_00D0 = "asm_block_117e_00d0"
+DAT_117e_00e2 = "addr_page_rastport"

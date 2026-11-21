@@ -1,0 +1,13 @@
+# Every text file is LF on disk as well as in git, whoever made the clone.
+*       text=auto eol=lf
+
+# A CRLF makes `#!/bin/bash` fail, which a checkout made on Windows could
+# otherwise give the shell scripts.
+*.sh    text eol=lf
+*.conf  text eol=lf
+
+# Batch files are the other direction.
+*.bat   text eol=crlf
+
+*.exe   binary
+*.png   binary

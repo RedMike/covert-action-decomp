@@ -1,0 +1,20 @@
+# The retail game, and the trees the scripts make from it.
+/original/
+/decompressed/
+/rebuilt/
+
+# Build output.
+/build/
+/portable/
+/portable_headless/
+
+# Local machine paths.
+.env
+
+__pycache__/
+*.py[cod]
+
+# Extracted toolchain disks, if kept here.
+/disks/
+
+*.log
